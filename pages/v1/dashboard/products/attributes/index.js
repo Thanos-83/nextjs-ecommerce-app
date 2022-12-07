@@ -35,7 +35,7 @@ function ProductAttributes() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/attributes`)
+      .get(`/api/dashboard/products/attributes`)
       .then((res) => {
         console.log(res.data.attributes);
         setAttributes(res.data.attributes);

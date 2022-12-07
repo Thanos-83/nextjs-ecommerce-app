@@ -39,7 +39,7 @@ function ProductCategories() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${process.env.NEXT_PUBLIC_URL}/api/dashboard/categories`)
+      .get(`/api/dashboard/categories`)
       .then((res) => {
         console.log('Use effect categories: ', res.data);
         const flattenList = nestedCategories(res.data);

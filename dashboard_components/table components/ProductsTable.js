@@ -41,7 +41,7 @@ function ProductsTable({
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get(`${process.env.NEXT_PUBLIC_URL}/api/dashboard/products`)
+      .get(`/api/dashboard/products`)
       .then((res) => {
         // console.log('Use effect products: ', res.data);
         setProducts(res.data.products);
@@ -58,9 +58,7 @@ function ProductsTable({
 
     setIsLoading(true);
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/category/${categoryID}`
-      )
+      .get(`/api/dashboard/products/category/${categoryID}`)
       .then((res) => {
         console.log('Use effect products: ', res.data.product);
         setProducts(res.data.product);

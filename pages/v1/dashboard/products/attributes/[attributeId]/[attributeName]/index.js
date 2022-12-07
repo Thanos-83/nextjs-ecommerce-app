@@ -40,7 +40,7 @@ function ProductAttributeTerms() {
     setIsLoading(true);
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/attributes/${router.query.attributeId}/terms`
+        `/api/dashboard/products/attributes/${router.query.attributeId}/terms`
       )
       .then((res) => {
         console.log(res.data.terms);
@@ -59,7 +59,7 @@ function ProductAttributeTerms() {
     e.preventDefault();
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/attributes/${router.query.attributeId}/terms`,
+        `/api/dashboard/products/attributes/${router.query.attributeId}/terms`,
         {
           name,
           slug,

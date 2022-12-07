@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './dashboard/dashboardSidebar.css';
+@import './dashboard/dashboardLayout.css';
+@import './dashboard/sidebarLink.css';
+@import './dashboard/dashboardHeader.css';
+@import './dashboard/pages/addProduct.css';
+@import './dashboard/pages/productAttributes.css';
+@import './dashboard/pages/productCategories.css';
+@import './dashboard/pages/products.css';

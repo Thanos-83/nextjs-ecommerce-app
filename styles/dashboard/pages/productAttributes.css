@@ -1,0 +1,24 @@
+.attributes_main {
+  @apply flex items-start bg-white p-4 gap-4 rounded-md;
+}
+
+.product_attributes > h1 {
+  @apply text-3xl font-semibold mb-2;
+}
+
+.attributes_mainLeft {
+  @apply border-r-2 border-gray-400/30 pr-4;
+}
+
+.attributes_mainLeft > form {
+  @apply space-y-6;
+}
+
+.form_group {
+  @apply flex flex-col items-start gap-2;
+}
+
+.form_group > input,
+.form_group > textarea {
+  @apply border border-gray-400 focus:outline-indigo-400 focus:outline-2 p-2;
+}

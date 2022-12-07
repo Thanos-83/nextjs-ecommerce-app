@@ -1,0 +1,123 @@
+.products_list {
+  @apply bg-white p-8 rounded-md;
+}
+
+.productsTable_wrapper {
+  @apply min-w-[30rem] overflow-x-auto;
+}
+
+.productsTable_body {
+  @apply my-8;
+}
+
+.productsTable_head {
+  @apply border-y-2 py-2;
+  display: grid;
+  column-gap: 0.5rem;
+  grid-template-columns: 10px minmax(14rem, 1fr) 140px 80px 140px 100px 80px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.productsTable_head > div {
+  @apply font-semibold text-[1.25rem] divide-x-2;
+}
+.productsTable_head-name {
+  @apply ml-2;
+}
+
+.productsTable_body > li {
+  @apply py-4 border-b;
+  display: grid;
+  column-gap: 0.5rem;
+  grid-template-columns: 10px minmax(14rem, 1fr) 140px 80px 140px 100px 80px;
+  align-items: center;
+}
+
+.productsData_row button {
+  @apply text-left;
+}
+
+.productData_img {
+  @apply rounded-lg overflow-hidden ml-2 relative;
+}
+
+.productData_img {
+  @apply w-14 h-14;
+}
+
+.productData_info {
+  @apply ml-4 flex-1 flex flex-col items-start;
+}
+
+.productData_info > a {
+  @apply font-semibold;
+}
+
+.productData_info > .productData_sku {
+  @apply text-gray-400 border-t py-1 mt-2 text-sm;
+}
+
+.productData_stock.productData_lowStock > span {
+  @apply bg-red-200 text-red-800 px-2 py-1 text-sm  rounded-md font-semibold;
+}
+
+.productData_stock.productData_inStock > span {
+  @apply bg-green-200 text-green-800 px-2 py-1 text-sm  rounded-md font-semibold;
+}
+
+.products_info {
+  @apply my-8 flex justify-between items-center;
+}
+
+.products_info p {
+  @apply text-indigo-800 font-semibold;
+}
+
+.products_info p > span {
+  @apply px-2 py-1 rounded-full bg-indigo-300 text-sm ml-2;
+}
+
+.productsTable_footer {
+  @apply mt-8 flex flex-col space-y-4 md:flex-row md:space-y-0 items-center justify-between;
+}
+
+.productsTable_footer-buttons {
+  @apply space-x-4 flex items-center;
+}
+
+.productsTable_footer-buttons button {
+  @apply py-2 px-4  bg-neutral-200 text-indigo-800 font-semibold rounded-sm disabled:text-gray-400 disabled:cursor-not-allowed;
+}
+
+.productsTable_footer-pages {
+  @apply flex items-center space-x-4;
+}
+
+.productsTable_footer-pageNumber > span {
+  @apply font-bold text-indigo-600;
+}
+
+.productsTable_footer-pageRows > span {
+  @apply mr-4;
+}
+
+.deleteDialog .MuiPaper-root {
+  @apply bg-orange-500;
+}
+
+.deleteDialog_title {
+  @apply font-semibold text-white flex flex-col items-center space-y-1;
+}
+
+.deleteDialog_title > svg {
+  @apply w-12 h-12;
+}
+
+.deleteDialog_content p {
+  @apply text-white;
+}
+
+.deleteDialog .MuiDialogActions-root button {
+  @apply text-white hover:bg-orange-600;
+}

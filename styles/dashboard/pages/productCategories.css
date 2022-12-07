@@ -1,0 +1,71 @@
+.categories_main {
+  /* @apply bg-white p-8 rounded-md max-w-5xl; */
+}
+
+.product_categories > h1 {
+  @apply text-3xl font-semibold mb-2;
+}
+
+.categories_mainLeft {
+  @apply border-r-2 border-gray-400/30 pr-4;
+}
+
+.categories_mainLeft > form {
+  @apply space-y-6;
+}
+
+.form_group {
+  @apply flex flex-col items-start gap-2;
+}
+
+.form_group > input,
+.form_group > textarea {
+  @apply border border-gray-400 focus:outline-indigo-400 focus:outline-2 p-2;
+}
+
+ul#category-select-listbox {
+  @apply bg-white;
+}
+
+.category_row {
+  @apply mb-4;
+  display: grid;
+  column-gap: 0.5rem;
+
+  grid-template-columns: 10px 1fr 1fr 100px 50px 80px;
+}
+
+.categoriesTable_head {
+  @apply py-4 mb-4;
+  display: grid;
+  column-gap: 0.5rem;
+  grid-template-columns: 10px 1fr 1fr 100px 50px 80px 1px;
+}
+
+.categoriesTable_head :nth-child(2),
+.categoriesTable_head :nth-child(3) {
+  @apply text-left;
+}
+
+.categoriesTable_head :nth-child(2) {
+  @apply pl-3;
+}
+
+.categoryRow_title {
+  @apply text-indigo-500 pl-3;
+}
+
+.categoriesTable .deleteBtn {
+  @apply w-full max-w-[8rem];
+}
+
+.categoriesTable hr {
+  @apply my-4;
+}
+
+.categoriesTable .categoryRow_title > a {
+  @apply flex items-center text-lg;
+}
+.categoriesTable .categoryRow_title > a > svg {
+  @apply w-4 h-4;
+}

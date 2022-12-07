@@ -1,0 +1,12 @@
+.product_data .MuiTab-root {
+  @apply justify-start pl-0;
+}
+
+.productAttributes_drag {
+  @apply cursor-move ml-auto mr-4 w-5 h-5;
+}
+
+.productAttributes_tabs button {
+  min-height: auto !important;
+  @apply mb-4;
+}

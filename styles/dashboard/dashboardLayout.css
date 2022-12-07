@@ -1,0 +1,11 @@
+.dashboard_main {
+  @apply flex flex-1;
+}
+
+.dashboard_layout {
+  @apply flex flex-col min-h-screen w-full bg-[#F7F7F7];
+}
+
+.dashboard_layout .dashboard_content {
+  @apply flex-1 p-6 overflow-y-auto;
+}

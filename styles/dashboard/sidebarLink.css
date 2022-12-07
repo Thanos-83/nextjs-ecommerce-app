@@ -1,0 +1,56 @@
+.sidebar_link {
+  @apply mb-1;
+}
+
+.sidebar_link > div:first-child {
+  @apply flex items-center px-2 hover:bg-[#EBEFFD] hover:rounded-md;
+}
+
+.sidebar_link > div:hover > svg,
+.sidebar_link > div:hover > a > p,
+.sidebar_link > div:hover > button > p {
+  @apply text-[#2D67EC];
+}
+
+.sidebar_link > div > svg {
+  @apply text-gray-400  mr-2 w-5 h-5;
+}
+
+.sidebar_link > div > a,
+.sidebar_link > div > button {
+  @apply flex items-center justify-between py-4  flex-1;
+}
+
+.sidebar_link > div > a > p,
+.sidebar_link > div > button > p {
+  @apply text-gray-800 font-semibold;
+}
+
+.sidebar_link > div > a > svg,
+.sidebar_link > div > button > svg {
+  @apply text-gray-400;
+}
+
+.sidebar_sublink {
+  @apply mb-2 ml-10;
+}
+
+.sidebar_sublink > a {
+  @apply text-gray-400 font-semibold block;
+}
+
+.sidebar_sublink:hover > a {
+  @apply text-[#2D67EC];
+}
+
+.sidebar_submenu > ul {
+  @apply mt-0;
+}
+
+/* .sidebar_submenu {
+  @apply max-h-0  overflow-hidden transition-[height] duration-500;
+}
+
+.sidebar_submenu.expand {
+  @apply max-h-96;
+} */

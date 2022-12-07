@@ -1,0 +1,404 @@
+[{
+  "_id": {
+    "$oid": "6367b863d9bffbc05834bc14"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku1",
+  "name": "Dell XPS 17'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Dell",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Dell XPS is the best laprop",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 2000,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-06T13:36:35.851Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-06T13:36:35.851Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6367ba1dd9bffbc05834bc1b"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku3",
+  "name": "Dell XPS 13'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Dell",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Dell XPS is the best laprop",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 1899,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-06T13:43:57.755Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-06T13:43:57.755Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368de5131f2e70e74dac2f8"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku4",
+  "name": "Macbook Air 13'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook air 512ssd, 8GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 1699,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:30:42.023Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:30:42.023Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368de7731f2e70e74dac2fc"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku5",
+  "name": "Macbook Air 13'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook air 512ssd, 16GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 1899,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:31:19.142Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:31:19.142Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368de9731f2e70e74dac2ff"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku6",
+  "name": "Macbook Air 13'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook air 256ssd, 8GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 1499,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:31:51.780Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:31:51.780Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368deef31f2e70e74dac303"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku2",
+  "name": "Macbook Pro 14'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook Pro 256ssd, 16GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 1899,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:33:19.049Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:33:19.049Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368df0531f2e70e74dac306"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku7",
+  "name": "Macbook Pro 14'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook Pro 512ssd, 16GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 2099,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:33:41.647Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:33:41.647Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368df3031f2e70e74dac30a"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku8",
+  "name": "Macbook Pro 14'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook Pro 1TB ssd, 16GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 2299,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:34:24.376Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:34:24.376Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368df4b31f2e70e74dac30e"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku9",
+  "name": "Macbook Pro 14'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook Pro 2TB ssd, 16GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 2599,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:34:51.980Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:34:51.980Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368df6731f2e70e74dac312"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku10",
+  "name": "Macbook Pro 14'",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Apple",
+  "category": {
+    "$oid": "636792410f078e7111252b4b"
+  },
+  "description": "Macbook Pro 2TB ssd, 32GB ram",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 2899,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T10:35:19.034Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T10:35:19.034Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368e74131f2e70e74dac31f"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku11",
+  "name": "Samsung C24F390FHR VA Curved Monitor 24'' FHD 1920x1080",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Samsung",
+  "category": {
+    "$oid": "6368e66e31f2e70e74dac318"
+  },
+  "description": "Το monitor της Samsung, διαθέτει κυρτή οθόνη με κομψή σχεδίαση, λεπτό περίβλημα και λειτουργίες για ομαλό gaming για να απολαμβάνεις τη κάθε στιγμή.",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 120,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T11:08:49.306Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T11:08:49.306Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368e78a31f2e70e74dac322"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku12",
+  "name": "Dell S2722DC IPS Monitor 27'' QHD 2560x1440",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "Dell",
+  "category": {
+    "$oid": "6368e66e31f2e70e74dac318"
+  },
+  "description": "Η οθόνη υπολογιστή S2722DC της Dell έχει ανάλυση 2560x1440 και διαγώνιο 27 ίντσες. Εξοπλισμένη με IPS panel, αποδίδει ζωντανά χρώματα και έχει μεγάλες γωνίες θέασης. Αποτελεί, λοιπόν, κατάλληλη επιλογή για χρήση καθημερινών εφαρμογών, αλλά και για επεξεργασία εικόνας και video. Η QHD ανάλυσή της θα σας επιτρέψει να έχετε περισσότερα παράθυρα ανοιχτά στην επιφάνεια εργασίας και πιο λεπτομερή εικόνα σε παιχνίδια και editing. Διαθέτει τεχνολογία FreeSync, που απευθύνεται κυρίως στους gamers αφού βελτιώνει την απόδοση, όταν συνδυαστεί με κάρτα γραφικών AMD. Η οθόνη διαθέτει ηχεία, οπότε δεν θα χρειαστείτε οπωσδήποτε ηχεία υπολογιστή",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 330,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T11:10:02.636Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T11:10:02.636Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368e7d731f2e70e74dac325"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku13",
+  "name": "LG 27GN800-B IPS HDR Gaming Monitor 27'' QHD 2560x1440 144Hz",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "LG",
+  "category": {
+    "$oid": "6368e66e31f2e70e74dac318"
+  },
+  "description": "Με πάνελ IPS και χρόνο απόκρισης 1 ms, συγκρίσιμο με τις ταχύτητες πάνελ TN, η εικόνα δεν παρουσιάζει σχεδόν καθόλου είδωλα και εσείς απολαμβάνετε μια εντελώς νέα εμπειρία παιχνιδιού.",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 330,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T11:11:19.456Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T11:11:19.456Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6368ec1331f2e70e74dac32b"
+  },
+  "user": {
+    "$oid": "635ffe43fbeca4e506086eee"
+  },
+  "sku": "sku14",
+  "name": "AOC C24G2AE VA Curved Gaming Monitor 23.6'' FHD 1920x1080 165Hz",
+  "featuredImage": "https://source.unsplash.com/random/1920x1080/?wallpaper,landscape",
+  "brand": "AOC",
+  "category": {
+    "$oid": "6368e66e31f2e70e74dac318"
+  },
+  "description": "Κυρτή οθόνη VA για παιχνίδια με 165Hz ρυθμό ανανέωσης και 1ms χρόνο απόκρισης. Η υποστήριξη του FreeSync Premium εγγυάται τέλειο συγχρονισμό μεταξύ οθόνης και κάρτας γραφικών.",
+  "rating": 0,
+  "numReviews": 0,
+  "price": 161,
+  "countInStock": 0,
+  "reviews": [],
+  "createdAt": {
+    "$date": "2022-11-07T11:29:23.129Z"
+  },
+  "updatedAt": {
+    "$date": "2022-11-07T11:29:23.129Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "637348e324d3be27603701c2"
+  },
+  "ID": "22",
+  "Type": "variable",
+  "SKU": "woo-vneck-tee",
+  "Name": "V-Neck T-Shirt",
+  "Is featured?": true,
+  "Short description": "This is a variable product.",
+  "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.",
+  "In stock?": "1",
+  "Stock": "",
+  "Sale price": "",
+  "Regular price": "",
+  "Categories": "Uncategorized",
+  "Tags": "",
+  "Images": "https://espithas.plethoraworks.com/wp-content/uploads/2022/01/vneck-tee-2.jpg, https://espithas.plethoraworks.com/wp-content/uploads/2022/01/vnech-tee-green-1.jpg, https://espithas.plethoraworks.com/wp-content/uploads/2022/01/vnech-tee-blue-1.jpg",
+  "Parent": "",
+  "Upsells": "",
+  "Cross-sells": "",
+  "Μάρκα": "",
+  "Attribute 1 name": "Color",
+  "Attribute 1 value(s)": "Blue, Green, Red",
+  "Meta: onsale": ""
+}]

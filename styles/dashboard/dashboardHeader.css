@@ -1,0 +1,60 @@
+.dashboard_header {
+  @apply sticky top-0 flex items-center  bg-white z-50 border-b border-b-indigo-200;
+}
+
+.dashboard_header .dashboard_headerLeft {
+  @apply flex items-center justify-between w-[20%] max-w-[20rem] p-4;
+}
+
+.dashboard_header .dashboard_headerRight {
+  @apply flex items-center justify-between flex-1 border-l border-l-indigo-200/50 p-4;
+}
+
+.dashboard_headerSearch {
+  @apply flex items-center border border-indigo-500/50 rounded-[50px] px-4;
+}
+
+.dashboard_headerSearch > input {
+  @apply py-1 outline-none text-gray-400 font-semibold text-sm;
+}
+
+.dashboard_headerSearch > svg {
+  @apply text-gray-400 ml-4;
+}
+
+.header_actions {
+  @apply flex items-center space-x-4;
+}
+
+.header_avatar > div > button {
+  @apply space-x-1 flex items-center;
+}
+
+.header_actions > svg,
+.header_avatar > div > button > svg {
+  @apply text-gray-400;
+}
+
+.header_avatar > div > button > div > img {
+  @apply inline-block h-10 w-10 rounded-full ring-2 ring-white;
+}
+
+.menu_items {
+  @apply absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2;
+}
+
+.menu_items a {
+  @apply flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer;
+}
+
+.menu_items a > svg {
+  @apply mr-4 w-6 h-6;
+}
+
+.menu_items a.menu_itemActive {
+  @apply bg-[#EBEFFD] text-[#2D67EC];
+}
+
+.menu_items a.menu_itemInactive {
+  @apply text-gray-500;
+}

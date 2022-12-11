@@ -1,0 +1,15 @@
+.dashboardBreadcrumb {
+  @apply mb-0 py-4;
+}
+
+.dashboardBreadcrumb .link_active > a {
+  @apply hover:underline text-lg font-mono font-semibold;
+}
+
+.dashboardBreadcrumb .link_active > span {
+  @apply mx-1;
+}
+
+.dashboardBreadcrumb .link_inactive {
+  @apply text-gray-500 text-lg font-mono;
+}

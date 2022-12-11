@@ -24,8 +24,11 @@ import CategoriesTable from '../../../../../dashboard_components/table component
 
 import { listCategories } from '../../../../../utils/listCategories';
 import { nestedCategories } from '../../../../../utils/flattenCategoriesList';
+import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
+import { useRouter } from 'next/router';
 
 function ProductCategories() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
@@ -121,19 +124,22 @@ function ProductCategories() {
           {responseError}
         </Alert>
       )}
-
+      <DashboardBreadcrumb path={router.route} />
       <div className='product_categories bg-white p-8 rounded-md max-w-5xl'>
         <div className='flex items-center justify-between mb-6'>
           <h1 className='text-3xl font-semibold'>
             List of products Categories ({optionsList.length})
           </h1>
           <Link href='/v1/dashboard/products/categories/add'>
-            <Button
-              className='w-[100%] max-w-[12rem] py-2 bg-blue-600'
-              variant='contained'
-              startIcon={<AddIcon />}>
-              Create New
-            </Button>
+            <a>
+              <Button
+                className='w-[100%] max-w-[12rem] py-2 bg-blue-600'
+                variant='contained'
+                size='small'
+                startIcon={<AddIcon />}>
+                Create New
+              </Button>
+            </a>
           </Link>
         </div>
         <div className='categoriesTable'>

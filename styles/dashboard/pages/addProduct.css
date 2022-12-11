@@ -1,12 +1,172 @@
-.product_data .MuiTab-root {
-  @apply justify-start pl-0;
-}
-
 .productAttributes_drag {
   @apply cursor-move ml-auto mr-4 w-5 h-5;
 }
 
 .productAttributes_tabs button {
   min-height: auto !important;
-  @apply mb-4;
+  @apply mb-2;
+}
+
+.addProduct_form-header {
+  @apply flex items-center justify-between my-4;
+}
+
+.product_data > .productAttributes_tabs .MuiButtonBase-root {
+  @apply justify-start pl-0 pr-4 py-3;
+}
+
+.product_data > .productAttributes_tabs .MuiButtonBase-root svg {
+  @apply w-4 h-4;
+}
+
+.product_priceInfo {
+  @apply mb-4 space-y-4;
+}
+
+.product_priceInfo .product_price,
+.product_priceInfo .product_salesPrice {
+  @apply flex justify-between items-center;
+}
+
+.product_priceInfo .product_price label,
+.product_priceInfo .product_salesPrice label {
+  @apply w-[40%];
+}
+.product_priceInfo .product_price input,
+.product_priceInfo .product_salesPrice input {
+  @apply w-[60%] px-4 py-2 border-2 rounded-md;
+}
+
+.product_taxInfo {
+  @apply mt-4 space-y-4;
+}
+
+.product_taxInfo .product_taxStatus,
+.product_taxInfo .product_taxClass {
+  @apply flex justify-between items-center;
+}
+
+.product_taxInfo .product_taxStatus label,
+.product_taxInfo .product_taxClass label {
+  @apply w-[40%];
+}
+
+.product_taxInfo .product_taxStatus input,
+.product_taxInfo .product_taxClass input {
+  @apply w-[60%] px-4 py-2 border-2 rounded-md;
+}
+
+.addProduct_form-body {
+  @apply xl:flex items-start;
+}
+
+.addProduct_form-left {
+  @apply mb-8 xl:mr-8 w-full xl:w-[70%];
+}
+
+.addProduct_form-right {
+  @apply w-full xl:w-[30%];
+}
+
+.addProduct_formWrapper {
+  @apply bg-white p-4 rounded-md;
+}
+
+.product_nameInfo {
+  @apply flex flex-col sm:flex-row gap-8 items-center justify-between;
+}
+
+.product_nameInfo > * {
+  @apply w-full sm:w-1/2;
+}
+
+.productInput_slug {
+  @apply flex items-center;
+}
+
+.productInput_slug > span {
+  @apply bg-neutral-200 text-neutral-400 px-2 py-[calc(0.5rem-1px)] border border-gray-300 rounded-tl-[4px] rounded-bl-[4px];
+}
+
+.productInput_slug .MuiInputBase-root {
+  @apply rounded-tl-none rounded-bl-none;
+}
+
+.product_slug .slug_helperText {
+  @apply mt-1 text-sm text-neutral-500;
+}
+
+.addProduct_form-body .product_name > label,
+.addProduct_form-body .product_brandname > label,
+.addProduct_form-body .product_slug > label,
+.addProduct_form-body .product_description > label,
+.addProduct_form-body .product_shortDescription > label {
+  @apply font-semibold text-lg mb-3 inline-block;
+}
+
+.addProduct_form-body .product_description {
+  @apply my-8;
+}
+.product_tags,
+.product_category,
+.addProduct_info,
+.addProduct_data {
+  @apply mb-8;
+}
+
+.addProduct_wrapper {
+  @apply w-full max-w-[100rem] mx-auto;
+}
+
+.addProduct_info > h1,
+.addProduct_data > h1,
+.featured_image > h1,
+.addProduct_visibilityInfo > h1,
+.product_category > h1,
+.product_tags > h1 {
+  @apply mb-6 font-semibold text-2xl;
+}
+
+.addProduct_visibilityInfo .addProduct_featured {
+  @apply flex items-center mt-4;
+}
+
+.addProduct_visibilityInfo .addProduct_featured > h1 {
+  @apply font-semibold mr-4;
+}
+
+.featured_imageUpload {
+  @apply flex items-center space-x-4 mb-4;
+}
+
+.featured_imageUpload > label {
+  @apply flex flex-col text-lg cursor-pointer;
+}
+
+.featured_imageUpload > label > span {
+  @apply text-sm font-semibold;
+}
+
+.featured_imageUpload svg {
+  @apply w-12 h-12 text-sky-700;
+}
+
+.featuredImgWrapper {
+  @apply relative p-2 w-48 h-48 border-2 border-dashed;
+}
+
+.featuredImgWrapper > button {
+  @apply absolute top-0 -right-8;
+}
+
+.featuredImgWrapper > button > svg {
+  @apply w-6 h-6 text-rose-800;
+}
+
+.addProduct_data .product_sku {
+  @apply flex items-center;
+}
+
+.addProduct_data .product_sku > label {
+  @apply w-[40%] text-lg;
 }

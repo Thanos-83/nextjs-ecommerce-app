@@ -1,6 +1,7 @@
 import Product from '../../../../models/product';
 import connectdb from '../../../../database/connectDB';
-
+import Attributes from '../../../../models/attributes';
+import Category from '../../../../models/category';
 connectdb();
 
 export default async function productActionsById(req, res) {
@@ -15,10 +16,20 @@ export default async function productActionsById(req, res) {
     // @access  Public
     case 'GET':
       try {
+        // console.log(productId);
         const product = await Product.findById(productId)
-          .populate('attributes')
-          .populate('tags');
-        // console.log(product.attributes[0]?.terms);
+          .populate({
+            path: 'attributes',
+            select: 'name',
+            model: Attributes,
+          })
+          .populate({
+            path: 'category',
+            select: 'name',
+            model: Category,
+          });
+        // .populate('tags');
+        // console.log(product);
         if (!product) {
           throw new Error('Product NOT found!');
         }
@@ -33,31 +44,32 @@ export default async function productActionsById(req, res) {
     // @access  Private
     case 'PUT':
       try {
-        const productToUpdate = await Product.findById(productId)
-          .populate('attributes')
-          .populate('tags');
+        const productToUpdate = await Product.findById(productId).populate(
+          'attributes'
+        );
+        // .populate('tags');
         const {
           user,
           name,
           sku,
-          type,
-          isFeatured,
+          // type,
+          // isFeatured,
           featuredImage,
-          imageGallery,
+          // imageGallery,
           brand,
           category,
           description,
           shortDescription,
-          tags,
-          reviews,
-          rating,
-          numReviews,
+          // tags,
+          // reviews,
+          // rating,
+          // numReviews,
           price,
-          salesPrice,
-          crosSells,
-          upSells,
-          countInStock,
-          inStock,
+          // salesPrice,
+          // crosSells,
+          // upSells,
+          // countInStock,
+          // inStock,
           attributes,
         } = req.body;
 
@@ -71,39 +83,40 @@ export default async function productActionsById(req, res) {
         productToUpdate.brand = brand;
         productToUpdate.category = category;
         productToUpdate.description = description;
-        productToUpdate.price = price;
-        productToUpdate.countInStock = countInStock;
-        productToUpdate.featuredImage = featuredImage;
-        productToUpdate.user = user;
-        productToUpdate.sku = sku;
-        productToUpdate.user = user;
-        productToUpdate.name = name;
-        productToUpdate.sku = sku;
-        productToUpdate.type = type;
-        productToUpdate.isFeatured = isFeatured;
-        productToUpdate.featuredImage = featuredImage;
-        productToUpdate.imageGallery = imageGallery;
-        productToUpdate.brand = brand;
-        productToUpdate.category = category;
-        productToUpdate.description = description;
         productToUpdate.shortDescription = shortDescription;
-        tags.map((tag, index) => {
-          productToUpdate.tags.map((productTag) => {
-            if (tag._id === productTag._id.valueOf()) {
-              tags.splice(index, 1);
-            }
-          });
-        });
-        productToUpdate.tags = [...productToUpdate.tags, ...tags];
-        productToUpdate.reviews = reviews;
-        productToUpdate.rating = rating;
-        productToUpdate.numReviews = numReviews;
         productToUpdate.price = price;
-        productToUpdate.salesPrice = salesPrice;
-        productToUpdate.crosSells = crosSells;
-        productToUpdate.upSells = upSells;
-        productToUpdate.countInStock = countInStock;
-        productToUpdate.inStock = inStock;
+        // productToUpdate.countInStock = countInStock;
+        productToUpdate.featuredImage = featuredImage;
+        // productToUpdate.attributes = attributes;
+        productToUpdate.user = user;
+        productToUpdate.sku = sku;
+        // productToUpdate.user = user;
+        // productToUpdate.name = name;
+        // productToUpdate.sku = sku;
+        // productToUpdate.type = type;
+        // productToUpdate.isFeatured = isFeatured;
+        // productToUpdate.featuredImage = featuredImage;
+        // productToUpdate.imageGallery = imageGallery;
+        // productToUpdate.brand = brand;
+        // productToUpdate.category = category;
+        // productToUpdate.description = description;
+        // tags.map((tag, index) => {
+        //   productToUpdate.tags.map((productTag) => {
+        //     if (tag._id === productTag._id.valueOf()) {
+        //       tags.splice(index, 1);
+        //     }
+        //   });
+        // });
+        // productToUpdate.tags = [...productToUpdate.tags, ...tags];
+        // productToUpdate.reviews = reviews;
+        // productToUpdate.rating = rating;
+        // productToUpdate.numReviews = numReviews;
+        // productToUpdate.price = price;
+        // productToUpdate.salesPrice = salesPrice;
+        // productToUpdate.crosSells = crosSells;
+        // productToUpdate.upSells = upSells;
+        // productToUpdate.countInStock = countInStock;
+        // productToUpdate.inStock = inStock;
         attributes.map((tag, index) => {
           productToUpdate.attributes.map((productTag) => {
             if (tag._id === productTag._id.valueOf()) {

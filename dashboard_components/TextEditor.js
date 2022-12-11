@@ -20,8 +20,10 @@ function TextEditor({ handleText }) {
     handleText(text);
   };
   return (
-    <div>
+    <div className='productDescription_textEditor my-8'>
+      <label htmlFor='productTextEditor'> Complete Description </label>
       <Editor
+        className='border'
         initialEditorState={editorState}
         onEditorStateChange={onEditorStateChange}
         toolbarClassName='toolbarClassName'

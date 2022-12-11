@@ -23,9 +23,10 @@ function ProductCategroy({
         placeholder='Choose a category'
         autoHighlight
         size='small'
-        defaultValue={categoryOptionsList.find(
-          (cat) => cat._id === defaultCategory._id
-        )}
+        defaultValue={
+          defaultCategory &&
+          categoryOptionsList.find((cat) => cat._id === defaultCategory?._id)
+        }
         options={categoryOptionsList || []}
         isOptionEqualToValue={(option, value) => option?.name === value?.name}
         getOptionLabel={(option) => option?.name}

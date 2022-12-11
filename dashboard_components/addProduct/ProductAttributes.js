@@ -72,7 +72,7 @@ function ProductAttributes({ getProductAttributes, initialAttributes }) {
   //   console.log(displayAttributes);
   return (
     <div className='product_attributes'>
-      <div className='product_attributesAdd flex items-center gap-8'>
+      <div className='product_attributesAdd'>
         <Autocomplete
           disableCloseOnSelect
           className='w-1/2 max-w-xs'
@@ -109,7 +109,6 @@ function ProductAttributes({ getProductAttributes, initialAttributes }) {
         <Button
           variant='outlined'
           color='success'
-          className='ml-4'
           type='button'
           onClick={handleAddAttribute}>
           Add Attribute

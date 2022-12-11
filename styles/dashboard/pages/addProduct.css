@@ -170,3 +170,11 @@
 .addProduct_data .product_sku > label {
   @apply w-[40%] text-lg;
 }
+
+.product_attributesAdd {
+  @apply flex items-center gap-8;
+}
+
+.product_attributesAdd > button {
+  @apply ml-4;
+}

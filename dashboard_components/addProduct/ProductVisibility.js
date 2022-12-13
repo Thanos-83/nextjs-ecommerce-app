@@ -10,7 +10,14 @@ import {
   TextField,
 } from '@mui/material';
 
-function ProductVisibility() {
+function ProductVisibility({ productData, setProductData }) {
+  const handleFeaturedProduct = (e) => {
+    console.log(e.target.checked);
+    setProductData({ ...productData, isFeatured: e.target.checked });
+  };
+
+  // console.log(productData.isFeatured);
+
   return (
     <div className='addProduct_formWrapper addProduct_visibilityInfo mb-8'>
       <h1>Product Visibility</h1>
@@ -35,8 +42,13 @@ function ProductVisibility() {
       </FormControl>
       <Divider />
       <div className='addProduct_featured'>
-        <h1>Is Product Featured</h1>
-        <Checkbox />
+        <h1>Is Product Featured ?</h1>
+        <Checkbox
+          value={productData.isFeatured}
+          checked={productData.isFeatured}
+          onChange={handleFeaturedProduct}
+        />
+        {productData.isFeatured && <span>Yes!</span>}
       </div>
     </div>
   );

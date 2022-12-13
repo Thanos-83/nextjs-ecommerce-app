@@ -8,6 +8,7 @@
 @import './dashboard/dashboardHeader.css';
 @import './dashboard/dashboardBreadcrumb.css';
 @import './dashboard/pages/addProduct.css';
+@import './dashboard/pages/mediaLibrary.css';
 @import './dashboard/pages/productAttributes.css';
 @import './dashboard/pages/productCategories.css';
 @import './dashboard/pages/products.css';

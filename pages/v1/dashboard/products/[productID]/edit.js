@@ -89,8 +89,7 @@ function EditProduct() {
       .get(`/api/dashboard/products/${router.query.productID}`)
       .then((res) => {
         console.log('Edit product: ', res);
-        // setProductData({ ...productData, name: res.data.product.name });
-        // setProductData({ ...productData, brand: res.data.product.brand });
+
         setProductData({
           ...productData,
           description: res.data.product.description,
@@ -102,6 +101,7 @@ function EditProduct() {
           attributes: res.data.product.attributes,
           category: res.data.product.category,
           featuredImage: res.data.product.featuredImage,
+          isFeatured: res.data.product.isFeatured,
         });
       })
       .catch((error) => console.log(error));
@@ -211,6 +211,7 @@ function EditProduct() {
     const product = {
       name: productData.name,
       featuredImage: productData.featuredImage,
+      isFeatured: productData.isFeatured,
       description: productData.description,
       shortDescription: productData.shortDescription,
       sku: productData.sku,
@@ -279,12 +280,12 @@ function EditProduct() {
           className='addProduct_form mb-24'
           id='productForm'>
           <div className='addProduct_form-header'>
-            <h1 className='text-3xl font-semibold'>Update Product</h1>
+            <h1 className='text-3xl font-semibold'>Edit Product</h1>
             <LoadingButton
               onClick={handleUpdateProduct}
               endIcon={<SendIcon />}
               loading={isLoading}
-              size='small'
+              // size='small'
               loadingPosition='end'
               variant='contained'
               className='w-1/2 max-w-[12rem] mt-0 ml-auto'>
@@ -417,7 +418,10 @@ function EditProduct() {
               </div>
             </div>
             <div className='addProduct_form-right'>
-              <ProductVisibility />
+              <ProductVisibility
+                productData={productData}
+                setProductData={setProductData}
+              />
               <ProductCategroy
                 productData={productData}
                 setProductData={setProductData}

@@ -110,6 +110,7 @@ function ProductAttributes({ getProductAttributes, initialAttributes }) {
           variant='outlined'
           color='success'
           type='button'
+          // size='small'
           onClick={handleAddAttribute}>
           Add Attribute
         </Button>

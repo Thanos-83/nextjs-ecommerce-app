@@ -43,8 +43,6 @@ function AddProduct() {
   const [optionsList, setOptionsList] = useState([]);
   const [productAttributes, setProductAttributes] = useState([]);
   const [productAttributesLocal, setProductAttributesLocal] = useState([]);
-
-  // console.log(productAttributesLocal);
   const [imageData, setImageData] = useState({
     url: '',
     public_id: '',
@@ -120,6 +118,7 @@ function AddProduct() {
       ({ name }) => name === 'featuredImage'
     );
 
+    console.log(fileInput);
     console.log('File input: ', fileInput.files);
 
     const formData = new FormData();
@@ -129,7 +128,7 @@ function AddProduct() {
     }
 
     formData.append('upload_preset', 'next_demo_ecommerce');
-    // setIsLoading(true);
+    console.log('FormData: ', formData);
     const { data } = await axios.post(
       'https://api.cloudinary.com/v1_1/do1gpf9sv/image/upload',
       formData,
@@ -196,6 +195,7 @@ function AddProduct() {
       category: productData.category,
       user: session.user.id,
       attributes: productData.attributes,
+      isFeatured: productData.isFeatured,
     };
     setIsLoading(true);
     axios
@@ -210,6 +210,7 @@ function AddProduct() {
         productData.sku = '';
         productData.name = '';
         productData.featuredImage = '';
+        productData.isFeatured = false;
         productData.brand = '';
         productData.category = '';
         productData.description = '';
@@ -223,7 +224,7 @@ function AddProduct() {
         //   isError: true,
         //   message: err.response.data.errorMsg,
         // });
-        // console.log(err);
+        console.log(err);
         setIsLoading(false);
       });
   };
@@ -260,7 +261,7 @@ function AddProduct() {
               onClick={handleAddProduct}
               endIcon={<SendIcon />}
               loading={isLoading}
-              size='small'
+              // size='small'
               loadingPosition='end'
               variant='contained'
               className='w-1/2 max-w-[12rem] mt-0 ml-auto'>
@@ -393,7 +394,10 @@ function AddProduct() {
               </div>
             </div>
             <div className='addProduct_form-right'>
-              <ProductVisibility />
+              <ProductVisibility
+                productData={productData}
+                setProductData={setProductData}
+              />
               <ProductCategroy
                 productData={productData}
                 setProductData={setProductData}
@@ -422,7 +426,6 @@ function AddProduct() {
                       hidden={true}
                       placeholder='Featured Image'
                       onChange={handleUploadFeaturedImage}
-                      // value={featuredImage}
                     />
                   </div>
                   <div className='featured_imageDisplay'>

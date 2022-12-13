@@ -50,11 +50,11 @@ function SidebarNav() {
               expand={expand}
             />
             <SidebarItem
-              text='Orders'
+              text='Media Library'
               Icon={DashboardIcon}
-              Expand={KeyboardArrowDownIcon}
-              link='#'
-              isParent={true}
+              // Expand={KeyboardArrowDownIcon}
+              link='/v1/dashboard/media'
+              // isParent={true}
               submenu={submenuOrders}
               onExpand={handleExpand}
               expand={expand}

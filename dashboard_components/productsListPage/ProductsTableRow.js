@@ -46,7 +46,7 @@ function ProductsTableRow({
         <p>{row?.cells[3].value}</p>
       </div>
       <div className='productData_price'>
-        <p>{row?.cells[4].value},89 $</p>
+        <p>{row?.cells[4].value} $</p>
       </div>
       <div className='productData_category'>
         <button

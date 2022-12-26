@@ -1,0 +1,3 @@
+.row_container {
+  @apply px-4 w-full max-w-[96rem] mx-auto;
+}

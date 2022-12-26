@@ -1,5 +1,4 @@
 import * as React from 'react';
-import TextEditor from '../../../../../dashboard_components/TextEditor';
 import { useEffect, useState, useRef } from 'react';
 import DashboardLayout from '../../../../../dashboard_components/DashboardLayout';
 import axios from 'axios';
@@ -9,20 +8,27 @@ import Image from 'next/image';
 import cloudinary from 'cloudinary/lib/cloudinary';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-
-import TabsPanel from '../../../../../dashboard_components/addProduct/TabsPanel';
-import Snackbar from '@mui/material/Snackbar';
+import TabsPanel from '../../../../../dashboard_components/addProductPage/TabsPanel';
 import MuiAlert from '@mui/material/Alert';
-import { TextField } from '@mui/material';
-import { listCategories } from '../../../../../utils/listCategories';
-import { nestedCategories } from '../../../../../utils/flattenCategoriesList';
-import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
-import ProductVisibility from '../../../../../dashboard_components/addProduct/ProductVisibility';
-import ProductTags from '../../../../../dashboard_components/addProduct/ProductTags';
-import ProductCategroy from '../../../../../dashboard_components/addProduct/ProductCategroy';
-import { CloudUpload } from '@mui/icons-material';
-import Delete from '@mui/icons-material/Delete';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
+import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
+
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  initializeProductData,
+  updateFeaturedImage,
+  deleteFeaturedImage,
+  updateDescription,
+  updateShortDescription,
+} from '../../../../../features/productData/productDataSlice';
+import { Button, Dialog, Snackbar, TextField } from '@mui/material';
+import EditName from '../../../../../dashboard_components/editProductPage/EditName';
+import EditBrandname from '../../../../../dashboard_components/editProductPage/EditBrandname';
+import EditProductVisibility from '../../../../../dashboard_components/editProductPage/EditProductVisibility';
+import EditProductCategory from '../../../../../dashboard_components/editProductPage/EditProductCategory';
+import EditProductTags from '../../../../../dashboard_components/editProductPage/EditProductTags';
+import { Delete } from '@mui/icons-material';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -33,235 +39,117 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-function EditProduct() {
+function EditProduct({ product }) {
+  const { data: session, status } = useSession();
   const router = useRouter();
-
-  const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const updateProduct = useSelector((state) => state.productData.productData);
   const [isLoading, setIsLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
-  const { data: session, status } = useSession();
-  const [optionsList, setOptionsList] = useState([]);
-  const [productAttributes, setProductAttributes] = useState([]);
-  const [productAttributesLocal, setProductAttributesLocal] = useState([]);
+  const [imageGallery, setImageGallery] = useState([]);
+  const [nextCursor, setNextCursor] = useState(null);
+  const [totalImages, setTotalImages] = useState(0);
+  const [activeImage, setActiveImage] = useState(updateProduct.featuredImage);
+  // const [activeImage, setActiveImage] = useState(null);
 
-  // console.log(productAttributesLocal);
-  const [imageData, setImageData] = useState({
-    url: '',
-    public_id: '',
-  });
+  // console.log('iam here 1: ', updateProduct);
+  // console.log(activeImage);
+  const [open, setOpen] = React.useState(false);
 
-  const handleEditorText = (text) => {
-    setProductData({ ...productData, textEditor: text });
+  const handleClickOpen = () => {
+    setOpen(true);
   };
-  const [productData, setProductData] = useState({
-    textEditor: '',
-    user: '',
-    sku: '',
-    name: '',
-    // type: '',
-    isFeatured: false,
-    featuredImage: '',
-    // imageGallery,
-    brand: '',
-    category: '',
-    description: '',
-    shortDescription: '',
-    // tags,
-    // reviews,
-    // rating,
-    // numReviews,
-    price: 0.0,
-    // salesPrice,
-    // crossSells,
-    // upSells,
-    // countInStock,
-    // inStock,
-    attributes: [],
-  });
 
-  // console.log('Product Data: ', productData);
-  // console.log('Product Attributes: ', productData.attributes);
-  // console.log('Product name: ', productData.name);
-  // console.log('Product brand: ', productData.brand);
-
-  useEffect(() => {
-    axios
-      .get(`/api/dashboard/products/${router.query.productID}`)
-      .then((res) => {
-        console.log('Edit product: ', res);
-
-        setProductData({
-          ...productData,
-          description: res.data.product.description,
-          name: res.data.product.name,
-          brand: res.data.product.brand,
-          price: res.data.product.price,
-          shortDescription: res.data.product.shortDescription,
-          sku: res.data.product.sku,
-          attributes: res.data.product.attributes,
-          category: res.data.product.category,
-          featuredImage: res.data.product.featuredImage,
-          isFeatured: res.data.product.isFeatured,
-        });
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
-  // console.log(productData);
-  // console.log(productData.category);
-  useEffect(() => {
-    axios
-      .get('/api/dashboard/categories')
-      .then((res) => {
-        // console.log('Use effect categories: ', res);
-        const flattenList = nestedCategories(res.data);
-        // console.log('flatten List: ', flattenList);
-        const list = listCategories(flattenList);
-        // console.log('List: ', list);
-        setOptionsList(list);
-        // setCategories(res.data);
-      })
-      .catch((error) => console.log(error));
-
-    axios
-      .get('/api/dashboard/products/attributes')
-      .then((res) => {
-        // console.log('Use effect attributes: ', res.data);
-        setProductAttributes(res.data.attributes);
-      })
-      .catch((error) => console.log(error));
-
-    if (session) {
-      productData.user = session.user.id;
-    }
-  }, [session, productData, productData.category, productData.attributes]);
-
-  const handleUploadFeaturedImage = async (e) => {
-    e.preventDefault();
-    const formImageInput = document.getElementById('productForm');
-    const fileInput = Array.from(formImageInput).find(
-      ({ name }) => name === 'featuredImage'
-    );
-
-    console.log('File input: ', fileInput.files);
-
-    const formData = new FormData();
-    // console.log('form: ', fileInput.files);
-    for (let file of fileInput.files) {
-      formData.append('file', file);
-    }
-
-    formData.append('upload_preset', 'next_demo_ecommerce');
-    // setIsLoading(true);
-    const { data } = await axios.post(
-      'https://api.cloudinary.com/v1_1/do1gpf9sv/image/upload',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }
-    );
-
-    setImageData({
-      url: data.url,
-      public_id: data.public_id,
-    });
-    setProductData({ ...productData, featuredImage: data.secure_url });
-    // setIsLoading(false);
-
-    console.log(data);
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const deleteImage = async (e) => {
-    e.preventDefault();
-    // console.log('Public ID', imageData.public_id);
-
-    // =========Destroy image on the backend========
-    axios
-      .post('/api/cloudinary', { public_id: imageData.public_id })
-      .then((res) => {
-        // console.log(res);
-        setImageData({ url: '', public_id: '' });
-        setProductData({ ...productData, featuredImage: '' });
-        inputRef.current.value = null;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // ========Destroy image on the frontend==========
-    // cloudinary.v2.uploader
-    //   .destroy(imageData.public_id, function (error, result) {
-    //     console.log(result, error);
-    //   })
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     setImageData({ url: '', public_id: '' });
-    //     setProductData({ ...productData, featuredImage: '' });
-    //   })
-    //   .catch((_err) =>
-    //     console.log('Something went wrong, please try again later.')
-    //   );
+    setActiveImage(null);
+    dispatch(deleteFeaturedImage());
   };
+
+  const handleLoadMore = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    axios
+      .get('/api/cloudinary', {
+        params: {
+          nextCursor: nextCursor,
+          activeFolder: 'next_demo_ecommerce/*',
+        },
+      })
+      .then((res) => {
+        console.log('Images: ', res);
+        setImageGallery([...imageGallery, ...res.data.data.resources]);
+
+        if (res.data.data.next_cursor) {
+          setNextCursor(res.data.data.next_cursor);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    axios
+      .get('/api/cloudinary', {
+        params: {
+          nextCursor: nextCursor,
+          activeFolder: 'next_demo_ecommerce/*',
+        },
+      })
+      .then((res) => {
+        console.log('Images useEffect: ', res.data);
+        setImageGallery(res.data.data.resources);
+        setTotalImages(res.data.data.total_count);
+
+        if (res.data.data.next_cursor) {
+          setNextCursor(res.data.data.next_cursor);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    dispatch(initializeProductData(product));
+  }, [dispatch, product]);
+  // console.log('Edit Page Use Selector: ', updateProduct);
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
-    // console.log('Product Data Attrs: ', productData.attributes);
-    const product = {
-      name: productData.name,
-      featuredImage: productData.featuredImage,
-      isFeatured: productData.isFeatured,
-      description: productData.description,
-      shortDescription: productData.shortDescription,
-      sku: productData.sku,
-      brand: productData.brand,
-      price: productData.price,
-      category: productData.category,
-      user: session.user.id,
-      attributes: productData.attributes,
-    };
-    console.log('Product to update: ', product);
-    setIsLoading(true);
     axios
-      .put(`/api/dashboard/products/${router.query.productID}`, product)
-      .then((res) => {
-        console.log(res);
-        setIsLoading(false);
-        setOpenSnackbar(true);
-        // localStorage.removeItem('attributes');
-        // productData.textEditor = '';
-        // productData.user = '';
-        // productData.sku = '';
-        // productData.name = '';
-        // productData.featuredImage = '';
-        // productData.brand = '';
-        // productData.category = '';
-        // productData.description = '';
-        // productData.shortDescription = '';
-        // productData.price = 0.0;
-        // productData.attributes = [];
+      .put(`/api/dashboard/products/${router.query.productID}`, {
+        product: updateProduct,
       })
-      .catch((err) => {
-        // setError({
-        //   ...error,
-        //   isError: true,
-        //   message: err.response.data.errorMsg,
-        // });
-        console.log(err);
-        setIsLoading(false);
-      });
+      .then((res) => console.log(res.data))
+      .catch((error) => console.log(error));
+
+    setOpenSnackbar(true);
   };
 
-  const setProductDataAttributes = (attr) => {
-    // console.log('Attributes: ', attr);
-    setProductData({ ...productData, attributes: attr });
+  const handleUpdateImage = (event, image) => {
+    // console.log(image);
+    setActiveImage(image.asset_id);
+    // event.currentTarget.classList.toggle('activeImage');
+
+    dispatch(updateFeaturedImage(image.secure_url));
   };
+
   return (
     <DashboardLayout>
+      {/* {console.log('iam here 2')} */}
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={3000}
+        autoHideDuration={1000}
         onClose={() => setOpenSnackbar(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <Alert
@@ -271,21 +159,68 @@ function EditProduct() {
           Product Updated Successfuly!
         </Alert>
       </Snackbar>
+      <Dialog fullScreen open={open} onClose={handleClose}>
+        <div className='mediaLibrary_container'>
+          <ul className='mediaLibrary_image'>
+            {imageGallery?.map((image) => (
+              <li
+                key={image.asset_id}
+                className={activeImage === image.asset_id && 'activeImage'}
+                onClick={(event) => handleUpdateImage(event, image)}>
+                <div className='relative'>
+                  <Image
+                    src={image.secure_url}
+                    width='740'
+                    height='740'
+                    // layout='fill'
+                    objectFit='contain'
+                    alt='image gallery'
+                  />
+                  <input
+                    type='checkbox'
+                    // defaultChecked={
+                    //   activeImage === image.asset_id ? true : false
+                    // }
+                    readOnly
+                    checked={activeImage === image.asset_id ? true : false}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <Button onClick={handleClose}>Close</Button>
+          {imageGallery.length > 0 && (
+            <>
+              <p>
+                {imageGallery.length} available out of {totalImages} products
+              </p>
+              <LoadingButton
+                variant='outlined'
+                disabled={totalImages === imageGallery.length}
+                loading={isLoading}
+                loadingPosition='end'
+                endIcon={<FileDownloadIcon />}
+                onClick={handleLoadMore}>
+                {totalImages === imageGallery.length
+                  ? 'No More Images'
+                  : 'Load More Images'}
+              </LoadingButton>
+            </>
+          )}
+          {/* <Button onClick={handleLoadMore}>Load More</Button> */}
+        </div>
+      </Dialog>
       <div className='addProduct_wrapper'>
         <DashboardBreadcrumb path={router.pathname} />
 
-        <form
-          action='POST'
-          // onSubmit={handleUpdateProduct}
-          className='addProduct_form mb-24'
-          id='productForm'>
+        <form action='POST' className='addProduct_form mb-24' id='productForm'>
           <div className='addProduct_form-header'>
             <h1 className='text-3xl font-semibold'>Edit Product</h1>
             <LoadingButton
               onClick={handleUpdateProduct}
               endIcon={<SendIcon />}
-              loading={isLoading}
-              // size='small'
+              // loading={isLoading}
               loadingPosition='end'
               variant='contained'
               className='w-1/2 max-w-[12rem] mt-0 ml-auto'>
@@ -297,42 +232,8 @@ function EditProduct() {
               <div className='addProduct_info addProduct_formWrapper'>
                 <h1>Basic Info</h1>
                 <div className='product_nameInfo'>
-                  <div className='product_name flex flex-col my-4'>
-                    <label htmlFor='productName'>Name</label>
-                    <TextField
-                      fullWidth
-                      type='text'
-                      size='small'
-                      name='productName'
-                      id='productName'
-                      value={productData.name}
-                      placeholder='Product Name'
-                      onChange={(e) =>
-                        setProductData({ ...productData, name: e.target.value })
-                      }
-                      inputProps={{ 'aria-label': 'add product name' }}
-                    />
-                  </div>
-
-                  <div className='product_brandname flex flex-col my-4'>
-                    <label htmlFor='productBrandname'>Brandname</label>
-                    <TextField
-                      fullWidth
-                      type='text'
-                      size='small'
-                      name='productBrandname'
-                      id='productBrandname'
-                      value={productData.brand}
-                      placeholder='Product Brandname'
-                      onChange={(e) =>
-                        setProductData({
-                          ...productData,
-                          brand: e.target.value,
-                        })
-                      }
-                      inputProps={{ 'aria-label': 'add product brand' }}
-                    />
-                  </div>
+                  <EditName />
+                  <EditBrandname />
                 </div>
                 <div className='product_slug flex flex-col my-4'>
                   <label htmlFor='productSlug'>Slug</label>
@@ -344,7 +245,9 @@ function EditProduct() {
                       size='small'
                       id='productSlug'
                       name='productSlug'
-                      value={productData.name.replace(/\s/g, '-').toLowerCase()}
+                      value={updateProduct.name
+                        ?.replace(/\s/g, '-')
+                        .toLowerCase()}
                       placeholder='Product Slug'
                       InputProps={{
                         readOnly: true,
@@ -357,7 +260,7 @@ function EditProduct() {
                     automatically
                   </p>
                 </div>
-                <TextEditor handleText={handleEditorText} />
+                {/* <TextEditor handleText={handleEditorText} /> */}
                 <div className='product_description'>
                   <label htmlFor='productFullDescription'>
                     Full Description
@@ -368,14 +271,11 @@ function EditProduct() {
                     // maxRows={10}
                     fullWidth
                     placeholder='Add product complete description'
-                    value={productData.description}
+                    value={updateProduct.description}
                     name='productFullDescription'
                     id='productFullDescription'
                     onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        description: e.target.value,
-                      })
+                      dispatch(updateDescription(e.target.value))
                     }
                     inputProps={{
                       'aria-label': 'add product full description',
@@ -390,14 +290,11 @@ function EditProduct() {
                     // maxRows={10}
                     fullWidth
                     placeholder='Add product short description'
-                    value={productData.shortDescription}
+                    value={updateProduct.shortDescription}
                     name='shortDescription'
                     id='productDescription'
                     onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        shortDescription: e.target.value,
-                      })
+                      dispatch(updateShortDescription(e.target.value))
                     }
                     inputProps={{
                       'aria-label': 'add product short description',
@@ -408,62 +305,33 @@ function EditProduct() {
               <div className='addProduct_data addProduct_formWrapper'>
                 <h1>Product Data</h1>
                 <div className='product_data flex my-8'>
-                  <TabsPanel
-                    initialAttributes={productData.attributes}
-                    saveAttributesToState={setProductDataAttributes}
-                    setProductData={setProductData}
-                    productData={productData}
-                  />
+                  <TabsPanel />
                 </div>
               </div>
             </div>
             <div className='addProduct_form-right'>
-              <ProductVisibility
-                productData={productData}
-                setProductData={setProductData}
-              />
-              <ProductCategroy
-                productData={productData}
-                setProductData={setProductData}
-                categoryOptionsList={optionsList}
-                defaultCategory={productData.category}
-              />
-              <ProductTags
-                productData={productData}
-                setProductData={setProductData}
-                tagOptionsList={optionsList}
-              />
+              <EditProductVisibility />
+              <EditProductCategory />
+              <EditProductTags />
               <div className='featured_image addProduct_formWrapper'>
                 <h1>Featured Image</h1>
                 <div className='featured_imageWrapper'>
-                  <div className='featured_imageUpload'>
-                    <CloudUpload />
-                    <label htmlFor='featuredImage'>
-                      Upload Image
-                      <span>(click here...)</span>
-                    </label>
-                    <input
-                      ref={inputRef}
-                      type='file'
-                      name='featuredImage'
-                      multiple
-                      id='featuredImage'
-                      hidden={true}
-                      placeholder='Featured Image'
-                      onChange={handleUploadFeaturedImage}
-                      // value={featuredImage}
-                    />
+                  <div>
+                    <Button onClick={handleClickOpen}>
+                      Set featured image
+                    </Button>
                   </div>
                   <div className='featured_imageDisplay'>
                     <div className='featuredImgWrapper'>
-                      {productData.featuredImage !== '' && (
+                      {updateProduct.featuredImage !== '' && (
                         <>
                           <Image
                             className='block'
-                            src={productData.featuredImage}
+                            src={updateProduct?.featuredImage}
                             alt='featured_image'
                             // width={250}
                             // height={250}
+                            objectFit='contain'
                             layout='fill'
                           />
                           <button
@@ -488,3 +356,18 @@ function EditProduct() {
 }
 
 export default EditProduct;
+
+export async function getServerSideProps(context) {
+  console.log(context.query.productID);
+
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${context.query.productID}`
+  );
+
+  // console.log(response);
+  const product = response.data.product;
+
+  return {
+    props: { product },
+  };
+}

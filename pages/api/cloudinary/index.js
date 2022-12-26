@@ -31,16 +31,16 @@ export default async function cloudinaryActions(req, res) {
     case 'GET':
       try {
         const { nextCursor, activeFolder } = req.query;
-        console.log('Next Cursor: ', nextCursor);
-        console.log('Active Folder: ', activeFolder);
+        // console.log('Next Cursor: ', nextCursor);
+        // console.log('Active Folder: ', activeFolder);
         const result = await cloudinary.search
-          .expression(`folder : ${activeFolder} AND resource_type:image`)
-          .max_results(10)
+          .expression(`folder=${activeFolder} AND resource_type:image`)
           .next_cursor(nextCursor)
+          .max_results(40)
           .execute();
         // console.log(result);
         res.status(200).json({
-          msg: 'Correct request...',
+          msg: 'Disply All Images',
           data: result,
         });
       } catch (error) {

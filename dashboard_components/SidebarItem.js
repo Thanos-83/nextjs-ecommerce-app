@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import SidebarSubLink from './SidebarSubLink';
+import { useRouter } from 'next/router';
 function SidebarLink({
   Expand,
   Icon,
@@ -11,9 +12,15 @@ function SidebarLink({
   expand,
   onExpand,
 }) {
+  const router = useRouter();
+  // console.log('Router: ', router);
+  // console.log('Link: ', link);
   return (
-    <li className='sidebar_link'>
-      <div className=' '>
+    <li
+      className={`sidebar_link ${
+        router.asPath === link ? 'sidebar_activeLink' : ''
+      }`}>
+      <div className='block'>
         {Icon && <Icon className='' />}
         {!isParent ? (
           <Link href={link}>
@@ -23,13 +30,13 @@ function SidebarLink({
             </a>
           </Link>
         ) : (
-          <button type='text' className='' onClick={() => onExpand()}>
+          <button type='button' className='' onClick={() => onExpand()}>
             <p className=''>{text}</p>
             {Expand && <Expand />}
           </button>
         )}
       </div>
-      {isParent > 0 && (
+      {isParent && (
         <div className={`sidebar_submenu ${expand ? 'expand' : ''}`}>
           <ul>
             {submenu.map((submenuItem, index) => (

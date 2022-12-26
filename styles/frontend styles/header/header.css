@@ -1,0 +1,11 @@
+.header_middleRight .MuiBadge-badge {
+  @apply px-0 py-[6px] top-1 border-2 border-white;
+}
+
+.header_middleRight_icons {
+  @apply space-x-2;
+}
+
+.header_middleRight_icons > button svg {
+  @apply w-8 h-8 text-violet-600;
+}

@@ -178,3 +178,30 @@
 .product_attributesAdd > button {
   @apply ml-4;
 }
+
+/* Media Library Dialog Styles */
+.MuiDialog-root {
+  @apply inset-4 md:inset-8 xl:inset-12;
+}
+
+.mediaLibrary_container {
+  @apply p-4;
+}
+
+.mediaLibrary_image {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.mediaLibrary_image > li {
+  @apply cursor-pointer border-2 rounded-md;
+}
+
+.mediaLibrary_image > li.activeImage {
+  @apply border-red-600 shadow-md;
+}
+
+.mediaLibrary_image > li > span {
+  @apply !h-full;
+}

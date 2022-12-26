@@ -44,6 +44,8 @@ export default async function productActionsById(req, res) {
           featuredImage,
           user,
           sku,
+          isFeatured,
+          attributes,
         } = req.body;
 
         if (!productToUpdate) {
@@ -59,6 +61,8 @@ export default async function productActionsById(req, res) {
         productToUpdate.featuredImage = featuredImage;
         productToUpdate.user = user;
         productToUpdate.sku = sku;
+        productToUpdate.isFeatured = isFeatured;
+        productToUpdate.attributes = attributes;
 
         const updatedProduct = await productToUpdate.save();
 

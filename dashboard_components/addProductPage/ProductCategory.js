@@ -1,35 +1,38 @@
+import React, { useEffect, useState } from 'react';
 import { Autocomplete, Checkbox, TextField } from '@mui/material';
-import React from 'react';
-
-function ProductCategroy({
-  productData,
-  setProductData,
-  categoryOptionsList,
-  defaultCategory,
-}) {
-  // console.log(defaultCategory._id);
-
-  // console.log(
-  //   categoryOptionsList.find((cat) => cat._id === defaultCategory._id)
-  // );
-  // console.log(categoryOptionsList);
+import { nestedCategories } from '../../utils/flattenCategoriesList';
+import { listCategories } from '../../utils/listCategories';
+import axios from 'axios';
+function ProductCategory({ productData, setProductData }) {
+  const [optionsList, setOptionsList] = useState([]);
+  // console.log('options list: ', optionsList);
+  useEffect(() => {
+    axios
+      .get('/api/dashboard/categories')
+      .then((res) => {
+        // console.log('Use effect categories: ', res);
+        const flattenList = nestedCategories(res.data);
+        // console.log('flatten List: ', flattenList);
+        const list = listCategories(flattenList);
+        // console.log('List: ', list);
+        setOptionsList(list);
+        // setCategories(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+  useEffect;
   return (
     <div className='product_category addProduct_formWrapper'>
       <h1>Parent Category</h1>
       <Autocomplete
-        // multiple
         disableCloseOnSelect
         id='category-select'
         placeholder='Choose a category'
         autoHighlight
         size='small'
-        defaultValue={
-          defaultCategory &&
-          categoryOptionsList.find((cat) => cat._id === defaultCategory?._id)
-        }
-        options={categoryOptionsList || []}
+        options={optionsList || []}
         isOptionEqualToValue={(option, value) => option?.name === value?.name}
-        getOptionLabel={(option) => option?.name}
+        getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected, inputValue }) => {
           return (
             <li {...props} className='cursor-pointer' key={option._id}>
@@ -40,17 +43,14 @@ function ProductCategroy({
         }}
         onChange={(event, value) => {
           setProductData({ ...productData, category: value?._id });
-          // console.log(value);
         }}
         renderInput={(params) => (
           <TextField
             {...params}
             id='parent category'
             name='parent category'
-            // label='Parent Category'
             size='small'
             placeholder='Choose parent category'
-            // value={productData.category}
           />
         )}
       />
@@ -58,4 +58,4 @@ function ProductCategroy({
   );
 }
 
-export default ProductCategroy;
+export default ProductCategory;

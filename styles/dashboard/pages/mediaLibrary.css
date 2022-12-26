@@ -1,5 +1,101 @@
 .images_container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.singleImage_container {
+  @apply relative flex flex-col  rounded-md bg-white shadow-md;
+}
+
+.singleImage_image {
+  @apply p-2;
+}
+
+.singleImage_image > span {
+  @apply rounded-md !flex;
+}
+
+.singleImage_image > span img {
+  @apply object-contain;
+}
+
+.singleImage_infoContainer {
+  @apply mt-2 p-2 bg-gradient-to-b from-stone-300;
+}
+
+.singleImage_info {
+  @apply flex items-center justify-between mt-2;
+}
+
+.singleImage_size {
+  @apply flex items-center cursor-row-resize;
+}
+
+.singleImage_size > span {
+  @apply flex items-center text-sm text-slate-500  font-semibold;
+}
+
+.singleImage_size > hr {
+  @apply mx-2 w-[2px] bg-gray-200 h-full py-2;
+}
+
+.singleImage_size > p {
+  @apply flex items-center text-sm text-slate-500  font-semibold;
+}
+
+.singleImage_folder {
+  @apply flex items-center space-x-2 font-semibold mb-2;
+}
+
+.singleImage_folder > span {
+  @apply flex items-center text-sm text-slate-500  font-semibold;
+}
+
+.singleImage_actions {
+  @apply space-x-3 flex items-center;
+}
+
+.singleImage_actions > button > svg {
+  @apply text-rose-600;
+}
+
+.singleImage_actions > a > svg {
+  @apply text-zinc-600;
+}
+
+.loadMore_btn {
+  @apply mb-16 flex flex-col items-center;
+}
+
+.loadMore_btn > p {
+  @apply text-[#636363] text-[1rem] font-semibold mb-4;
+}
+
+.singleImage_checkbox {
+  /* @apply absolute top-0 left-0 rounded-full; */
+}
+
+.media_headerTop {
+  @apply mb-12;
+}
+
+.media_headerTop,
+.media_header {
+  @apply flex items-center justify-between;
+}
+
+.media_title {
+  @apply text-3xl font-semibold;
+}
+
+.media_headerLeft,
+.media_headerRight {
+  @apply flex items-center space-x-4;
+}
+
+.media_headerLeft > p {
+  @apply inline-block py-3;
+}
+
+.singleImage_folder > p > button {
+  @apply underline;
 }

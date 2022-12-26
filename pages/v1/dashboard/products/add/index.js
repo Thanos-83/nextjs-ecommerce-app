@@ -9,20 +9,19 @@ import Image from 'next/image';
 import cloudinary from 'cloudinary/lib/cloudinary';
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-
-import TabsPanel from '../../../../../dashboard_components/addProduct/TabsPanel';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import TabsPanel from '../../../../../dashboard_components/addProductPage/TabsPanel';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { TextField } from '@mui/material';
-import { listCategories } from '../../../../../utils/listCategories';
-import { nestedCategories } from '../../../../../utils/flattenCategoriesList';
-import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
-import ProductVisibility from '../../../../../dashboard_components/addProduct/ProductVisibility';
-import ProductTags from '../../../../../dashboard_components/addProduct/ProductTags';
-import ProductCategroy from '../../../../../dashboard_components/addProduct/ProductCategroy';
-import { CloudUpload } from '@mui/icons-material';
-import Delete from '@mui/icons-material/Delete';
+import { Button, Dialog, TextField } from '@mui/material';
 
+import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
+import ProductVisibility from '../../../../../dashboard_components/addProductPage/ProductVisibility';
+import ProductTags from '../../../../../dashboard_components/addProductPage/ProductTags';
+import ProductCategroy from '../../../../../dashboard_components/addProductPage/ProductCategory';
+import { resetAttributes } from '../../../../../features/productAttributes/productAttributesSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { Delete } from '@mui/icons-material';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -34,19 +33,54 @@ cloudinary.config({
 });
 
 function AddProduct() {
+  const productAttributes = useSelector(
+    (state) => state.productAttributes.attributes
+  );
   const router = useRouter();
-
-  const inputRef = useRef(null);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const { data: session, status } = useSession();
-  const [optionsList, setOptionsList] = useState([]);
-  const [productAttributes, setProductAttributes] = useState([]);
-  const [productAttributesLocal, setProductAttributesLocal] = useState([]);
-  const [imageData, setImageData] = useState({
-    url: '',
-    public_id: '',
-  });
+  const [imageGallery, setImageGallery] = useState([]);
+  const [nextCursor, setNextCursor] = useState(null);
+  const [totalImages, setTotalImages] = useState(0);
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLoadMore = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    axios
+      .get('/api/cloudinary', {
+        params: {
+          nextCursor: nextCursor,
+          activeFolder: 'next_demo_ecommerce/*',
+        },
+      })
+      .then((res) => {
+        console.log(res);
+
+        setImageGallery([...imageGallery, ...res.data.data.resources]);
+
+        if (res.data.data.next_cursor) {
+          setNextCursor(res.data.data.next_cursor);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  };
 
   const handleEditorText = (text) => {
     setProductData({ ...productData, textEditor: text });
@@ -68,7 +102,7 @@ function AddProduct() {
     // reviews,
     // rating,
     // numReviews,
-    price: 0.0,
+    price: 0,
     // salesPrice,
     // crossSells,
     // upSells,
@@ -77,108 +111,32 @@ function AddProduct() {
     attributes: [],
   });
 
-  // console.log('Product Data: ', productData);
-  // console.log('Product Attributes: ', productData.attributes);
-  // console.log('Product name: ', productData.name);
-  // console.log('Product brand: ', productData.brand);
-
   useEffect(() => {
     axios
-      .get('/api/dashboard/categories')
-      .then((res) => {
-        // console.log('Use effect categories: ', res);
-        const flattenList = nestedCategories(res.data);
-        // console.log('flatten List: ', flattenList);
-        const list = listCategories(flattenList);
-        // console.log('List: ', list);
-        setOptionsList(list);
-        // setCategories(res.data);
-      })
-      .catch((error) => console.log(error));
-
-    axios
-      .get('/api/dashboard/products/attributes')
-      .then((res) => {
-        // console.log('Use effect attributes: ', res.data);
-        setProductAttributes(res.data.attributes);
-      })
-      .catch((error) => console.log(error));
-
-    if (session) {
-      productData.user = session.user.id;
-    }
-  }, [session, productData, productData.category, productData.attributes]);
-
-  // console.log(productAttributes);
-
-  const handleUploadFeaturedImage = async (e) => {
-    e.preventDefault();
-    const formImageInput = document.getElementById('productForm');
-    const fileInput = Array.from(formImageInput).find(
-      ({ name }) => name === 'featuredImage'
-    );
-
-    console.log(fileInput);
-    console.log('File input: ', fileInput.files);
-
-    const formData = new FormData();
-    // console.log('form: ', fileInput.files);
-    for (let file of fileInput.files) {
-      formData.append('file', file);
-    }
-
-    formData.append('upload_preset', 'next_demo_ecommerce');
-    console.log('FormData: ', formData);
-    const { data } = await axios.post(
-      'https://api.cloudinary.com/v1_1/do1gpf9sv/image/upload',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      .get('/api/cloudinary', {
+        params: {
+          nextCursor: nextCursor,
+          activeFolder: 'next_demo_ecommerce/*',
         },
-      }
-    );
+      })
+      .then((res) => {
+        // console.log(res.data);
+        setImageGallery(res.data.data.resources);
+        setTotalImages(res.data.data.total_count);
 
-    setImageData({
-      url: data.url,
-      public_id: data.public_id,
-    });
-    setProductData({ ...productData, featuredImage: data.secure_url });
-    // setIsLoading(false);
-
-    console.log(data);
-  };
+        if (res.data.data.next_cursor) {
+          setNextCursor(res.data.data.next_cursor);
+        }
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoading(false);
+      });
+  }, []);
 
   const deleteImage = async (e) => {
-    e.preventDefault();
-    // console.log('Public ID', imageData.public_id);
-
-    // =========Destroy image on the backend========
-    axios
-      .post('/api/cloudinary', { public_id: imageData.public_id })
-      .then((res) => {
-        // console.log(res);
-        setImageData({ url: '', public_id: '' });
-        setProductData({ ...productData, featuredImage: '' });
-        inputRef.current.value = null;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // ========Destroy image on the frontend==========
-    // cloudinary.v2.uploader
-    //   .destroy(imageData.public_id, function (error, result) {
-    //     console.log(result, error);
-    //   })
-    //   .then((resp) => {
-    //     console.log(resp);
-    //     setImageData({ url: '', public_id: '' });
-    //     setProductData({ ...productData, featuredImage: '' });
-    //   })
-    //   .catch((_err) =>
-    //     console.log('Something went wrong, please try again later.')
-    //   );
+    setProductData({ ...productData, featuredImage: '' });
   };
 
   const handleAddProduct = async (e) => {
@@ -191,12 +149,13 @@ function AddProduct() {
       shortDescription: productData.shortDescription,
       sku: productData.sku,
       brand: productData.brand,
-      price: productData.price,
+      price: productData.price.toFixed(2),
       category: productData.category,
       user: session.user.id,
-      attributes: productData.attributes,
+      attributes: productAttributes,
       isFeatured: productData.isFeatured,
     };
+    console.log('Product: ', product);
     setIsLoading(true);
     axios
       .post('/api/dashboard/products/', product)
@@ -204,7 +163,6 @@ function AddProduct() {
         // console.log(res);
         setIsLoading(false);
         setOpenSnackbar(true);
-        localStorage.removeItem('attributes');
         productData.textEditor = '';
         productData.user = '';
         productData.sku = '';
@@ -217,22 +175,14 @@ function AddProduct() {
         productData.shortDescription = '';
         productData.price = 0.0;
         productData.attributes = [];
+        dispatch(resetAttributes());
       })
       .catch((err) => {
-        // setError({
-        //   ...error,
-        //   isError: true,
-        //   message: err.response.data.errorMsg,
-        // });
         console.log(err);
         setIsLoading(false);
       });
   };
 
-  const setProductDataAttributes = (attr) => {
-    console.log('Attributes: ', attr);
-    setProductData({ ...productData, attributes: attr });
-  };
   return (
     <DashboardLayout>
       <Snackbar
@@ -247,6 +197,54 @@ function AddProduct() {
           Product Added Successfuly!
         </Alert>
       </Snackbar>
+      <Dialog fullScreen open={open} onClose={handleClose}>
+        <div className='mediaLibrary_container'>
+          <ul className='mediaLibrary_image'>
+            {imageGallery?.map((image) => (
+              <li
+                key={image.asset_id}
+                onClick={() =>
+                  setProductData({
+                    ...productData,
+                    featuredImage: image.secure_url,
+                  })
+                }>
+                <div className='relative'>
+                  <Image
+                    src={image.secure_url}
+                    width='740'
+                    height='740'
+                    // layout='fill'
+                    objectFit='contain'
+                    alt='image gallery'
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <Button onClick={handleClose}>Close</Button>
+          {imageGallery.length > 0 && (
+            <>
+              <p>
+                {imageGallery.length} available out of {totalImages} products
+              </p>
+              <LoadingButton
+                variant='outlined'
+                disabled={totalImages === imageGallery.length}
+                loading={isLoading}
+                loadingPosition='end'
+                endIcon={<FileDownloadIcon />}
+                onClick={handleLoadMore}>
+                {totalImages === imageGallery.length
+                  ? 'No More Images'
+                  : 'Load More Images'}
+              </LoadingButton>
+            </>
+          )}
+          <Button onClick={handleLoadMore}>Load More</Button>
+        </div>
+      </Dialog>
       <div className='addProduct_wrapper'>
         <DashboardBreadcrumb path={router.pathname} />
 
@@ -385,8 +383,6 @@ function AddProduct() {
                 <h1>Product Data</h1>
                 <div className='product_data flex my-8'>
                   <TabsPanel
-                    initialAttributes={productData.attributes}
-                    saveAttributesToState={setProductDataAttributes}
                     setProductData={setProductData}
                     productData={productData}
                   />
@@ -401,32 +397,18 @@ function AddProduct() {
               <ProductCategroy
                 productData={productData}
                 setProductData={setProductData}
-                categoryOptionsList={optionsList}
               />
               <ProductTags
                 productData={productData}
                 setProductData={setProductData}
-                tagOptionsList={optionsList}
               />
               <div className='featured_image addProduct_formWrapper'>
                 <h1>Featured Image</h1>
                 <div className='featured_imageWrapper'>
-                  <div className='featured_imageUpload'>
-                    <CloudUpload />
-                    <label htmlFor='featuredImage'>
-                      Upload Image
-                      <span>(click here...)</span>
-                    </label>
-                    <input
-                      ref={inputRef}
-                      type='file'
-                      name='featuredImage'
-                      multiple
-                      id='featuredImage'
-                      hidden={true}
-                      placeholder='Featured Image'
-                      onChange={handleUploadFeaturedImage}
-                    />
+                  <div>
+                    <Button onClick={handleClickOpen}>
+                      Set featured image
+                    </Button>
                   </div>
                   <div className='featured_imageDisplay'>
                     <div className='featuredImgWrapper'>
@@ -438,6 +420,7 @@ function AddProduct() {
                             alt='featured_image'
                             // width={250}
                             // height={250}
+                            objectFit='contain'
                             layout='fill'
                           />
                           <button
@@ -452,18 +435,6 @@ function AddProduct() {
                     </div>
                   </div>
                 </div>
-                {/* <div className='uploadImage_btn my-4'>
-                  <LoadingButton
-                    loading={isLoading}
-                    size='small'
-                    loadingPosition='end'
-                    variant='contained'
-                    color='success'
-                    className='py-2 rounded-md w-full  text-white'
-                    onClick={handleUploadFeaturedImage}>
-                    Upload featured image
-                  </LoadingButton>
-                </div> */}
               </div>
             </div>
           </div>

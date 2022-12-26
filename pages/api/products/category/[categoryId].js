@@ -15,6 +15,7 @@ export default async function productActionsById(req, res) {
     // @access  Public
     case 'GET':
       try {
+        console.log(categoryId);
         const categoryProducts = await Product.find({ category: categoryId });
 
         if (!categoryProducts) {

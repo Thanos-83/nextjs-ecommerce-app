@@ -5,10 +5,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import HomeIcon from '@mui/icons-material/Home';
 import { useState } from 'react';
+
 const submenuProducts = [
   { text: 'Add New', link: '/v1/dashboard/products/add' },
   { text: 'Products', link: '/v1/dashboard/products' },
-  { text: 'Popular Products', link: '/v1/dashboard/' },
   { text: 'Categories', link: '/v1/dashboard/products/categories' },
   { text: 'Attributes', link: '/v1/dashboard/products/attributes' },
   { text: 'Tags', link: '/v1/dashboard/products/tags' },
@@ -36,7 +36,7 @@ function SidebarNav() {
               text='Dashboard'
               Icon={DashboardIcon}
               Expand={KeyboardArrowDownIcon}
-              link={'/v1/dashboard/'}
+              link={'/v1/dashboard'}
               isParent={false}
             />
             <SidebarItem
@@ -77,7 +77,7 @@ function SidebarNav() {
               text='Settings'
               Icon={DashboardIcon}
               // Expand={KeyboardArrowDownIcon}
-              link='#'
+              link='/v1/dashboard/settings'
               isParent={false}
             />
             <SidebarItem
@@ -89,6 +89,57 @@ function SidebarNav() {
             />
           </>
         </ul>
+        {/* <ul className='test_nav space-y-4'>
+          <li className='flex items-center'>
+            <input
+              type='radio'
+              // hidden
+              name='link'
+              value='link 1'
+              id='nameOne'
+              onClick={(e) => console.log(e.target.value)}
+            />
+            <label className='block' htmlFor='nameOne'>
+              Link 1
+            </label>
+          </li>
+          <li className='flex items-center'>
+            <input
+              type='radio'
+              name='link'
+              value='link 2'
+              id='nameTwo'
+              onClick={(e) => console.log(e.target.value)}
+            />
+            <label className='block' htmlFor='nameTwo'>
+              Link 2
+            </label>
+          </li>
+          <li className='flex items-center'>
+            <input
+              type='radio'
+              name='link'
+              value='link 3'
+              id='nameThree'
+              onClick={(e) => console.log(e.target.value)}
+            />
+            <label className='block' htmlFor='nameThree'>
+              link 3
+            </label>
+          </li>
+          <li className='flex items-center'>
+            <input
+              type='radio'
+              id='contactChoice2'
+              name='link'
+              value='phone'
+              onClick={(e) => console.log(e.target.value)}
+            />
+            <label className='block' htmlFor='contactChoice2'>
+              Phone
+            </label>
+          </li>
+        </ul> */}
       </nav>
     </div>
   );

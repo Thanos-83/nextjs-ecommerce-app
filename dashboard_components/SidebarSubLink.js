@@ -1,9 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 function SidebarSubLink({ text, link }) {
+  const router = useRouter();
+
   return (
-    <li className='sidebar_sublink '>
+    <li
+      className={`sidebar_sublink ${
+        router.asPath === link && 'sidebar_activeSublink'
+      }`}>
       <Link href={link}>{text}</Link>
     </li>
   );

@@ -47,7 +47,6 @@ export default async function productActionsById(req, res) {
         const productToUpdate = await Product.findById(productId).populate(
           'attributes'
         );
-        // .populate('tags');
         const {
           user,
           name,
@@ -71,13 +70,13 @@ export default async function productActionsById(req, res) {
           // countInStock,
           // inStock,
           attributes,
-        } = req.body;
+        } = req.body.product;
+
+        const singleCategory = await Category.findById(category);
 
         if (!productToUpdate) {
           throw new Error('Product NOT found!');
         }
-        // console.log(tags);
-        // console.log(productToUpdate);
 
         productToUpdate.name = name;
         productToUpdate.brand = brand;
@@ -85,54 +84,21 @@ export default async function productActionsById(req, res) {
         productToUpdate.description = description;
         productToUpdate.shortDescription = shortDescription;
         productToUpdate.price = price;
-        // productToUpdate.countInStock = countInStock;
         productToUpdate.featuredImage = featuredImage;
-        // productToUpdate.attributes = attributes;
         productToUpdate.user = user;
         productToUpdate.sku = sku;
-        // productToUpdate.user = user;
-        // productToUpdate.name = name;
-        // productToUpdate.sku = sku;
-        // productToUpdate.type = type;
         productToUpdate.isFeatured = isFeatured;
-        // productToUpdate.featuredImage = featuredImage;
-        // productToUpdate.imageGallery = imageGallery;
-        // productToUpdate.brand = brand;
-        // productToUpdate.category = category;
-        // productToUpdate.description = description;
-        // tags.map((tag, index) => {
-        //   productToUpdate.tags.map((productTag) => {
-        //     if (tag._id === productTag._id.valueOf()) {
-        //       tags.splice(index, 1);
-        //     }
-        //   });
-        // });
-        // productToUpdate.tags = [...productToUpdate.tags, ...tags];
-        // productToUpdate.reviews = reviews;
-        // productToUpdate.rating = rating;
-        // productToUpdate.numReviews = numReviews;
-        // productToUpdate.price = price;
-        // productToUpdate.salesPrice = salesPrice;
-        // productToUpdate.crosSells = crosSells;
-        // productToUpdate.upSells = upSells;
-        // productToUpdate.countInStock = countInStock;
-        // productToUpdate.inStock = inStock;
-        attributes.map((tag, index) => {
-          productToUpdate.attributes.map((productTag) => {
-            if (tag._id === productTag._id.valueOf()) {
-              attributes.splice(index, 1);
-            }
-          });
-        });
-        productToUpdate.attributes = [
-          ...productToUpdate.attributes,
-          ...attributes,
-        ];
-
-        // console.log(productToUpdate.tags);
+        productToUpdate.attributes = attributes;
 
         const updatedProduct = await productToUpdate.save();
+        if (!singleCategory.products.includes(productId)) {
+          singleCategory.products = [
+            ...singleCategory.products,
+            updatedProduct._id,
+          ];
+        }
 
+        singleCategory.save();
         res
           .status(200)
           .json({ msg: 'Product updated', product: updatedProduct });

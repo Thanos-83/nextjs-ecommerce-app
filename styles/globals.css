@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dashboard Styles */
 @import './dashboard/dashboardSidebar.css';
 @import './dashboard/dashboardLayout.css';
 @import './dashboard/sidebarLink.css';
@@ -12,3 +13,14 @@
 @import './dashboard/pages/productAttributes.css';
 @import './dashboard/pages/productCategories.css';
 @import './dashboard/pages/products.css';
+
+/*General Styles  */
+@import './design/RowContainer.css';
+
+/* Layout Styles */
+
+@import './frontend\ styles/layout.css';
+
+/* Header Styles */
+
+@import './frontend\ styles/header/header.css';

@@ -1,0 +1,7 @@
+.body_container {
+  @apply flex flex-col h-screen;
+}
+
+.main_content {
+  @apply flex-1 bg-slate-100;
+}

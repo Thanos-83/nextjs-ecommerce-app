@@ -15,7 +15,7 @@ export default async function userActions(req, res) {
       try {
         const products = await Product.find().populate({
           path: 'category',
-          select: 'name',
+          select: 'name slug',
           model: Categories,
         });
         // console.log(products);

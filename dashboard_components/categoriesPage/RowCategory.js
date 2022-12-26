@@ -12,7 +12,8 @@ function RowCategory({ row, handleClickOpen }) {
         {row?.cells[0].render('Cell')}
       </div>
       <div {...row?.cells[1].getCellProps()} className='categoryRow_title'>
-        <Link href={`/v1/dashboard/products/categories/${row?.cells[6].value}`}>
+        <Link
+          href={`/v1/dashboard/products/categories/${row?.cells[6].value}/edit`}>
           <a
             className={`my-2 ${
               row?.cells[4].value === 1

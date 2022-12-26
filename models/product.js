@@ -44,6 +44,10 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    slug: {
+      type: String,
+      // required: true,
+    },
     type: {
       type: String,
       default: 'simple',
@@ -69,7 +73,7 @@ const productSchema = new mongoose.Schema(
     category: {
       type: mongoose.Schema.Types.ObjectId,
       // required: true,
-      // default: [],
+      default: 'Uncategorized',
       ref: 'Category',
     },
     description: {

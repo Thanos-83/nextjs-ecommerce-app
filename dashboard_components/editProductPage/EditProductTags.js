@@ -1,7 +1,10 @@
 import { Autocomplete, Checkbox, TextField } from '@mui/material';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-function ProductTags({ productData, setProductData, tagOptionsList }) {
+function EditProductTags({ productData, setProductData }) {
+  const dispatch = useDispatch();
+  const updateProduct = useSelector((state) => state.productData.productData);
   return (
     <div className='product_tags addProduct_formWrapper'>
       <h1>Product Tags</h1>
@@ -13,7 +16,7 @@ function ProductTags({ productData, setProductData, tagOptionsList }) {
         autoHighlight
         size='small'
         // key={name}
-        options={tagOptionsList || []}
+        options={[]}
         isOptionEqualToValue={
           (option, value) => option?.name === value?.name
           // console.log(option)
@@ -27,10 +30,10 @@ function ProductTags({ productData, setProductData, tagOptionsList }) {
             </li>
           );
         }}
-        onChange={(event, value) => {
-          setProductData({ ...productData, category: value?._id });
-          // console.log(value);
-        }}
+        // onChange={(event, value) => {
+        //   setProductData({ ...productData, category: value?._id });
+        //   // console.log(value);
+        // }}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -39,7 +42,7 @@ function ProductTags({ productData, setProductData, tagOptionsList }) {
             // label='Parent Category'
             size='small'
             placeholder='Choose parent category'
-            value={productData.category}
+            value={updateProduct.category}
           />
         )}
       />
@@ -47,4 +50,4 @@ function ProductTags({ productData, setProductData, tagOptionsList }) {
   );
 }
 
-export default ProductTags;
+export default EditProductTags;

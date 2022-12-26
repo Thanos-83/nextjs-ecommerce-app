@@ -7,24 +7,22 @@ import {
   Checkbox,
   TextField,
 } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeAttribute } from '../../features/productData/productDataSlice';
 
-function ProductAttribute({
-  attribute,
-  deleteLocalAttribute,
-  displayAttributes,
-}) {
-  const [attributeValues, setAttributeValues] = useState([]);
-  // const [updatedAttribute, setUpdatedAttribute] = useState([]);
-  // console.log('Attribute Values: ', attributeValues);
-  // console.log(displayAttributes);
-
-  const updateAttribute = (val, id) => {
-    const updateAttr = displayAttributes.find((attr) => attr._id === id);
-    // console.log('Attribute to update: ', updateAttr);
-    setAttributeValues(val);
-    // updateAttr.terms = val;
-    // console.log('Updated Attribute: ', updateAttr);
+function ProductAttribute({ attribute }) {
+  const [updateAttributeTerms, setUpdateAttributeTerms] = useState(null);
+  const dispatch = useDispatch();
+  const deleteAttribute = (event, id) => {
+    event.stopPropagation();
+    alert(id);
+    dispatch(removeAttribute(id));
   };
+
+  // const updateAttributeTerms = (terms, attributeID) => {
+  //   alert(attributeID);
+  // };
+
   return (
     <li key={attribute._id}>
       <Accordion key={attribute._id}>
@@ -34,10 +32,13 @@ function ProductAttribute({
           id='panel1a-header'
           className='bg-gray-500 flex items-center'>
           <p>{attribute.name}</p>
-          <DragIndicator className='productAttributes_drag ' />
+          <DragIndicator
+            className='productAttributes_drag '
+            onClick={(event) => event.stopPropagation()}
+          />
           <Delete
             className='mr-4 w-5 h-5'
-            onClick={(e) => deleteLocalAttribute(e, attribute._id)}
+            onClick={(event) => deleteAttribute(event, attribute._id)}
           />
         </AccordionSummary>
         <div className='attribute_data flex items-start gap-4 p-4'>
@@ -57,11 +58,13 @@ function ProductAttribute({
               size='small'
               // defaultValue={attributeValues}
               options={attribute.terms || []}
-              isOptionEqualToValue={(option, value) =>
-                option.slug === value.slug
+              isOptionEqualToValue={
+                (option, value) => option.slug === value.slug
+                // console.log(value)
               }
               getOptionLabel={(option) => option?.slug}
               renderOption={(props, option, { selected, inputValue }) => {
+                // console.log(option);
                 return (
                   <li {...props} className='cursor-pointer' key={option._id}>
                     <Checkbox checked={selected} />
@@ -71,9 +74,8 @@ function ProductAttribute({
               }}
               onChange={(event, value) => {
                 console.log(value, attribute._id);
-
                 if (value.length > 0) {
-                  updateAttribute(value, attribute._id);
+                  updateAttributeTerms(value, attribute._id);
                 }
               }}
               renderInput={(params) => (

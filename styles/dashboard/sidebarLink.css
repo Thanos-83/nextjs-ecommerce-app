@@ -6,6 +6,16 @@
   @apply flex items-center px-2 hover:bg-[#EBEFFD] hover:rounded-md;
 }
 
+.sidebar_link.sidebar_activeLink > div:first-child {
+  @apply border border-[#6d8af4] rounded-md;
+}
+
+.sidebar_link.sidebar_activeLink > div > svg,
+.sidebar_link.sidebar_activeLink > div > a > p,
+.sidebar_link.sidebar_activeLink > div > button > p {
+  @apply text-[#2D67EC];
+}
+
 .sidebar_link > div:hover > svg,
 .sidebar_link > div:hover > a > p,
 .sidebar_link > div:hover > button > p {
@@ -43,14 +53,10 @@
   @apply text-[#2D67EC];
 }
 
+.sidebar_sublink.sidebar_activeSublink > a {
+  @apply text-[#2D67EC] underline font-semibold;
+}
+
 .sidebar_submenu > ul {
   @apply mt-0;
 }
-
-/* .sidebar_submenu {
-  @apply max-h-0  overflow-hidden transition-[height] duration-500;
-}
-
-.sidebar_submenu.expand {
-  @apply max-h-96;
-} */

@@ -1,7 +1,7 @@
 import { useSession, getSession } from 'next-auth/react';
 import { unstable_getServerSession } from 'next-auth/next';
-import Layout from '../../components/Layout';
-import { authOptions } from '../api/auth/[...nextauth]';
+import Layout from '../../../components/Layout';
+import { authOptions } from '../../api/auth/[...nextauth]';
 
 function Account() {
   const { data: session, status } = useSession();

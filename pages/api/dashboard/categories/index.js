@@ -14,15 +14,9 @@ export default async function categoriesActions(req, res) {
       try {
         const categories = await Category.find().populate({
           path: 'products',
-          select: 'name',
+          select: '_id name',
           model: Product,
         });
-
-        // console.log('Categories from server: ', categories);
-
-        // const categoriesList = nestedCategories(categories);
-        // console.log('List Categories from server: ', categoriesList);
-
         res.status(200).json(categories);
       } catch (error) {
         res.status(400).json({ error: error.message });

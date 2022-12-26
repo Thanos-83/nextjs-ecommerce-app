@@ -219,9 +219,9 @@ export async function getServerSideProps() {
 
   // const { folders } = await cloudinary.api.root_folders();
   const { folders } = await cloudinary.api.sub_folders('next_demo_ecommerce/');
-  // console.log('Folders: ', folders);
 
-  // console.log('Results: ', result.total_count);
+  console.log('Folders: ', folders);
+  console.log('Results: ', result.total_count);
   const images = result.resources.map((image) => {
     return {
       imageUrl: image.secure_url,

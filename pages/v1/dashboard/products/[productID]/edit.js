@@ -11,9 +11,7 @@ import SendIcon from '@mui/icons-material/Send';
 import TabsPanel from '../../../../../dashboard_components/addProductPage/TabsPanel';
 import MuiAlert from '@mui/material/Alert';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-
 import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
-
 import { useDispatch, useSelector } from 'react-redux';
 import {
   initializeProductData,
@@ -28,6 +26,11 @@ import EditBrandname from '../../../../../dashboard_components/editProductPage/E
 import EditProductVisibility from '../../../../../dashboard_components/editProductPage/EditProductVisibility';
 import EditProductCategory from '../../../../../dashboard_components/editProductPage/EditProductCategory';
 import EditProductTags from '../../../../../dashboard_components/editProductPage/EditProductTags';
+import EditDescription from '../../../../../dashboard_components/editProductPage/EditDescription';
+import EditShortDescription from '../../../../../dashboard_components/editProductPage/EditShortDescription';
+import EditSlug from '../../../../../dashboard_components/editProductPage/EditSlug';
+import EditFeaturedImage from '../../../../../dashboard_components/editProductPage/EditFeaturedImage';
+
 import { Delete } from '@mui/icons-material';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
@@ -40,7 +43,7 @@ cloudinary.config({
 });
 
 function EditProduct({ product }) {
-  const { data: session, status } = useSession();
+  // const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
   const updateProduct = useSelector((state) => state.productData.productData);
@@ -50,10 +53,7 @@ function EditProduct({ product }) {
   const [nextCursor, setNextCursor] = useState(null);
   const [totalImages, setTotalImages] = useState(0);
   const [activeImage, setActiveImage] = useState(updateProduct.featuredImage);
-  // const [activeImage, setActiveImage] = useState(null);
 
-  // console.log('iam here 1: ', updateProduct);
-  // console.log(activeImage);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -62,11 +62,6 @@ function EditProduct({ product }) {
 
   const handleClose = () => {
     setOpen(false);
-  };
-
-  const deleteImage = async (e) => {
-    setActiveImage(null);
-    dispatch(deleteFeaturedImage());
   };
 
   const handleLoadMore = (e) => {
@@ -121,8 +116,7 @@ function EditProduct({ product }) {
 
   useEffect(() => {
     dispatch(initializeProductData(product));
-  }, [dispatch, product]);
-  // console.log('Edit Page Use Selector: ', updateProduct);
+  }, []);
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();
@@ -137,16 +131,17 @@ function EditProduct({ product }) {
   };
 
   const handleUpdateImage = (event, image) => {
-    // console.log(image);
     setActiveImage(image.asset_id);
-    // event.currentTarget.classList.toggle('activeImage');
-
     dispatch(updateFeaturedImage(image.secure_url));
+  };
+
+  const deleteImage = async (e) => {
+    setActiveImage(null);
+    dispatch(deleteFeaturedImage());
   };
 
   return (
     <DashboardLayout>
-      {/* {console.log('iam here 2')} */}
       <Snackbar
         open={openSnackbar}
         autoHideDuration={1000}
@@ -208,12 +203,10 @@ function EditProduct({ product }) {
               </LoadingButton>
             </>
           )}
-          {/* <Button onClick={handleLoadMore}>Load More</Button> */}
         </div>
       </Dialog>
       <div className='addProduct_wrapper'>
         <DashboardBreadcrumb path={router.pathname} />
-
         <form action='POST' className='addProduct_form mb-24' id='productForm'>
           <div className='addProduct_form-header'>
             <h1 className='text-3xl font-semibold'>Edit Product</h1>
@@ -235,72 +228,9 @@ function EditProduct({ product }) {
                   <EditName />
                   <EditBrandname />
                 </div>
-                <div className='product_slug flex flex-col my-4'>
-                  <label htmlFor='productSlug'>Slug</label>
-                  <div className='productInput_slug'>
-                    <span>https://example.com/products/</span>
-                    <TextField
-                      fullWidth
-                      type='text'
-                      size='small'
-                      id='productSlug'
-                      name='productSlug'
-                      value={updateProduct.name
-                        ?.replace(/\s/g, '-')
-                        .toLowerCase()}
-                      placeholder='Product Slug'
-                      InputProps={{
-                        readOnly: true,
-                        'aria-label': 'product slug',
-                      }}
-                    />
-                  </div>
-                  <p className='slug_helperText'>
-                    Unique human-readable product identifier. It is filled
-                    automatically
-                  </p>
-                </div>
-                {/* <TextEditor handleText={handleEditorText} /> */}
-                <div className='product_description'>
-                  <label htmlFor='productFullDescription'>
-                    Full Description
-                  </label>
-                  <TextField
-                    multiline
-                    rows={8}
-                    // maxRows={10}
-                    fullWidth
-                    placeholder='Add product complete description'
-                    value={updateProduct.description}
-                    name='productFullDescription'
-                    id='productFullDescription'
-                    onChange={(e) =>
-                      dispatch(updateDescription(e.target.value))
-                    }
-                    inputProps={{
-                      'aria-label': 'add product full description',
-                    }}
-                  />
-                </div>
-                <div className='product_shortDescription'>
-                  <label htmlFor='productDescription'>Short Description</label>
-                  <TextField
-                    multiline
-                    rows={5}
-                    // maxRows={10}
-                    fullWidth
-                    placeholder='Add product short description'
-                    value={updateProduct.shortDescription}
-                    name='shortDescription'
-                    id='productDescription'
-                    onChange={(e) =>
-                      dispatch(updateShortDescription(e.target.value))
-                    }
-                    inputProps={{
-                      'aria-label': 'add product short description',
-                    }}
-                  />
-                </div>
+                <EditSlug />
+                <EditDescription />
+                <EditShortDescription />
               </div>
               <div className='addProduct_data addProduct_formWrapper'>
                 <h1>Product Data</h1>
@@ -321,30 +251,7 @@ function EditProduct({ product }) {
                       Set featured image
                     </Button>
                   </div>
-                  <div className='featured_imageDisplay'>
-                    <div className='featuredImgWrapper'>
-                      {updateProduct.featuredImage !== '' && (
-                        <>
-                          <Image
-                            className='block'
-                            src={updateProduct?.featuredImage}
-                            alt='featured_image'
-                            // width={250}
-                            // height={250}
-                            objectFit='contain'
-                            layout='fill'
-                          />
-                          <button
-                            type='button'
-                            aria-label='delete featured image'
-                            onClick={deleteImage}
-                            className=''>
-                            <Delete />
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
+                  <EditFeaturedImage />
                 </div>
               </div>
             </div>

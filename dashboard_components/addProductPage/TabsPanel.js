@@ -10,7 +10,7 @@ import ConstructionIcon from '@mui/icons-material/Construction';
 import ProductGeneral from './ProductGeneral';
 import ProductInventory from './ProductInventory';
 
-function TabsPanel() {
+function TabsPanel({ setProductData, productData }) {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {

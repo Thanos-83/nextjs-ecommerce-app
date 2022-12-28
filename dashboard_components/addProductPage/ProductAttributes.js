@@ -32,7 +32,7 @@ function ProductAttributes() {
 
   const handleAddAttribute = () => {
     if (value !== '') {
-      if (!addedAttributes.find((attr) => attr._id === value._id)) {
+      if (!addedAttributes?.find((attr) => attr._id === value._id)) {
         // dispatch(addAttribute(value));
         dispatch(updateProductAttribute(value));
       } else {

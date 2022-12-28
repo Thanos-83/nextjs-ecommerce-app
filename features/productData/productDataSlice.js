@@ -1,7 +1,20 @@
 import { createSlice, current } from '@reduxjs/toolkit';
 
 const initialState = {
-  productData: {},
+  productData: {
+    name: '',
+    slug: '',
+    featuredImage: '',
+    description: '',
+    shortDescription: '',
+    sku: '',
+    brand: '',
+    price: 0,
+    category: '',
+    user: '',
+    attributes: [],
+    isFeatured: false,
+  },
 };
 
 export const productDataSlice = createSlice({
@@ -10,23 +23,37 @@ export const productDataSlice = createSlice({
   reducers: {
     initializeProductData: (state, action) => {
       // console.log(action.payload);
-      state.productData = {
-        name: action.payload.name,
-        featuredImage: action.payload.featuredImage,
-        description: action.payload.description,
-        shortDescription: action.payload.shortDescription,
-        sku: action.payload.sku,
-        brand: action.payload.brand,
-        price: action.payload.price.toFixed(2),
-        category: action.payload.category,
-        user: action.payload.user,
-        attributes: action.payload.attributes,
-        isFeatured: action.payload.isFeatured,
-      };
-    },
-
-    updateProductData: (state, action) => {
-      console.log(action.payload);
+      if (action.payload) {
+        state.productData = {
+          ...state.productData,
+          name: action.payload.name,
+          featuredImage: action.payload.featuredImage,
+          description: action.payload.description,
+          shortDescription: action.payload.shortDescription,
+          sku: action.payload.sku,
+          brand: action.payload.brand,
+          price: action.payload.price.toFixed(2),
+          category: action.payload.category,
+          user: action.payload.user,
+          attributes: action.payload.attributes,
+          isFeatured: action.payload.isFeatured,
+        };
+      } else {
+        state.productData = {
+          ...state.productData,
+          name: '',
+          featuredImage: '',
+          description: '',
+          shortDescription: '',
+          sku: '',
+          brand: '',
+          price: 0,
+          category: '',
+          user: '',
+          attributes: [],
+          isFeatured: false,
+        };
+      }
     },
     removeAttribute: (state, action) => {
       // alert('payload: ', action);
@@ -49,6 +76,9 @@ export const productDataSlice = createSlice({
         ...state.productData.attributes,
         action.payload,
       ];
+    },
+    resetAttributes: (state) => {
+      state.productData.attributes = [];
     },
     updateAttributeTerms: (state, action) => {
       console.log(action.payload);
@@ -112,6 +142,18 @@ export const productDataSlice = createSlice({
         isFeatured: action.payload,
       };
     },
+    updatePrice: (state, action) => {
+      state.productData = {
+        ...state.productData,
+        price: action.payload,
+      };
+    },
+    updateSku: (state, action) => {
+      state.productData = {
+        ...state.productData,
+        sku: action.payload,
+      };
+    },
   },
 });
 
@@ -120,6 +162,7 @@ export const {
   initializeProductData,
   removeAttribute,
   updateProductAttribute,
+  resetAttributes,
   updateName,
   updateBrand,
   updateCategory,
@@ -128,6 +171,8 @@ export const {
   updateDescription,
   updateShortDescription,
   updateIsFeatured,
+  updatePrice,
+  updateSku,
 } = productDataSlice.actions;
 
 export default productDataSlice.reducer;

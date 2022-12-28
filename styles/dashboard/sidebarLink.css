@@ -6,9 +6,9 @@
   @apply flex items-center px-2 hover:bg-[#EBEFFD] hover:rounded-md;
 }
 
-.sidebar_link.sidebar_activeLink > div:first-child {
+/* .sidebar_link.sidebar_activeLink > div:first-child {
   @apply border border-[#6d8af4] rounded-md;
-}
+} */
 
 .sidebar_link.sidebar_activeLink > div > svg,
 .sidebar_link.sidebar_activeLink > div > a > p,
@@ -28,7 +28,7 @@
 
 .sidebar_link > div > a,
 .sidebar_link > div > button {
-  @apply flex items-center justify-between py-4  flex-1;
+  @apply flex items-center justify-between py-2  flex-1;
 }
 
 .sidebar_link > div > a > p,

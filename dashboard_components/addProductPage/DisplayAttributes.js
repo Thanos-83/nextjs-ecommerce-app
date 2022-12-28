@@ -13,7 +13,7 @@ function DisplayAttributes() {
   return (
     <div>
       <ul className='space-y-4'>
-        {addedAttributes.length > 0 &&
+        {addedAttributes?.length > 0 &&
           addedAttributes.map((attribute) => (
             <ProductAttribute key={attribute._id} attribute={attribute} />
           ))}

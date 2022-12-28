@@ -19,10 +19,6 @@ function ProductAttribute({ attribute }) {
     dispatch(removeAttribute(id));
   };
 
-  // const updateAttributeTerms = (terms, attributeID) => {
-  //   alert(attributeID);
-  // };
-
   return (
     <li key={attribute._id}>
       <Accordion key={attribute._id}>

@@ -22,6 +22,7 @@ function ProductsTableRow({
                   src={`${row?.cells[1].value}`}
                   layout='fill'
                   alt='product image'
+                  objectFit='contain'
                 />
               ) : (
                 <Image

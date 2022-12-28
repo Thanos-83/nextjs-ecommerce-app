@@ -2,15 +2,19 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { updatePrice } from '../../features/productData/productDataSlice';
 function ProductGeneralInfo() {
-  const [priceValue, setPriceValue] = useState(0);
+  // const [priceValue, setPriceValue] = useState(0);
+  const dispatch = useDispatch();
   const productData = useSelector((state) => state.productData.productData);
   const handleProductPrice = (e) => {
     // setProductData({
     //   ...productData,
     //   price: parseFloat(e.target.value),
     // });
+
+    console.log(e.target.value);
+    dispatch(updatePrice(parseFloat(e.target.value)));
     console.log(typeof productData.price);
   };
   return (

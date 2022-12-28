@@ -21,7 +21,9 @@ function EditProductCategory() {
       })
       .catch((error) => console.log(error));
   }, []);
-  useEffect;
+
+  console.log(updateProduct?.category);
+
   return (
     <div className='product_category addProduct_formWrapper'>
       <h1>Parent Category</h1>
@@ -31,7 +33,7 @@ function EditProductCategory() {
         placeholder='Choose a category'
         autoHighlight
         size='small'
-        defaultValue={updateProduct?.category}
+        defaultValue={updateProduct?.category ? 'skata' : ''}
         options={optionsList || []}
         isOptionEqualToValue={(option, value) => option?.name === value?.name}
         getOptionLabel={(option) => option?.name}

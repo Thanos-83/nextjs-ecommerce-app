@@ -16,12 +16,20 @@ import MuiAlert from '@mui/material/Alert';
 import { Button, Dialog, TextField } from '@mui/material';
 
 import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
-import ProductVisibility from '../../../../../dashboard_components/addProductPage/ProductVisibility';
-import ProductTags from '../../../../../dashboard_components/addProductPage/ProductTags';
-import ProductCategroy from '../../../../../dashboard_components/addProductPage/ProductCategory';
-import { resetAttributes } from '../../../../../features/productAttributes/productAttributesSlice';
+import EditProductVisibility from '../../../../../dashboard_components/editProductPage/EditProductVisibility';
+import EditProductTags from '../../../../../dashboard_components/editProductPage/EditProductTags';
+import EditProductCategroy from '../../../../../dashboard_components/editProductPage/EditProductCategory';
+
+import { initializeProductData } from '../../../../../features/productData/productDataSlice';
+import EditName from '../../../../../dashboard_components/editProductPage/EditName';
+import EditBrandname from '../../../../../dashboard_components/editProductPage/EditBrandname';
 import { useDispatch, useSelector } from 'react-redux';
 import { Delete } from '@mui/icons-material';
+import EditDescription from '../../../../../dashboard_components/editProductPage/EditDescription';
+import EditShortDescription from '../../../../../dashboard_components/editProductPage/EditShortDescription';
+import EditSlug from '../../../../../dashboard_components/editProductPage/EditSlug';
+import EditFeaturedImage from '../../../../../dashboard_components/editProductPage/EditFeaturedImage';
+import { updateFeaturedImage } from '../../../../../features/productData/productDataSlice';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -33,9 +41,7 @@ cloudinary.config({
 });
 
 function AddProduct() {
-  const productAttributes = useSelector(
-    (state) => state.productAttributes.attributes
-  );
+  const productData = useSelector((state) => state.productData.productData);
   const router = useRouter();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +50,7 @@ function AddProduct() {
   const [imageGallery, setImageGallery] = useState([]);
   const [nextCursor, setNextCursor] = useState(null);
   const [totalImages, setTotalImages] = useState(0);
+  const [activeImage, setActiveImage] = useState('');
 
   const [open, setOpen] = React.useState(false);
 
@@ -82,35 +89,6 @@ function AddProduct() {
       });
   };
 
-  const handleEditorText = (text) => {
-    setProductData({ ...productData, textEditor: text });
-  };
-  const [productData, setProductData] = useState({
-    textEditor: '',
-    user: '',
-    sku: '',
-    name: '',
-    // type: '',
-    isFeatured: false,
-    featuredImage: '',
-    // imageGallery,
-    brand: '',
-    category: '',
-    description: '',
-    shortDescription: '',
-    // tags,
-    // reviews,
-    // rating,
-    // numReviews,
-    price: 0,
-    // salesPrice,
-    // crossSells,
-    // upSells,
-    // countInStock,
-    // inStock,
-    attributes: [],
-  });
-
   useEffect(() => {
     axios
       .get('/api/cloudinary', {
@@ -135,13 +113,23 @@ function AddProduct() {
       });
   }, []);
 
+  useEffect(() => {
+    dispatch(initializeProductData());
+  }, []);
+
+  const handleUpdateImage = (event, image) => {
+    setActiveImage(image.asset_id);
+    dispatch(updateFeaturedImage(image.secure_url));
+  };
+
   const deleteImage = async (e) => {
-    setProductData({ ...productData, featuredImage: '' });
+    setActiveImage(null);
+    dispatch(deleteFeaturedImage());
   };
 
   const handleAddProduct = async (e) => {
     e.preventDefault();
-    // console.log('Product Data Attrs: ', productData.attributes);
+    console.log(productData);
     const product = {
       name: productData.name,
       featuredImage: productData.featuredImage,
@@ -152,7 +140,7 @@ function AddProduct() {
       price: productData.price.toFixed(2),
       category: productData.category,
       user: session.user.id,
-      attributes: productAttributes,
+      attributes: productData.attributes,
       isFeatured: productData.isFeatured,
     };
     console.log('Product: ', product);
@@ -175,7 +163,7 @@ function AddProduct() {
         productData.shortDescription = '';
         productData.price = 0.0;
         productData.attributes = [];
-        dispatch(resetAttributes());
+        // dispatch(resetAttributes());
       })
       .catch((err) => {
         console.log(err);
@@ -203,12 +191,8 @@ function AddProduct() {
             {imageGallery?.map((image) => (
               <li
                 key={image.asset_id}
-                onClick={() =>
-                  setProductData({
-                    ...productData,
-                    featuredImage: image.secure_url,
-                  })
-                }>
+                className={activeImage === image.asset_id && 'activeImage'}
+                onClick={(event) => handleUpdateImage(event, image)}>
                 <div className='relative'>
                   <Image
                     src={image.secure_url}
@@ -248,11 +232,7 @@ function AddProduct() {
       <div className='addProduct_wrapper'>
         <DashboardBreadcrumb path={router.pathname} />
 
-        <form
-          action='POST'
-          // onSubmit={handleAddProduct}
-          className='addProduct_form mb-24'
-          id='productForm'>
+        <form className='addProduct_form mb-24' id='productForm'>
           <div className='addProduct_form-header'>
             <h1 className='text-3xl font-semibold'>Add Product</h1>
             <LoadingButton
@@ -271,137 +251,24 @@ function AddProduct() {
               <div className='addProduct_info addProduct_formWrapper'>
                 <h1>Basic Info</h1>
                 <div className='product_nameInfo'>
-                  <div className='product_name flex flex-col my-4'>
-                    <label htmlFor='productName'>Name</label>
-                    <TextField
-                      fullWidth
-                      type='text'
-                      size='small'
-                      name='productName'
-                      id='productName'
-                      value={productData.name}
-                      placeholder='Product Name'
-                      onChange={(e) =>
-                        setProductData({ ...productData, name: e.target.value })
-                      }
-                      inputProps={{ 'aria-label': 'add product name' }}
-                    />
-                  </div>
-
-                  <div className='product_brandname flex flex-col my-4'>
-                    <label htmlFor='productBrandname'>Brandname</label>
-                    <TextField
-                      fullWidth
-                      type='text'
-                      size='small'
-                      name='productBrandname'
-                      id='productBrandname'
-                      value={productData.brand}
-                      placeholder='Product Brandname'
-                      onChange={(e) =>
-                        setProductData({
-                          ...productData,
-                          brand: e.target.value,
-                        })
-                      }
-                      inputProps={{ 'aria-label': 'add product brand' }}
-                    />
-                  </div>
+                  <EditName />
+                  <EditBrandname />
                 </div>
-                <div className='product_slug flex flex-col my-4'>
-                  <label htmlFor='productSlug'>Slug</label>
-                  <div className='productInput_slug'>
-                    <span>https://example.com/products/</span>
-                    <TextField
-                      fullWidth
-                      type='text'
-                      size='small'
-                      id='productSlug'
-                      name='productSlug'
-                      value={productData.name.replace(/\s/g, '-').toLowerCase()}
-                      placeholder='Product Slug'
-                      InputProps={{
-                        readOnly: true,
-                        'aria-label': 'product slug',
-                      }}
-                    />
-                  </div>
-                  <p className='slug_helperText'>
-                    Unique human-readable product identifier. It is filled
-                    automatically
-                  </p>
-                </div>
-                <TextEditor handleText={handleEditorText} />
-                <div className='product_description'>
-                  <label htmlFor='productFullDescription'>
-                    Full Description
-                  </label>
-                  <TextField
-                    multiline
-                    rows={8}
-                    // maxRows={10}
-                    fullWidth
-                    placeholder='Add product complete description'
-                    value={productData.description}
-                    name='productFullDescription'
-                    id='productFullDescription'
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        description: e.target.value,
-                      })
-                    }
-                    inputProps={{
-                      'aria-label': 'add product full description',
-                    }}
-                  />
-                </div>
-                <div className='product_shortDescription'>
-                  <label htmlFor='productDescription'>Short Description</label>
-                  <TextField
-                    multiline
-                    rows={5}
-                    // maxRows={10}
-                    fullWidth
-                    placeholder='Add product short description'
-                    value={productData.shortDescription}
-                    name='shortDescription'
-                    id='productDescription'
-                    onChange={(e) =>
-                      setProductData({
-                        ...productData,
-                        shortDescription: e.target.value,
-                      })
-                    }
-                    inputProps={{
-                      'aria-label': 'add product short description',
-                    }}
-                  />
-                </div>
+                <EditSlug />
+                <EditDescription />
+                <EditShortDescription />
               </div>
               <div className='addProduct_data addProduct_formWrapper'>
                 <h1>Product Data</h1>
                 <div className='product_data flex my-8'>
-                  <TabsPanel
-                    setProductData={setProductData}
-                    productData={productData}
-                  />
+                  <TabsPanel />
                 </div>
               </div>
             </div>
             <div className='addProduct_form-right'>
-              <ProductVisibility
-                productData={productData}
-                setProductData={setProductData}
-              />
-              <ProductCategroy
-                productData={productData}
-                setProductData={setProductData}
-              />
-              <ProductTags
-                productData={productData}
-                setProductData={setProductData}
-              />
+              <EditProductVisibility />
+              <EditProductCategroy />
+              <EditProductTags />
               <div className='featured_image addProduct_formWrapper'>
                 <h1>Featured Image</h1>
                 <div className='featured_imageWrapper'>
@@ -410,30 +277,7 @@ function AddProduct() {
                       Set featured image
                     </Button>
                   </div>
-                  <div className='featured_imageDisplay'>
-                    <div className='featuredImgWrapper'>
-                      {productData.featuredImage !== '' && (
-                        <>
-                          <Image
-                            className='block'
-                            src={productData.featuredImage}
-                            alt='featured_image'
-                            // width={250}
-                            // height={250}
-                            objectFit='contain'
-                            layout='fill'
-                          />
-                          <button
-                            type='button'
-                            aria-label='delete featured image'
-                            onClick={deleteImage}
-                            className=''>
-                            <Delete />
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
+                  <EditFeaturedImage />
                 </div>
               </div>
             </div>

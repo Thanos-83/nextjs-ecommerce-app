@@ -14,10 +14,11 @@ export default async function categoriesActions(req, res) {
       try {
         const categories = await Category.find().populate({
           path: 'products',
-          select: '_id name',
+          // select: '_id name',
           model: Product,
         });
-        res.status(200).json(categories);
+        console.log(categories);
+        res.status(200).json({ categories: categories });
       } catch (error) {
         res.status(400).json({ error: error.message });
       }

@@ -17,8 +17,8 @@ export default async function categoriesActions(req, res) {
           // select: '_id name',
           model: Product,
         });
-        console.log(categories);
-        res.status(200).json({ categories: categories });
+        // console.log(categories);
+        res.status(200).json(categories);
       } catch (error) {
         res.status(400).json({ error: error.message });
       }

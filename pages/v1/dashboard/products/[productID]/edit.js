@@ -264,17 +264,20 @@ function EditProduct({ product }) {
 
 export default EditProduct;
 
-export async function getServerSideProps(context) {
-  console.log(context.query.productID);
-
+export async function getServerSideProps({ query }) {
+  // console.log(context.query.productID);
+  // res.setHeader(
+  //   'Cache-Control',
+  //   'public, s-maxage=10, stale-while-revalidate=59'
+  // );
   const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${context.query.productID}`
+    `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
   );
 
   // console.log(response);
-  const product = response.data.product;
+  // const product = response.data.product;
 
   return {
-    props: { product },
+    props: { product: response.data.product },
   };
 }

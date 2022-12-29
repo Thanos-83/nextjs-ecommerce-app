@@ -15,7 +15,9 @@ function ProductsTableRow({
       <span>{row?.cells[0].render('Cell')}</span>
       <div className='productsData_product flex items-center'>
         <div className='productData_img'>
-          <Link href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
+          <Link
+            href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}
+            shallow>
             <a>
               {row?.cells[1].value !== '' ? (
                 <Image
@@ -35,7 +37,9 @@ function ProductsTableRow({
           </Link>
         </div>
         <div className='productData_info'>
-          <Link href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
+          <Link
+            shallow
+            href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
             {row?.cells[2].value}
           </Link>
           <p className='productData_sku'>
@@ -63,7 +67,9 @@ function ProductsTableRow({
         {/* <button type='button'>
           <MoreVertIcon />
         </button> */}
-        <Link href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
+        <Link
+          shallow
+          href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
           <a>
             <Edit />
           </a>

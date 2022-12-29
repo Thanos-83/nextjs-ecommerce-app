@@ -1,10 +1,11 @@
 export const nestedCategories = (categories, parentId = null) => {
   const categoryList = [];
   let category;
+  // console.log('Nested Categories: ', categories.categories);
   if (parentId == null) {
-    category = categories.filter((cat) => cat.parent == null);
+    category = categories?.filter((cat) => cat.parent == null);
   } else {
-    category = categories.filter(
+    category = categories?.filter(
       (cat) => String(cat.parent) == String(parentId)
     );
   }

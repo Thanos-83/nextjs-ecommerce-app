@@ -38,10 +38,10 @@ export async function getServerSideProps() {
   const categories = await axios.get(
     `${process.env.NEXT_PUBLIC_URL}/api/dashboard/categories`
   );
-  // console.log('Categories: ', categories.data.categories);
+  console.log('Categories: ', categories.data);
   return {
     props: {
-      categories: categories.data.categories,
+      categories: categories.data,
     },
   };
 }

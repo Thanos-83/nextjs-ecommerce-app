@@ -7,9 +7,8 @@ import Image from 'next/image';
 function SingleProduct() {
   const router = useRouter();
   const [singleProduct, setSingleProduct] = useState(null);
-  const paramsLength = router.query.productParams.length;
-  const productSku = router.query.productParams[paramsLength - 1];
-  console.log(productSku);
+  const productSku = router.query.productParams?.slice(-1)[0];
+  // console.log(productSku);
 
   useEffect(() => {
     axios

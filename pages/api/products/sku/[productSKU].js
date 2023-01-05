@@ -18,7 +18,7 @@ export default async function productActionsById(req, res) {
     // @access  Public
     case 'GET':
       try {
-        console.log(productSKU);
+        console.log('Product SKU: ', productSKU);
         const product = await Product.findOne({ sku: productSKU })
           .populate({
             path: 'category',
@@ -37,7 +37,7 @@ export default async function productActionsById(req, res) {
           throw new Error('Product NOT found!');
         }
 
-        res.status(200).json({ msg: 'product found', product });
+        res.status(200).json({ msg: 'Single Product Found', product });
       } catch (error) {
         res.status(400).json({ errorMsg: error.message });
       }

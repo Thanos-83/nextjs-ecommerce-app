@@ -71,8 +71,24 @@ export default async function productActionsById(req, res) {
           // inStock,
           attributes,
         } = req.body.product;
+        console.log('category 1: ', productToUpdate.category._id.valueOf());
+        console.log('category 2: ', category);
+        console.log(productToUpdate.category._id.valueOf() !== category);
+        if (productToUpdate.category._id.valueOf() !== category) {
+          const findCategory = await Category.findById(
+            productToUpdate.category._id.valueOf()
+          );
+          console.log('Cat products: ', findCategory.products);
+          const newCategoryProducts = findCategory.products.filter(
+            (product) => product.valueOf() !== productId
+          );
+          findCategory.products = newCategoryProducts;
+          findCategory.save();
+          const singleCategory = await Category.findById(category);
+          singleCategory.products = [...singleCategory.products, productId];
 
-        const singleCategory = await Category.findById(category);
+          singleCategory.save();
+        }
 
         if (!productToUpdate) {
           throw new Error('Product NOT found!');
@@ -91,14 +107,7 @@ export default async function productActionsById(req, res) {
         productToUpdate.attributes = attributes;
 
         const updatedProduct = await productToUpdate.save();
-        if (!singleCategory.products.includes(productId)) {
-          singleCategory.products = [
-            ...singleCategory.products,
-            updatedProduct._id,
-          ];
-        }
 
-        singleCategory.save();
         res
           .status(200)
           .json({ msg: 'Product updated', product: updatedProduct });

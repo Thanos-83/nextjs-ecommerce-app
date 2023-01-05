@@ -3,11 +3,14 @@ import RowContainer from '../../../components/design_components/RowContainer';
 import Layout from '../../../components/Layout';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 import axios from 'axios';
 function ShopByCategories({ products }) {
   const router = useRouter();
   console.log(router.query);
-  console.log('Products: ', products);
+  const productLink = router.query.shopCategories.join().replaceAll(',', '/');
+  // console.log(productLink);
+  // console.log('Products: ', products);
   return (
     <Layout>
       <RowContainer>
@@ -22,7 +25,22 @@ function ShopByCategories({ products }) {
                   alt='featured image'
                 />
               </div>
-              {product.name}
+              <p>
+                <Link
+                  href={`/products/${productLink}/${product.name.replaceAll(
+                    ' ',
+                    '-'
+                  )}/${product.sku}`}>
+                  {product.name}
+                </Link>
+              </p>
+              {product?.attributes.length > 0 ? (
+                <Link href={'#'}>
+                  <a> Select </a>
+                </Link>
+              ) : (
+                <button>Add to cart </button>
+              )}
             </li>
           ))}
         </ul>
@@ -35,7 +53,7 @@ export default ShopByCategories;
 
 export async function getServerSideProps(context) {
   // const router = useRouter();
-  console.log('getSSP: ', context.query.shopCategories[0]);
+  // console.log('getSSP: ', context.query.shopCategories[0]);
 
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${context.query.shopCategories[0]}`

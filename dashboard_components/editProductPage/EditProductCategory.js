@@ -9,20 +9,19 @@ import { updateCategory } from '../../features/productData/productDataSlice';
 function EditProductCategory() {
   const dispatch = useDispatch();
   const updateProduct = useSelector((state) => state.productData.productData);
-  // console.log(updateProduct.category);
+
   const [optionsList, setOptionsList] = useState([]);
   useEffect(() => {
     axios
       .get('/api/dashboard/categories')
       .then((res) => {
+        console.log('iam here...');
         const flattenList = nestedCategories(res.data);
         const list = listCategories(flattenList);
         setOptionsList(list);
       })
       .catch((error) => console.log(error));
   }, []);
-
-  console.log(updateProduct?.category);
 
   return (
     <div className='product_category addProduct_formWrapper'>
@@ -33,7 +32,7 @@ function EditProductCategory() {
         placeholder='Choose a category'
         autoHighlight
         size='small'
-        defaultValue={updateProduct?.category ? 'skata' : ''}
+        defaultValue={updateProduct.category}
         options={optionsList || []}
         isOptionEqualToValue={(option, value) => option?.name === value?.name}
         getOptionLabel={(option) => option?.name}

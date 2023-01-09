@@ -18,7 +18,7 @@ export default async function productActionsById(req, res) {
     // @access  Public
     case 'GET':
       try {
-        console.log('Product SKU: ', productSKU);
+        // console.log('Product SKU: ', productSKU);
         const product = await Product.findOne({ sku: productSKU })
           .populate({
             path: 'category',
@@ -32,6 +32,8 @@ export default async function productActionsById(req, res) {
               model: Terms,
             },
           });
+
+        // console.log('Server Product: ', product);
 
         if (!product) {
           throw new Error('Product NOT found!');

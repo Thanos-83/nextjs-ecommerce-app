@@ -5,12 +5,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['res.cloudinary.com', 'picsum.photos'],
+    domains: ['res.cloudinary.com', 'picsum.photos', 'via.placeholder.com'],
   },
   // webpack5: true,
   webpack: (config) => {
     config.resolve.fallback = { fs: false };
-
     return config;
   },
 

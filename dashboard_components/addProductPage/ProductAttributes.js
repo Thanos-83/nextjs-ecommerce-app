@@ -49,7 +49,7 @@ function ProductAttributes() {
         <Autocomplete
           id='product attributes'
           options={productAttributesOptions}
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => option?.name || ''}
           onChange={(event, newValue) => {
             if (newValue) {
               setValue(newValue);

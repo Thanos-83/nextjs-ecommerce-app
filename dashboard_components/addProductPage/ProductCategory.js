@@ -31,8 +31,8 @@ function ProductCategory({ productData, setProductData }) {
         autoHighlight
         size='small'
         options={optionsList || []}
-        isOptionEqualToValue={(option, value) => option?.name === value?.name}
-        getOptionLabel={(option) => option.name}
+        // isOptionEqualToValue={(option, value) => option?.name === value?.name}
+        getOptionLabel={(option) => (option?.name ? option.name : '')}
         renderOption={(props, option, { selected, inputValue }) => {
           return (
             <li {...props} className='cursor-pointer' key={option._id}>

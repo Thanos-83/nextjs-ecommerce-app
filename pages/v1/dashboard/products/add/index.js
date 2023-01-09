@@ -29,7 +29,11 @@ import EditDescription from '../../../../../dashboard_components/editProductPage
 import EditShortDescription from '../../../../../dashboard_components/editProductPage/EditShortDescription';
 import EditSlug from '../../../../../dashboard_components/editProductPage/EditSlug';
 import EditFeaturedImage from '../../../../../dashboard_components/editProductPage/EditFeaturedImage';
-import { updateFeaturedImage } from '../../../../../features/productData/productDataSlice';
+import {
+  updateFeaturedImage,
+  updateImageGallery,
+} from '../../../../../features/productData/productDataSlice';
+import ImageGallery from '../../../../../dashboard_components/addProductPage/ImageGallery';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -51,8 +55,8 @@ function AddProduct() {
   const [nextCursor, setNextCursor] = useState(null);
   const [totalImages, setTotalImages] = useState(0);
   const [activeImage, setActiveImage] = useState('');
-
-  const [open, setOpen] = React.useState(false);
+  const [imageGalleryIndex, setImageGalleryIndex] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -118,13 +122,20 @@ function AddProduct() {
   }, []);
 
   const handleUpdateImage = (event, image) => {
+    // console.log(event.target);
     setActiveImage(image.asset_id);
     dispatch(updateFeaturedImage(image.secure_url));
   };
 
+  const handleUpdateImageGallery = (imageIndex, image) => {
+    alert('clicked...');
+    dispatch(updateImageGallery({ index: imageIndex, src: image.secure_url }));
+    setImageGalleryIndex(null);
+  };
+
   const deleteImage = async (e) => {
     setActiveImage(null);
-    dispatch(deleteFeaturedImage());
+    // dispatch(deleteFeaturedImage());
   };
 
   const handleAddProduct = async (e) => {
@@ -133,6 +144,7 @@ function AddProduct() {
     const product = {
       name: productData.name,
       featuredImage: productData.featuredImage,
+      imageGallery: productData.imageGallery,
       description: productData.description,
       shortDescription: productData.shortDescription,
       sku: productData.sku,
@@ -156,6 +168,7 @@ function AddProduct() {
         productData.sku = '';
         productData.name = '';
         productData.featuredImage = '';
+        productData.imageGallery = Array.apply('', Array(6));
         productData.isFeatured = false;
         productData.brand = '';
         productData.category = '';
@@ -171,6 +184,12 @@ function AddProduct() {
       });
   };
 
+  const uploadImage = (num) => {
+    alert(num);
+    setImageGalleryIndex(num);
+    handleClickOpen();
+  };
+  console.log(imageGalleryIndex);
   return (
     <DashboardLayout>
       <Snackbar
@@ -192,7 +211,11 @@ function AddProduct() {
               <li
                 key={image.asset_id}
                 className={activeImage === image.asset_id && 'activeImage'}
-                onClick={(event) => handleUpdateImage(event, image)}>
+                onClick={
+                  imageGalleryIndex === null
+                    ? (event) => handleUpdateImage(event, image)
+                    : () => handleUpdateImageGallery(imageGalleryIndex, image)
+                }>
                 <div className='relative'>
                   <Image
                     src={image.secure_url}
@@ -264,6 +287,7 @@ function AddProduct() {
                   <TabsPanel />
                 </div>
               </div>
+              <ImageGallery uploadImage={uploadImage} />
             </div>
             <div className='addProduct_form-right'>
               <EditProductVisibility />

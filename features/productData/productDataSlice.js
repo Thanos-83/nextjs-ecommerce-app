@@ -5,6 +5,7 @@ const initialState = {
     name: '',
     slug: '',
     featuredImage: '',
+    imageGallery: Array.apply('', Array(6)),
     description: '',
     shortDescription: '',
     sku: '',
@@ -28,6 +29,7 @@ export const productDataSlice = createSlice({
           ...state.productData,
           name: action.payload.name,
           featuredImage: action.payload.featuredImage,
+          imageGallery: action.payload.imageGallery,
           description: action.payload.description,
           shortDescription: action.payload.shortDescription,
           sku: action.payload.sku,
@@ -43,6 +45,7 @@ export const productDataSlice = createSlice({
           ...state.productData,
           name: '',
           featuredImage: '',
+          imageGallery: Array.apply('', Array(6)),
           description: '',
           shortDescription: '',
           sku: '',
@@ -142,6 +145,11 @@ export const productDataSlice = createSlice({
         isFeatured: action.payload,
       };
     },
+    updateImageGallery: (state, action) => {
+      console.log(action.payload);
+      state.productData.imageGallery[action.payload.index - 1] =
+        action.payload.src;
+    },
     updatePrice: (state, action) => {
       state.productData = {
         ...state.productData,
@@ -167,6 +175,7 @@ export const {
   updateBrand,
   updateCategory,
   updateFeaturedImage,
+  updateImageGallery,
   deleteFeaturedImage,
   updateDescription,
   updateShortDescription,

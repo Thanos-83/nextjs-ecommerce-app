@@ -9,6 +9,7 @@ import { updateCategory } from '../../features/productData/productDataSlice';
 function EditProductCategory() {
   const dispatch = useDispatch();
   const updateProduct = useSelector((state) => state.productData.productData);
+  const [value, setValue] = useState('');
 
   const [optionsList, setOptionsList] = useState([]);
   useEffect(() => {
@@ -32,10 +33,11 @@ function EditProductCategory() {
         placeholder='Choose a category'
         autoHighlight
         size='small'
+        value={value || null}
         defaultValue={updateProduct.category}
         options={optionsList || []}
         isOptionEqualToValue={(option, value) => option?.name === value?.name}
-        getOptionLabel={(option) => option?.name}
+        getOptionLabel={(option) => (option?.name ? option.name : '')}
         renderOption={(props, option, { selected, inputValue }) => {
           return (
             <li {...props} className='cursor-pointer' key={option._id}>
@@ -45,6 +47,7 @@ function EditProductCategory() {
           );
         }}
         onChange={(event, value) => {
+          setValue(value);
           dispatch(updateCategory(value?._id));
           console.log(value);
         }}

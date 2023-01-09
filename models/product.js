@@ -60,11 +60,7 @@ const productSchema = new mongoose.Schema(
       type: String,
       // required: true,
     },
-    imageGallery: {
-      type: [],
-      required: false,
-      default: [],
-    },
+    imageGallery: [String],
     brand: {
       type: String,
       // required: true,
@@ -136,6 +132,7 @@ const productSchema = new mongoose.Schema(
         ref: 'Attributes',
       },
     ],
+    variations: [],
   },
   {
     timestamps: true,

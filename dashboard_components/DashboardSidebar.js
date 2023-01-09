@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 const submenuProducts = [
   { text: 'Add New', link: '/v1/dashboard/products/add' },
-  { text: 'Products', link: '/v1/dashboard/products' },
+  { text: 'All Products', link: '/v1/dashboard/products' },
   { text: 'Categories', link: '/v1/dashboard/products/categories' },
   { text: 'Attributes', link: '/v1/dashboard/products/attributes' },
   { text: 'Tags', link: '/v1/dashboard/products/tags' },
@@ -43,7 +43,7 @@ function SidebarNav() {
               text='Products'
               Icon={Inventory2Icon}
               Expand={KeyboardArrowDownIcon}
-              link='/v1/dashboard/products'
+              link='#'
               isParent={true}
               submenu={submenuProducts}
               onExpand={handleExpand}

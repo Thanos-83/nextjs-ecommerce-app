@@ -17,7 +17,7 @@ function ProductsTableRow({
         <div className='productData_img'>
           <Link
             href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}
-            shallow>
+            passHref={true}>
             <a>
               {row?.cells[1].value !== '' ? (
                 <Image
@@ -38,9 +38,9 @@ function ProductsTableRow({
         </div>
         <div className='productData_info'>
           <Link
-            shallow
+            passHref={true}
             href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
-            {row?.cells[2].value}
+            <a>{row?.cells[2].value}</a>
           </Link>
           <p className='productData_sku'>
             <span>SKU:</span> {row?.cells[8].value}
@@ -68,7 +68,7 @@ function ProductsTableRow({
           <MoreVertIcon />
         </button> */}
         <Link
-          shallow
+          passHref={true}
           href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
           <a>
             <Edit />

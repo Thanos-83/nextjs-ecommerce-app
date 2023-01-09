@@ -123,7 +123,8 @@
 .featured_image > h1,
 .addProduct_visibilityInfo > h1,
 .product_category > h1,
-.product_tags > h1 {
+.product_tags > h1,
+.addProduct_imageGallery > h1 {
   @apply mb-6 font-semibold text-2xl;
 }
 
@@ -160,6 +161,27 @@
 }
 
 .featuredImgWrapper > button > svg {
+  @apply w-6 h-6 text-rose-800;
+}
+
+/* image gallery */
+.imageGalleryWrapper {
+  @apply flex flex-wrap gap-4;
+}
+
+.imageGalleryWrapper > div {
+  @apply relative p-2 w-48 h-48 border-2 border-dashed;
+}
+
+.imageGalleryWrapper > div > div {
+  @apply absolute bottom-0 right-0;
+}
+
+.imageGalleryWrapper > div > button {
+  @apply absolute bottom-0 right-0;
+}
+
+.imageGalleryWrapper > button > svg {
   @apply w-6 h-6 text-rose-800;
 }
 

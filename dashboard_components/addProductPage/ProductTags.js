@@ -18,7 +18,7 @@ function ProductTags({ productData, setProductData }) {
           (option, value) => option?.name === value?.name
           // console.log(option)
         }
-        getOptionLabel={(option) => option?.name}
+        getOptionLabel={(option) => option?.name || ''}
         renderOption={(props, option, { selected, inputValue }) => {
           return (
             <li {...props} className='cursor-pointer' key={option._id}>

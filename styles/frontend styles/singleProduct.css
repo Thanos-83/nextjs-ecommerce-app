@@ -1,0 +1,35 @@
+.singleProductTop {
+  @apply flex-col sm:flex-row flex gap-8;
+}
+
+.singleProductTop_left {
+  @apply w-full sm:w-2/5;
+}
+
+.singleProductTop_right {
+  @apply w-full sm:w-3/5;
+}
+
+.swiper-slide {
+  @apply flex justify-center;
+}
+
+.thumbsContainer {
+  @apply mt-2;
+}
+
+.thumbsContainer > .swiper {
+  @apply cursor-grab pb-4;
+}
+
+.thumbs_wrapper {
+  @apply rounded-sm overflow-hidden;
+}
+
+.thumbs_wrapper > span {
+  @apply !block;
+}
+
+.sliderContainer > .slider_wrapper {
+  @apply cursor-grab rounded-sm;
+}

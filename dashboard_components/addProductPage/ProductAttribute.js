@@ -58,7 +58,7 @@ function ProductAttribute({ attribute }) {
                 (option, value) => option.slug === value.slug
                 // console.log(value)
               }
-              getOptionLabel={(option) => option?.slug}
+              getOptionLabel={(option) => option?.slug || ''}
               renderOption={(props, option, { selected, inputValue }) => {
                 // console.log(option);
                 return (

@@ -9,8 +9,11 @@ function ShopByCategories({ products }) {
   const router = useRouter();
   console.log(router.query);
   const productLink = router.query.shopCategories.join().replaceAll(',', '/');
-  // console.log(productLink);
-  // console.log('Products: ', products);
+  const handleAddToCart = (productID) => {
+    alert('clicked');
+    document.cookie(`productID = ${productID}`);
+  };
+
   return (
     <Layout>
       <RowContainer>
@@ -35,11 +38,17 @@ function ShopByCategories({ products }) {
                 </Link>
               </p>
               {product?.attributes.length > 0 ? (
-                <Link href={'#'}>
+                <Link
+                  href={`/products/${productLink}/${product.name.replaceAll(
+                    ' ',
+                    '-'
+                  )}/${product.sku}`}>
                   <a> Select </a>
                 </Link>
               ) : (
-                <button>Add to cart </button>
+                <button onClick={() => handleAddToCart(product._id)}>
+                  Add to cart
+                </button>
               )}
             </li>
           ))}

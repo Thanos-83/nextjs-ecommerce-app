@@ -17,6 +17,7 @@ import {
   initializeProductData,
   updateFeaturedImage,
   deleteFeaturedImage,
+  updateImageGallery,
   updateDescription,
   updateShortDescription,
 } from '../../../../../features/productData/productDataSlice';
@@ -32,6 +33,7 @@ import EditSlug from '../../../../../dashboard_components/editProductPage/EditSl
 import EditFeaturedImage from '../../../../../dashboard_components/editProductPage/EditFeaturedImage';
 
 import { Delete } from '@mui/icons-material';
+import ImageGallery from '../../../../../dashboard_components/addProductPage/ImageGallery';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -53,6 +55,7 @@ function EditProduct({ product }) {
   const [nextCursor, setNextCursor] = useState(null);
   const [totalImages, setTotalImages] = useState(0);
   const [activeImage, setActiveImage] = useState(updateProduct.featuredImage);
+  const [imageGalleryIndex, setImageGalleryIndex] = useState(null);
 
   const [open, setOpen] = React.useState(false);
 
@@ -115,6 +118,14 @@ function EditProduct({ product }) {
   }, []);
 
   useEffect(() => {
+    // axios
+    //   .get(`/api/dashboard/products/${router.query.productID}`)
+    //   .then(
+    //     (res) => dispatch(initializeProductData(res.data.product))
+    //     // console.log(res.data)
+    //   )
+    //   .catch((error) => console.log(error.message));
+
     dispatch(initializeProductData(product));
   }, []);
 
@@ -140,6 +151,18 @@ function EditProduct({ product }) {
     dispatch(deleteFeaturedImage());
   };
 
+  const handleUpdateImageGallery = (imageIndex, image) => {
+    alert('clicked...');
+    dispatch(updateImageGallery({ index: imageIndex, src: image.secure_url }));
+    setImageGalleryIndex(null);
+  };
+
+  const uploadImage = (num) => {
+    alert(num);
+    setImageGalleryIndex(num);
+    handleClickOpen();
+  };
+
   return (
     <DashboardLayout>
       <Snackbar
@@ -161,7 +184,12 @@ function EditProduct({ product }) {
               <li
                 key={image.asset_id}
                 className={activeImage === image.asset_id && 'activeImage'}
-                onClick={(event) => handleUpdateImage(event, image)}>
+                // onClick={(event) => handleUpdateImage(event, image)}
+                onClick={
+                  imageGalleryIndex === null
+                    ? (event) => handleUpdateImage(event, image)
+                    : () => handleUpdateImageGallery(imageGalleryIndex, image)
+                }>
                 <div className='relative'>
                   <Image
                     src={image.secure_url}
@@ -238,6 +266,7 @@ function EditProduct({ product }) {
                   <TabsPanel />
                 </div>
               </div>
+              <ImageGallery uploadImage={uploadImage} />
             </div>
             <div className='addProduct_form-right'>
               <EditProductVisibility />

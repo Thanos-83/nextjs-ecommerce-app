@@ -54,7 +54,7 @@ export default async function productActionsById(req, res) {
           // type,
           isFeatured,
           featuredImage,
-          // imageGallery,
+          imageGallery,
           brand,
           category,
           description,
@@ -101,6 +101,7 @@ export default async function productActionsById(req, res) {
         productToUpdate.shortDescription = shortDescription;
         productToUpdate.price = price;
         productToUpdate.featuredImage = featuredImage;
+        productToUpdate.imageGallery = imageGallery;
         productToUpdate.user = user;
         productToUpdate.sku = sku;
         productToUpdate.isFeatured = isFeatured;

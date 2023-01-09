@@ -57,6 +57,12 @@ function TabsPanel({ setProductData, productData }) {
           label='Attributes'
           {...a11yProps(4)}
         />
+        <Tab
+          icon={<TableViewIcon />}
+          iconPosition='start'
+          label='Variations'
+          {...a11yProps(5)}
+        />
       </Tabs>
       <TabPanel value={value} index={0} className='flex-1 bg-white'>
         <div>
@@ -76,6 +82,9 @@ function TabsPanel({ setProductData, productData }) {
       </TabPanel>
       <TabPanel value={value} index={4} className='flex-1 bg-white '>
         <ProductAttributes />
+      </TabPanel>
+      <TabPanel value={value} index={5} className='flex-1 bg-white '>
+        <h1>Product Variations</h1>
       </TabPanel>
     </>
   );

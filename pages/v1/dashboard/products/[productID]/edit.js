@@ -44,7 +44,7 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-function EditProduct({ product }) {
+function EditProduct() {
   // const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -118,15 +118,15 @@ function EditProduct({ product }) {
   }, []);
 
   useEffect(() => {
-    // axios
-    //   .get(`/api/dashboard/products/${router.query.productID}`)
-    //   .then(
-    //     (res) => dispatch(initializeProductData(res.data.product))
-    //     // console.log(res.data)
-    //   )
-    //   .catch((error) => console.log(error.message));
+    axios
+      .get(`/api/dashboard/products/${router.query.productID}`)
+      .then(
+        (res) => dispatch(initializeProductData(res.data.product))
+        // console.log(res.data)
+      )
+      .catch((error) => console.log(error.message));
 
-    dispatch(initializeProductData(product));
+    // dispatch(initializeProductData(product));
   }, []);
 
   const handleUpdateProduct = async (e) => {
@@ -293,11 +293,11 @@ function EditProduct({ product }) {
 
 export default EditProduct;
 
-export async function getServerSideProps({ query }) {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
-  );
-  return {
-    props: { product: response.data.product },
-  };
-}
+// export async function getServerSideProps({ query }) {
+//   const response = await axios.get(
+//     `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
+//   );
+//   return {
+//     props: { product: response.data.product },
+//   };
+// }

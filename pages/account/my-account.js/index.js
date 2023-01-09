@@ -2,6 +2,7 @@ import { useSession, getSession } from 'next-auth/react';
 import { unstable_getServerSession } from 'next-auth/next';
 import Layout from '../../../components/Layout';
 import { authOptions } from '../../api/auth/[...nextauth]';
+import RowContainer from '../../../components/design_components/RowContainer';
 
 function Account() {
   const { data: session, status } = useSession();
@@ -9,12 +10,14 @@ function Account() {
 
   return (
     <Layout>
-      <h1 className='text-3xl'>Account Page</h1>
-      <h1>Protected Page</h1>
-      <p>
-        You can view this page because you are signed in. where is the
-        footer...?
-      </p>
+      <RowContainer>
+        <h1 className='text-3xl'>Account Page</h1>
+        <h1>Protected Page</h1>
+        <p>
+          You can view this page because you are signed in. where is the
+          footer...?
+        </p>
+      </RowContainer>
     </Layout>
   );
 }

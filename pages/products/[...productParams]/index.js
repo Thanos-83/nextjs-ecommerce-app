@@ -71,7 +71,7 @@ function SingleProduct() {
                         src={
                           image !== null
                             ? image
-                            : 'https://via.placeholder.com/600'
+                            : 'https://via.placeholder.com/600.png'
                         }
                         width={600}
                         height={600}
@@ -98,7 +98,7 @@ function SingleProduct() {
                             src={
                               img !== null
                                 ? img
-                                : 'https://via.placeholder.com/140'
+                                : 'https://via.placeholder.com/140.png'
                             }
                             width={140}
                             height={140}

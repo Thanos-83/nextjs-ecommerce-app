@@ -2,12 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import { Delete, UploadFile } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
+// import { useRouter } from 'next/router';
+// import { useEffect } from 'react';
+// import { initializeProductData } from '../../features/productData/productDataSlice';
 
 function ImageGallery({ uploadImage }) {
   const productData = useSelector((state) => state.productData.productData);
   const dispatch = useDispatch();
   console.log(productData);
-  //   console.log(productData?.featuredImage);
 
   return (
     <div className='addProduct_imageGallery addProduct_formWrapper'>
@@ -24,7 +26,7 @@ function ImageGallery({ uploadImage }) {
                 <Image
                   className='block'
                   src={image}
-                  alt='featured_image'
+                  alt='slider image'
                   objectFit='contain'
                   layout='fill'
                 />

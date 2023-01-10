@@ -23,7 +23,7 @@ export const productDataSlice = createSlice({
   initialState,
   reducers: {
     initializeProductData: (state, action) => {
-      // console.log(action.payload);
+      console.log('Product slice: ', action.payload);
       if (action.payload) {
         state.productData = {
           ...state.productData,

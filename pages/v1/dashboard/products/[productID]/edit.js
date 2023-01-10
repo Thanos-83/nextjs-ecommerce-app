@@ -21,7 +21,7 @@ import {
   updateDescription,
   updateShortDescription,
 } from '../../../../../features/productData/productDataSlice';
-import { Button, Dialog, Snackbar, TextField } from '@mui/material';
+import { Button, Dialog, Skeleton, Snackbar, TextField } from '@mui/material';
 import EditName from '../../../../../dashboard_components/editProductPage/EditName';
 import EditBrandname from '../../../../../dashboard_components/editProductPage/EditBrandname';
 import EditProductVisibility from '../../../../../dashboard_components/editProductPage/EditProductVisibility';
@@ -44,12 +44,13 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-function EditProduct() {
+function EditProduct({ product }) {
   // const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
   const updateProduct = useSelector((state) => state.productData.productData);
   const [isLoading, setIsLoading] = useState(false);
+  const [isProductDataLoading, setIsProductDataLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [imageGallery, setImageGallery] = useState([]);
   const [nextCursor, setNextCursor] = useState(null);
@@ -118,12 +119,14 @@ function EditProduct() {
   }, []);
 
   useEffect(() => {
+    setIsProductDataLoading(true);
     axios
       .get(`/api/dashboard/products/${router.query.productID}`)
-      .then(
-        (res) => dispatch(initializeProductData(res.data.product))
-        // console.log(res.data)
-      )
+      .then((res) => {
+        dispatch(initializeProductData(res.data.product));
+        console.log('use effect: ', res.data);
+        setIsProductDataLoading(false);
+      })
       .catch((error) => console.log(error.message));
 
     // dispatch(initializeProductData(product));
@@ -135,10 +138,12 @@ function EditProduct() {
       .put(`/api/dashboard/products/${router.query.productID}`, {
         product: updateProduct,
       })
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        setOpenSnackbar(true);
+        // dispatch(initializeProductData());
+        // console.log(res.data);
+      })
       .catch((error) => console.log(error));
-
-    setOpenSnackbar(true);
   };
 
   const handleUpdateImage = (event, image) => {
@@ -235,6 +240,7 @@ function EditProduct() {
       </Dialog>
       <div className='addProduct_wrapper'>
         <DashboardBreadcrumb path={router.pathname} />
+
         <form action='POST' className='addProduct_form mb-24' id='productForm'>
           <div className='addProduct_form-header'>
             <h1 className='text-3xl font-semibold'>Edit Product</h1>
@@ -248,43 +254,55 @@ function EditProduct() {
               Update Product
             </LoadingButton>
           </div>
-          <div className='addProduct_form-body'>
-            <div className='addProduct_form-left'>
-              <div className='addProduct_info addProduct_formWrapper'>
-                <h1>Basic Info</h1>
-                <div className='product_nameInfo'>
-                  <EditName />
-                  <EditBrandname />
-                </div>
-                <EditSlug />
-                <EditDescription />
-                <EditShortDescription />
-              </div>
-              <div className='addProduct_data addProduct_formWrapper'>
-                <h1>Product Data</h1>
-                <div className='product_data flex my-8'>
-                  <TabsPanel />
-                </div>
-              </div>
-              <ImageGallery uploadImage={uploadImage} />
+          {isProductDataLoading ? (
+            <div className='space-y-4'>
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
+              <Skeleton />
             </div>
-            <div className='addProduct_form-right'>
-              <EditProductVisibility />
-              <EditProductCategory />
-              <EditProductTags />
-              <div className='featured_image addProduct_formWrapper'>
-                <h1>Featured Image</h1>
-                <div className='featured_imageWrapper'>
-                  <div>
-                    <Button onClick={handleClickOpen}>
-                      Set featured image
-                    </Button>
+          ) : (
+            <div className='addProduct_form-body'>
+              <div className='addProduct_form-left'>
+                <div className='addProduct_info addProduct_formWrapper'>
+                  <h1>Basic Info</h1>
+                  <div className='product_nameInfo'>
+                    <EditName />
+                    <EditBrandname />
                   </div>
-                  <EditFeaturedImage />
+                  <EditSlug />
+                  <EditDescription />
+                  <EditShortDescription />
+                </div>
+                <div className='addProduct_data addProduct_formWrapper'>
+                  <h1>Product Data</h1>
+                  <div className='product_data flex my-8'>
+                    <TabsPanel />
+                  </div>
+                </div>
+                <ImageGallery uploadImage={uploadImage} />
+              </div>
+              <div className='addProduct_form-right'>
+                <EditProductVisibility />
+                <EditProductCategory />
+                <EditProductTags />
+                <div className='featured_image addProduct_formWrapper'>
+                  <h1>Featured Image</h1>
+                  <div className='featured_imageWrapper'>
+                    <div>
+                      <Button onClick={handleClickOpen}>
+                        Set featured image
+                      </Button>
+                    </div>
+                    <EditFeaturedImage />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </form>
       </div>
     </DashboardLayout>
@@ -293,11 +311,11 @@ function EditProduct() {
 
 export default EditProduct;
 
-// export async function getServerSideProps({ query }) {
-//   const response = await axios.get(
-//     `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
-//   );
-//   return {
-//     props: { product: response.data.product },
-//   };
-// }
+export async function getServerSideProps({ query }) {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
+  );
+  return {
+    props: { product: response.data.product },
+  };
+}

@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
+import { test } from '../utils/test';
 export default function Home({ categories }) {
   // const [productCategories, setProductCategories] = useState([]);
   // useEffect(() => {
@@ -12,6 +13,9 @@ export default function Home({ categories }) {
   //     .get('/api/dashboard/categories')
   //     .then((res) => setProductCategories(res.data));
   // }, []);
+  useEffect(() => {
+    test();
+  }, []);
   return (
     <>
       <Head>

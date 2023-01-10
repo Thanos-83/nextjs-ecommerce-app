@@ -214,13 +214,13 @@ export async function getServerSideProps() {
 
   const result = await cloudinary.search
     .expression('folder : next_demo_ecommerce/* AND resource_type:image')
-    .max_results(10)
+    .max_results(20)
     .execute();
 
   // const { folders } = await cloudinary.api.root_folders();
-  const { folders } = await cloudinary.api.sub_folders('next_demo_ecommerce/');
+  // const { folders } = await cloudinary.api.sub_folders('next_demo_ecommerce/');
 
-  console.log('Folders: ', folders);
+  // console.log('Folders: ', folders);
   console.log('Results: ', result.total_count);
   const images = result.resources.map((image) => {
     return {
@@ -240,7 +240,7 @@ export async function getServerSideProps() {
         images: images,
         nextCursorDefault: result.next_cursor ? result.next_cursor : null,
         totalImages: result.total_count,
-        folders: folders,
+        // folders: folders,
       },
     },
   };

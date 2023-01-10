@@ -185,6 +185,8 @@ function ProductsTable({
           <Skeleton className='mb-2' variant='text' width='100%' height={40} />
           <Skeleton className='mb-2' variant='text' width='100%' height={40} />
           <Skeleton className='mb-2' variant='text' width='100%' height={40} />
+          <Skeleton className='mb-2' variant='text' width='100%' height={40} />
+          <Skeleton className='mb-2' variant='text' width='100%' height={40} />
         </>
       ) : products?.length === 0 ? (
         <h1>There NO products yet!! Please add some...</h1>

@@ -5,6 +5,7 @@ const initialState = {
     name: '',
     slug: '',
     featuredImage: '',
+    type: '',
     imageGallery: Array.apply('', Array(6)),
     description: '',
     shortDescription: '',
@@ -28,6 +29,7 @@ export const productDataSlice = createSlice({
         state.productData = {
           ...state.productData,
           name: action.payload.name,
+          type: action.payload.type,
           featuredImage: action.payload.featuredImage,
           imageGallery: action.payload.imageGallery,
           description: action.payload.description,
@@ -44,6 +46,7 @@ export const productDataSlice = createSlice({
         state.productData = {
           ...state.productData,
           name: '',
+          type: '',
           featuredImage: '',
           imageGallery: Array.apply('', Array(6)),
           description: '',
@@ -95,6 +98,13 @@ export const productDataSlice = createSlice({
       state.productData = {
         ...state.productData,
         name: action.payload,
+      };
+    },
+    updateProductType: (state, action) => {
+      console.log(action.payload);
+      state.productData = {
+        ...state.productData,
+        type: action.payload,
       };
     },
     updateBrand: (state, action) => {
@@ -172,6 +182,7 @@ export const {
   updateProductAttribute,
   resetAttributes,
   updateName,
+  updateProductType,
   updateBrand,
   updateCategory,
   updateFeaturedImage,

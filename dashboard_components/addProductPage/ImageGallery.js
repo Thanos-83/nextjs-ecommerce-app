@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function ImageGallery({ uploadImage }) {
   const productData = useSelector((state) => state.productData.productData);
   const dispatch = useDispatch();
-  console.log(productData);
+  // console.log(productData);
 
   return (
     <div className='addProduct_imageGallery addProduct_formWrapper'>

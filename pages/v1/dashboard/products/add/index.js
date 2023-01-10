@@ -13,7 +13,15 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import TabsPanel from '../../../../../dashboard_components/addProductPage/TabsPanel';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { Button, Dialog, TextField } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  Divider,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 
 import DashboardBreadcrumb from '../../../../../dashboard_components/DashboardBreadcrumb';
 import EditProductVisibility from '../../../../../dashboard_components/editProductPage/EditProductVisibility';
@@ -34,6 +42,7 @@ import {
   updateImageGallery,
 } from '../../../../../features/productData/productDataSlice';
 import ImageGallery from '../../../../../dashboard_components/addProductPage/ImageGallery';
+import EditProductType from '../../../../../dashboard_components/editProductPage/EditProductType';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -119,7 +128,7 @@ function AddProduct() {
 
   useEffect(() => {
     dispatch(initializeProductData());
-  }, []);
+  }, [dispatch]);
 
   const handleUpdateImage = (event, image) => {
     // console.log(event.target);
@@ -143,6 +152,7 @@ function AddProduct() {
     console.log(productData);
     const product = {
       name: productData.name,
+      type: productData.type,
       featuredImage: productData.featuredImage,
       imageGallery: productData.imageGallery,
       description: productData.description,
@@ -167,6 +177,7 @@ function AddProduct() {
         productData.user = '';
         productData.sku = '';
         productData.name = '';
+        productData.type = '';
         productData.featuredImage = '';
         productData.imageGallery = Array.apply('', Array(6));
         productData.isFeatured = false;
@@ -176,7 +187,6 @@ function AddProduct() {
         productData.shortDescription = '';
         productData.price = 0.0;
         productData.attributes = [];
-        // dispatch(resetAttributes());
       })
       .catch((err) => {
         console.log(err);
@@ -189,7 +199,7 @@ function AddProduct() {
     setImageGalleryIndex(num);
     handleClickOpen();
   };
-  console.log(imageGalleryIndex);
+  // console.log(imageGalleryIndex);
   return (
     <DashboardLayout>
       <Snackbar
@@ -283,6 +293,8 @@ function AddProduct() {
               </div>
               <div className='addProduct_data addProduct_formWrapper'>
                 <h1>Product Data</h1>
+                <EditProductType />
+                <Divider />
                 <div className='product_data flex my-8'>
                   <TabsPanel />
                 </div>

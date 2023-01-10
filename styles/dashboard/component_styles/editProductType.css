@@ -1,0 +1,7 @@
+.productType > label {
+  @apply w-[30%];
+}
+
+.productType > .MuiInputBase-root {
+  @apply w-[70%];
+}

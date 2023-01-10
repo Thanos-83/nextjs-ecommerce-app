@@ -104,6 +104,10 @@
   @apply font-semibold text-lg mb-3 inline-block;
 }
 
+.addProduct_form-body .productType > label {
+  @apply font-semibold text-lg inline-block;
+  /* color: reset; */
+}
 .addProduct_form-body .product_description {
   @apply my-8;
 }

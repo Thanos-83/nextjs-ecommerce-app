@@ -21,7 +21,14 @@ import {
   updateDescription,
   updateShortDescription,
 } from '../../../../../features/productData/productDataSlice';
-import { Button, Dialog, Skeleton, Snackbar, TextField } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  Divider,
+  Skeleton,
+  Snackbar,
+  TextField,
+} from '@mui/material';
 import EditName from '../../../../../dashboard_components/editProductPage/EditName';
 import EditBrandname from '../../../../../dashboard_components/editProductPage/EditBrandname';
 import EditProductVisibility from '../../../../../dashboard_components/editProductPage/EditProductVisibility';
@@ -34,6 +41,7 @@ import EditFeaturedImage from '../../../../../dashboard_components/editProductPa
 
 import { Delete } from '@mui/icons-material';
 import ImageGallery from '../../../../../dashboard_components/addProductPage/ImageGallery';
+import EditProductType from '../../../../../dashboard_components/editProductPage/EditProductType';
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
@@ -103,7 +111,7 @@ function EditProduct() {
         },
       })
       .then((res) => {
-        console.log('Images useEffect: ', res.data);
+        // console.log('Images useEffect: ', res.data);
         setImageGallery(res.data.data.resources);
         setTotalImages(res.data.data.total_count);
 
@@ -124,7 +132,7 @@ function EditProduct() {
       .get(`/api/dashboard/products/${router.query.productID}`)
       .then((res) => {
         dispatch(initializeProductData(res.data.product));
-        console.log('use effect: ', res.data);
+        // console.log('use effect: ', res.data);
         setIsProductDataLoading(false);
       })
       .catch((error) => console.log(error.message));
@@ -292,12 +300,6 @@ function EditProduct() {
                 width='100%'
                 height={40}
               />
-              <Skeleton
-                className='mb-2'
-                variant='text'
-                width='100%'
-                height={40}
-              />
             </div>
           ) : (
             <div className='addProduct_form-body'>
@@ -314,6 +316,8 @@ function EditProduct() {
                 </div>
                 <div className='addProduct_data addProduct_formWrapper'>
                   <h1>Product Data</h1>
+                  <EditProductType />
+                  <Divider />
                   <div className='product_data flex my-8'>
                     <TabsPanel />
                   </div>

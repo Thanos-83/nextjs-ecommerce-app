@@ -3,11 +3,11 @@
 }
 
 .singleProductTop_left {
-  @apply w-full sm:w-2/5;
+  @apply w-full sm:w-[35%];
 }
 
 .singleProductTop_right {
-  @apply w-full sm:w-3/5;
+  @apply w-full sm:w-[65%];
 }
 
 .swiper-slide {
@@ -19,7 +19,7 @@
 }
 
 .thumbsContainer > .swiper {
-  @apply cursor-grab pb-4;
+  @apply cursor-grab;
 }
 
 .thumbs_wrapper {

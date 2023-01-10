@@ -14,8 +14,10 @@
 @import './dashboard/pages/productCategories.css';
 @import './dashboard/pages/products.css';
 
-/* frontend styles */
+/* Dashboard Components */
+@import './dashboard/component_styles/editProductType.css';
 
+/* frontend styles */
 @import './frontend\ styles/singleProduct.css';
 
 /*General Styles  */

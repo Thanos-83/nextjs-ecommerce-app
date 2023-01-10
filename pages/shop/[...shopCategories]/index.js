@@ -20,7 +20,7 @@ function ShopByCategories({ products }) {
       <RowContainer>
         <ul className='products_grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8'>
           {products?.map((product) => (
-            <li key={product._id} className='shadow p-2'>
+            <li key={product._id} className='shadow flex flex-col p-2'>
               <Link
                 href={`/products/${productLink}/${product.name.replaceAll(
                   ' ',
@@ -41,34 +41,36 @@ function ShopByCategories({ products }) {
                   <p className='text-md font-medium my-4'>{product.name}</p>
                 </a>
               </Link>
-              {product?.attributes.length > 0 ? (
-                <Link
-                  href={`/products/${productLink}/${product.name.replaceAll(
-                    ' ',
-                    '-'
-                  )}/${product.sku}`}
-                  passHref
-                  legacyBehavior>
-                  {/* <a> */}
+              <div className='mt-auto'>
+                {product?.type === 'Variable' ? (
+                  <Link
+                    href={`/products/${productLink}/${product.name.replaceAll(
+                      ' ',
+                      '-'
+                    )}/${product.sku}`}
+                    passHref
+                    legacyBehavior>
+                    {/* <a> */}
+                    <Button
+                      fullWidth
+                      variant='contained'
+                      color='secondary'
+                      size='small'>
+                      Select
+                    </Button>
+                    {/* </a> */}
+                  </Link>
+                ) : (
                   <Button
                     fullWidth
                     variant='contained'
-                    color='secondary'
-                    size='small'>
-                    Select
+                    color='success'
+                    size='small'
+                    onClick={() => handleAddToCart(product._id)}>
+                    Add to cart
                   </Button>
-                  {/* </a> */}
-                </Link>
-              ) : (
-                <Button
-                  fullWidth
-                  variant='contained'
-                  color='success'
-                  size='small'
-                  onClick={() => handleAddToCart(product._id)}>
-                  Add to cart
-                </Button>
-              )}
+                )}
+              </div>
             </li>
           ))}
         </ul>

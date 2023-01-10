@@ -51,7 +51,7 @@ function SingleProduct() {
         <div className='singleProductTop'>
           <div className='singleProductTop_left'>
             {singleProduct?.imageGallery.length > 0 ? (
-              <div className='sliderContainer'>
+              <div className='sliderContainer border-2'>
                 <Swiper
                   zoom={true}
                   spaceBetween={10}
@@ -71,10 +71,10 @@ function SingleProduct() {
                         src={
                           image !== null
                             ? image
-                            : 'https://via.placeholder.com/600.png'
+                            : 'https://via.placeholder.com/500.png'
                         }
-                        width={600}
-                        height={600}
+                        width={700}
+                        height={700}
                         objectFit='contain'
                       />
                     </SwiperSlide>

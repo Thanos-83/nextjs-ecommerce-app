@@ -23,7 +23,7 @@ function SidebarLink({
       <div className='block'>
         {Icon && <Icon className='' />}
         {!isParent ? (
-          <Link href={link}>
+          <Link href={link} passHref={true} legacyBehavior>
             <a className=''>
               <p className=''>{text}</p>
               {Expand && <Expand />}

@@ -17,7 +17,8 @@ function ProductsTableRow({
         <div className='productData_img'>
           <Link
             href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}
-            passHref={true}>
+            passHref={true}
+            legacyBehavior>
             <a>
               {row?.cells[1].value !== '' ? (
                 <Image
@@ -39,6 +40,7 @@ function ProductsTableRow({
         <div className='productData_info'>
           <Link
             passHref={true}
+            legacyBehavior
             href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
             <a>{row?.cells[2].value}</a>
           </Link>
@@ -69,6 +71,7 @@ function ProductsTableRow({
         </button> */}
         <Link
           passHref={true}
+          legacyBehavior
           href={`/v1/dashboard/products/${row?.cells[7].value}/edit`}>
           <a>
             <Edit />

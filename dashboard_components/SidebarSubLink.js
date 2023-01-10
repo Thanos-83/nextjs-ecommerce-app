@@ -10,7 +10,9 @@ function SidebarSubLink({ text, link }) {
       className={`sidebar_sublink ${
         router.asPath === link && 'sidebar_activeSublink'
       }`}>
-      <Link href={link}>{text}</Link>
+      <Link href={link} passHref={true} legacyBehavior>
+        <a>{text}</a>
+      </Link>
     </li>
   );
 }

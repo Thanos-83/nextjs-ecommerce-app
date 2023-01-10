@@ -15,7 +15,9 @@ function ImageGallery({ uploadImage }) {
     <div className='addProduct_imageGallery addProduct_formWrapper'>
       <h1>
         Image Gallery
-        <span className='text-red-500 text-sm'> Not working yet</span>
+        <span className='text-red-500 text-sm ml-4'>
+          Delete Not working yet
+        </span>
       </h1>
 
       <div>

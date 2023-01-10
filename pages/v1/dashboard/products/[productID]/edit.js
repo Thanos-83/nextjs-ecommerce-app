@@ -44,7 +44,7 @@ cloudinary.config({
   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
 });
 
-function EditProduct({ product }) {
+function EditProduct() {
   // const { data: session, status } = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
@@ -256,13 +256,48 @@ function EditProduct({ product }) {
           </div>
           {isProductDataLoading ? (
             <div className='space-y-4'>
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
-              <Skeleton />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
+              <Skeleton
+                className='mb-2'
+                variant='text'
+                width='100%'
+                height={40}
+              />
             </div>
           ) : (
             <div className='addProduct_form-body'>
@@ -311,11 +346,11 @@ function EditProduct({ product }) {
 
 export default EditProduct;
 
-export async function getServerSideProps({ query }) {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
-  );
-  return {
-    props: { product: response.data.product },
-  };
-}
+// export async function getServerSideProps({ query }) {
+//   const response = await axios.get(
+//     `${process.env.NEXT_PUBLIC_URL}/api/dashboard/products/${query.productID}`
+//   );
+//   return {
+//     props: { product: response.data.product },
+//   };
+// }

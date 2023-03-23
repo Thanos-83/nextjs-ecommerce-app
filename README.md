@@ -1,3 +1,5 @@
+The project is still in progress. You can navigate to the current version by clicking <a href="https://nextjs-ecommerce-app-lemon.vercel.app/" target="_blank">here!</a>
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

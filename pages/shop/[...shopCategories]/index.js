@@ -111,17 +111,17 @@ function ShopByCategories({ products }) {
 
 export default ShopByCategories;
 
-export async function getServerSideProps(context) {
-  // const response = await axios.get(
-  //   `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${context.query.shopCategories[0]}`
-  // );
+// export async function getServerSideProps(context) {
+//   // const response = await axios.get(
+//   //   `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${context.query.shopCategories[0]}`
+//   // );
 
-  // const products = response.data.categoryProducts;
-  // // console.log('Server response: ', response.data.categoryProducts);
+//   // const products = response.data.categoryProducts;
+//   // // console.log('Server response: ', response.data.categoryProducts);
 
-  return {
-    props: {
-      products: [],
-    },
-  };
-}
+//   return {
+//     props: {
+//       products,
+//     },
+//   };
+// }

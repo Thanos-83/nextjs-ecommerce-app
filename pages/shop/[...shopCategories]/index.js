@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import RowContainer from '../../../components/design_components/RowContainer';
 import Layout from '../../../components/Layout';
 import { useRouter } from 'next/router';
@@ -12,23 +12,34 @@ import { useSession } from 'next-auth/react';
 // import cookies from 'js-cookie'; //can read cookie when it is not httpOnly
 import { getSession } from '../../../utils/get-session';
 function ShopByCategories({ products }) {
-  // console.log('Guest user cookie: ', cookies.get('gest-user'));
+  const [categoryProducts, setCategoryProducts] = useState([]);
   const { data: session, status } = useSession();
   console.log('Session: ', session, 'Status: ', status);
   const dispatch = useDispatch();
   const router = useRouter();
-  // console.log(router.query);
+  console.log(router.query);
   const productLink = router.query.shopCategories.join().replaceAll(',', '/');
   const handleAddToCart = (productData) => {
     // console.log(productData);
     dispatch(addToCart(productData));
   };
 
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${router.query.shopCategories[0]}`
+      )
+      .then((response) => setCategoryProducts(response.data.categoryProducts))
+      .catch((error) =>
+        console.log('Error fetching category products: ', error)
+      );
+  }, []);
+
   return (
     <Layout>
       <RowContainer>
         <ul className='products_grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 my-8'>
-          {products?.map((product) => (
+          {categoryProducts?.map((product) => (
             <li key={product._id} className='shadow flex flex-col p-2'>
               <Link
                 href={`/products/${productLink}/${product.name.replaceAll(
@@ -101,16 +112,16 @@ function ShopByCategories({ products }) {
 export default ShopByCategories;
 
 export async function getServerSideProps(context) {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${context.query.shopCategories[0]}`
-  );
+  // const response = await axios.get(
+  //   `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${context.query.shopCategories[0]}`
+  // );
 
-  const products = response.data.categoryProducts;
-  // console.log('Server response: ', response.data.categoryProducts);
+  // const products = response.data.categoryProducts;
+  // // console.log('Server response: ', response.data.categoryProducts);
 
   return {
     props: {
-      products,
+      products: [],
     },
   };
 }

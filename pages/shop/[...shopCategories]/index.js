@@ -12,13 +12,15 @@ import { useSession } from 'next-auth/react';
 // import cookies from 'js-cookie'; //can read cookie when it is not httpOnly
 import { getSession } from '../../../utils/get-session';
 function ShopByCategories({ products }) {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [categoryProducts, setCategoryProducts] = useState([]);
   const { data: session, status } = useSession();
   console.log('Session: ', session, 'Status: ', status);
-  const dispatch = useDispatch();
-  const router = useRouter();
-  console.log(router.query);
-  const productLink = router.query.shopCategories.join().replaceAll(',', '/');
+
+  console.log('router: ', router);
+  const productLink = router?.query?.shopCategories.join().replaceAll(',', '/');
   const handleAddToCart = (productData) => {
     // console.log(productData);
     dispatch(addToCart(productData));

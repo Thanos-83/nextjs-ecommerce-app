@@ -11,16 +11,18 @@ import { addToCart } from '../../../features/basketItems/cartItemsSlice';
 import { useSession } from 'next-auth/react';
 // import cookies from 'js-cookie'; //can read cookie when it is not httpOnly
 import { getSession } from '../../../utils/get-session';
-function ShopByCategories({ products }) {
+function ShopByCategories() {
   const dispatch = useDispatch();
   const router = useRouter();
 
   const [categoryProducts, setCategoryProducts] = useState([]);
+  const [productLink, setProductLink] = useState([]);
   const { data: session, status } = useSession();
   console.log('Session: ', session, 'Status: ', status);
 
   console.log('router: ', router);
-  const productLink = router?.query?.shopCategories.join().replaceAll(',', '/');
+  // const productLink = router?.query?.shopCategories.join('/');
+  // .replaceAll(',', '/');
   const handleAddToCart = (productData) => {
     // console.log(productData);
     dispatch(addToCart(productData));
@@ -31,7 +33,11 @@ function ShopByCategories({ products }) {
       .get(
         `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${router.query.shopCategories[0]}`
       )
-      .then((response) => setCategoryProducts(response.data.categoryProducts))
+      .then((response) => {
+        setCategoryProducts(response.data.categoryProducts);
+
+        setProductLink(router?.query?.shopCategories.join('/'));
+      })
       .catch((error) =>
         console.log('Error fetching category products: ', error)
       );

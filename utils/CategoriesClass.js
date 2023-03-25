@@ -1,4 +1,4 @@
-export class Tree {
+export class Category {
   constructor(root) {
     this._root = root || null;
   }
@@ -7,7 +7,7 @@ export class Tree {
     const self = this;
     function goThrough(node) {
       callback(node);
-      node.children.forEach((child) => {
+      node?.children?.forEach((child) => {
         goThrough(child);
       });
     }
@@ -15,10 +15,12 @@ export class Tree {
   }
 
   _addNode(value, parentValue) {
-    const newNode = {
-      value,
-      children: [],
-    };
+    // const newNode = {
+    //   value,
+    //   children: [],
+    // };
+
+    const newNode = new Node(value, []);
 
     if (this._root === null) {
       this._root = newNode;
@@ -27,7 +29,7 @@ export class Tree {
 
     this._traverse((node) => {
       if (node.value === parentValue) {
-        node.children.push(newNode);
+        node?.children?.push(newNode);
       }
     });
   }
@@ -36,7 +38,7 @@ export class Tree {
     this._traverse((node) => {
       node.children.forEach((childNode, index) => {
         if (childNode.value === value) {
-          node.children.splice(index, 1);
+          node?.children.splice(index, 1);
         }
       });
     });
@@ -45,7 +47,8 @@ export class Tree {
   _search(value) {
     let returnNode = 'Not Found';
     this._traverse((node) => {
-      if (node.value === value) {
+      // console.log('node: ', node, 'value: ', value);
+      if (node?.value === value) {
         returnNode = node;
       }
     });
@@ -64,7 +67,7 @@ export class Tree {
       return parentValue;
     }
 
-    parentNode.children.forEach((child) => {
+    parentNode?.children?.forEach((child) => {
       leafsRet.push(this._displayLeafs(child));
     });
 

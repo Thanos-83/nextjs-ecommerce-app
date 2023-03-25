@@ -5,6 +5,10 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import Image from 'next/image';
 import { Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../features/basketItems/cartItemsSlice';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -19,9 +23,10 @@ import 'swiper/css/thumbs';
 import { FreeMode, Navigation, Thumbs, Zoom } from 'swiper';
 
 function SingleProduct() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
+  const [productQuantity, setProductQuantity] = useState(1);
   const [singleProduct, setSingleProduct] = useState(null);
   const productSku = router.query.productParams?.slice(-1)[0];
   // console.log(productSku);
@@ -37,9 +42,8 @@ function SingleProduct() {
   }, [productSku]);
   console.log(singleProduct);
 
-  const handleAddToCart = (productID) => {
-    alert('clicked');
-    // document.cookie = `productID = ${productID}`;
+  const handleAddToCart = (productData) => {
+    dispatch(addToCart(productData));
   };
 
   return (
@@ -135,13 +139,44 @@ function SingleProduct() {
             ))}
 
             <p>{singleProduct?.price} Euro</p>
-            <Button
-              color='secondary'
-              variant='contained'
-              // type='button'
-              onClick={() => handleAddToCart(singleProduct?._id)}>
-              Add to cart
-            </Button>
+            <div className='simgleProduct_addToCart flex items-center'>
+              <div className='singleProduct_quantity flex items-center space-x-4 mr-8'>
+                <button
+                  onClick={() => setProductQuantity((pre) => pre - 1)}
+                  type='button'
+                  disabled={productQuantity < 1 ? true : false}
+                  className={`singleProduct_increment border p-1  rounded-sm bg-slate-200 ${
+                    productQuantity < 1
+                      ? 'bg-slate-200 cursor-not-allowed'
+                      : 'bg-violet-400 text-white'
+                  }`}>
+                  <RemoveIcon />
+                </button>
+                <p className='font-semibold w-3'>{productQuantity}</p>
+                <button
+                  onClick={() => setProductQuantity((pre) => pre + 1)}
+                  type='button'
+                  className='singleProduct_decrement border p-1 rounded-sm bg-violet-400 text-white'>
+                  <AddIcon />
+                </button>
+              </div>
+              <Button
+                color='secondary'
+                variant='contained'
+                disabled={productQuantity < 1 ? true : false}
+                onClick={() =>
+                  handleAddToCart({
+                    productID: singleProduct._id,
+                    image: singleProduct.featuredImage,
+                    quantity: productQuantity,
+                    title: singleProduct.name,
+                    price: singleProduct.price,
+                    productType: singleProduct.type,
+                  })
+                }>
+                Add to cart
+              </Button>
+            </div>
           </div>
         </div>
         <div className='singleProductBottom'>

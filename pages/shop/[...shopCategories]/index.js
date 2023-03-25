@@ -6,13 +6,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
 import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../features/basketItems/cartItemsSlice';
+import { useSession } from 'next-auth/react';
+// import cookies from 'js-cookie'; //can read cookie when it is not httpOnly
+import { getSession } from '../../../utils/get-session';
 function ShopByCategories({ products }) {
+  // console.log('Guest user cookie: ', cookies.get('gest-user'));
+  const { data: session, status } = useSession();
+  console.log('Session: ', session, 'Status: ', status);
+  const dispatch = useDispatch();
   const router = useRouter();
-  console.log(router.query);
+  // console.log(router.query);
   const productLink = router.query.shopCategories.join().replaceAll(',', '/');
-  const handleAddToCart = (productID) => {
-    alert('clicked');
-    // document.cookie(`productID = ${productID}`);
+  const handleAddToCart = (productData) => {
+    // console.log(productData);
+    dispatch(addToCart(productData));
   };
 
   return (
@@ -66,7 +75,17 @@ function ShopByCategories({ products }) {
                     variant='contained'
                     color='success'
                     size='small'
-                    onClick={() => handleAddToCart(product._id)}>
+                    onClick={() =>
+                      handleAddToCart({
+                        productID: product._id,
+                        image: product.featuredImage,
+                        quantity: 1,
+                        title: product.name,
+                        price: product.price,
+                        productType: product.type,
+                        customer: session ? session.user.id : null,
+                      })
+                    }>
                     Add to cart
                   </Button>
                 )}
@@ -82,9 +101,6 @@ function ShopByCategories({ products }) {
 export default ShopByCategories;
 
 export async function getServerSideProps(context) {
-  // const router = useRouter();
-  // console.log('getSSP: ', context.query.shopCategories[0]);
-
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_URL}/api/products/categoryName/${context.query.shopCategories[0]}`
   );

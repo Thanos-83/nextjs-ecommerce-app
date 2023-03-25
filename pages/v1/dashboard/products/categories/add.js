@@ -221,7 +221,7 @@ function AddCategory() {
                 getOptionLabel={(option) => option?.name}
                 renderOption={(props, option, { selected, inputValue }) => {
                   return (
-                    <li {...props} className='cursor-pointer' key={option._id}>
+                    <li {...props} className='cursor-pointer' key={option?._id}>
                       <Checkbox
                         checked={selected}
                         sx={{ ml: 2 * option.depth }}

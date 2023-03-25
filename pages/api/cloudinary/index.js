@@ -38,7 +38,7 @@ export default async function cloudinaryActions(req, res) {
           .next_cursor(nextCursor)
           .max_results(40)
           .execute();
-        // console.log(result);
+        // console.log('server result: ', result);
         res.status(200).json({
           msg: 'Disply All Images',
           data: result,

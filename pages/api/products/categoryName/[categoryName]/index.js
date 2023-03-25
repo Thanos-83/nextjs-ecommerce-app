@@ -17,6 +17,7 @@ export default async function productActionsById(req, res) {
     case 'GET':
       try {
         // console.log(categoryName);
+
         const categoryProducts = await Category.find({
           slug: categoryName,
         }).populate({
@@ -30,6 +31,7 @@ export default async function productActionsById(req, res) {
         }
         // console.log(categoryProducts[0].products);
         res.status(200).json({
+          // test: session.views,
           msg: 'Products found...',
           categoryProducts: categoryProducts[0].products,
         });
@@ -41,3 +43,9 @@ export default async function productActionsById(req, res) {
       res.status(200).json({ msg: 'OOPS...! Something went wrong!' });
   }
 }
+
+export const config = {
+  api: {
+    externalResolver: true,
+  },
+};

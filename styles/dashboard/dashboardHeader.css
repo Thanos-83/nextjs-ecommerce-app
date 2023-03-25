@@ -39,22 +39,22 @@
   @apply inline-block h-10 w-10 rounded-full ring-2 ring-white;
 }
 
-.menu_items {
+.header_actions .menu_items {
   @apply absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2;
 }
 
-.menu_items a {
+.header_actions .menu_items a {
   @apply flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer;
 }
 
-.menu_items a > svg {
+.header_actions .menu_items a > svg {
   @apply mr-4 w-6 h-6;
 }
 
-.menu_items a.menu_itemActive {
+.header_actions .menu_items a.menu_itemActive {
   @apply bg-[#EBEFFD] text-[#2D67EC];
 }
 
-.menu_items a.menu_itemInactive {
+.header_actions .menu_items a.menu_itemInactive {
   @apply text-gray-500;
 }

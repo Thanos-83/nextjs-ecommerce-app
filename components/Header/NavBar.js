@@ -106,9 +106,9 @@ function classNames(...classes) {
 
 export default function Header() {
   const router = useRouter();
-
-  const { data: session } = useSession();
-
+  const { data, status } = useSession();
+  console.log(data, status);
+  let session = data ? true : false;
   const handleSignOut = async () => {
     const data = await signOut({
       redirect: false,
@@ -220,6 +220,11 @@ export default function Header() {
               <Link href='/v1/dashboard'>
                 <a className='text-base font-medium text-gray-500 hover:text-gray-900'>
                   Dashboard
+                </a>
+              </Link>
+              <Link href='/auth/admin/login'>
+                <a className='text-base font-medium text-gray-500 hover:text-gray-900'>
+                  Admin Login
                 </a>
               </Link>
               <Link href='/shop'>

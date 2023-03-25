@@ -5,7 +5,7 @@ import Layout from '../components/Layout';
 import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
-import { test } from '../utils/test';
+import { AddNode, DisplayLeafs, SearchNode } from '../utils/test';
 export default function Home({ categories }) {
   // const [productCategories, setProductCategories] = useState([]);
   // useEffect(() => {
@@ -14,7 +14,10 @@ export default function Home({ categories }) {
   //     .then((res) => setProductCategories(res.data));
   // }, []);
   useEffect(() => {
-    test();
+    // AddNode();
+    // DisplayLeafs('Computers & Electronics');
+    // const x = SearchNode('Computers & Electronics');
+    // console.log(x);
   }, []);
   return (
     <>
@@ -25,6 +28,9 @@ export default function Home({ categories }) {
       </Head>
       <Layout>
         <RowContainer>
+          <button onClick={() => DisplayLeafs('Computers & Electronics')}>
+            click
+          </button>
           <h1 className='text-3xl my-8'>This is the home page</h1>
           <ul className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4'>
             {categories?.map((category) => (
@@ -56,10 +62,13 @@ export default function Home({ categories }) {
 }
 
 export async function getServerSideProps() {
+  // AddNode();
+  // const x = SearchNode('Computers & Electronics');
+  // console.log(x);
   const categories = await axios.get(
     `${process.env.NEXT_PUBLIC_URL}/api/dashboard/categories`
   );
-  console.log('Categories: ', categories.data);
+  // console.log('Categories: ', categories.data);
   return {
     props: {
       categories: categories.data,

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-// import { sessionSchema } from './session';
-// import { accountSchema } from './account';
+import { sessionSchema } from './session';
+import { accountSchema } from './account';
 
 const userSchema = new mongoose.Schema(
   {
@@ -31,8 +31,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '',
     },
-    // accounts: [accountSchema],
-    // sessions: [sessionSchema],
+    accounts: [accountSchema],
+    sessions: [sessionSchema],
   },
   {
     timestamps: true,
@@ -42,3 +42,7 @@ const userSchema = new mongoose.Schema(
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 export default User;
+
+userSchema.methods.addToCart = function (product) {
+  console.log(this);
+};

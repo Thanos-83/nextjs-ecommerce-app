@@ -9,3 +9,29 @@
 .header_middleRight_icons > button svg {
   @apply w-8 h-8 text-violet-600;
 }
+
+/* products cart styles */
+
+.products_cart > button svg {
+  @apply w-8 h-8 text-violet-600;
+}
+
+.products_cart .menu_items {
+  @apply absolute right-0 mt-2 w-[26rem] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2;
+}
+
+.products_cart .menu_items a {
+  @apply flex w-full items-center rounded-md cursor-pointer hover:underline focus:underline;
+}
+
+.products_cart .menu_items a > svg {
+  @apply mr-4 w-6 h-6;
+}
+
+.products_cart .menu_items a.menu_itemActive {
+  @apply bg-[#EBEFFD] text-[#2D67EC];
+}
+
+.products_cart .menu_items a.menu_itemInactive {
+  @apply text-gray-500;
+}

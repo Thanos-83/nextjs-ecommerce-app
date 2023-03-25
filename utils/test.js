@@ -1,22 +1,36 @@
-import { Tree } from './tree';
-export const test = () => {
-  const tree = new Tree();
+import { Category } from './CategoriesClass';
+const category = new Category('Computers & Electronics');
 
-  tree._addNode('Computers & Electronics');
-  tree._addNode('Notebooks', 'Computers & Electronics');
-  tree._addNode('Routers', 'Computers & Electronics');
-  tree._addNode('Desktop Computers', 'Computers & Electronics');
+// console.log(category);
 
-  tree._addNode('Macbooks', 'Notebooks');
-  tree._addNode('Asus', 'Notebooks');
+export const AddNode = () => {
+  category._addNode('Computers & Electronics');
+  category._addNode('Notebooks', 'Computers & Electronics');
+  category._addNode('Routers', 'Computers & Electronics');
+  category._addNode('Desktop Computers', 'Computers & Electronics');
+  category._addNode('printers', 'Computers & Electronics');
+  category._addNode('web cameras', 'Computers & Electronics');
+  category._addNode('Macbooks', 'Notebooks');
+  category._addNode('Asus', 'Notebooks');
+  category._addNode('Macbook Pro', 'Macbooks');
+  category._addNode('Macbook Air', 'Macbooks');
+  // console.log(category._displayLeafs('Computers & Electronics'));
+  // return category._displayLeafs('Computers & Electronics');
+  // console.log(category._search('Computers & Electronics'));
+};
 
-  tree._addNode('Macbook Pro', 'Macbooks');
-  tree._addNode('Macbook Air', 'Macbooks');
-
-  tree._traverse((node) => {
-    console.log(node);
+export const GetNodes = () => {
+  category._traverse((node) => {
+    // console.log(node);
   });
+};
 
-  console.log(tree._displayLeafs('Macbooks'));
-  console.log(tree._search('Computers & Electronics').children);
+export const SearchNode = (node) => {
+  // console.log(category._search('Computers & Electronics').children);
+  return category._search(node);
+};
+
+export const DisplayLeafs = (node) => {
+  // console.log(category._displayLeafs(node));
+  // return category._displayLeafs(node);
 };

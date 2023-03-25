@@ -5,8 +5,10 @@ import MediaSingleImage from '../../../../dashboard_components/media library/Med
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { v2 as cloudinary } from 'cloudinary';
-import { Button, Dialog, Divider, Tooltip } from '@mui/material';
+// import { v2 as cloudinary } from 'cloudinary';
+// import cloudinary from 'cloudinary/lib/cloudinary';
+
+import { Button, Dialog, Divider, Skeleton, Tooltip } from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeselectIcon from '@mui/icons-material/Deselect';
@@ -19,15 +21,61 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Checkbox from '@mui/material/Checkbox';
 import { Delete } from '@mui/icons-material';
 
-function MediaLibrary({ data }) {
+function MediaLibrary() {
+  // cloudinary.config({
+  //   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  //   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+  //   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+  //   secure: true,
+  // });
+  console.log('iam here 1');
   const route = useRouter();
-  const [images, setImages] = useState(data.images);
-  const [nextCursor, setNextCursor] = useState(data.nextCursorDefault);
+  // const [images, setImages] = useState(data.images);
+  const [images, setImages] = useState([]);
+  // const [nextCursor, setNextCursor] = useState(data.nextCursorDefault);
+  const [nextCursor, setNextCursor] = useState(null);
   const [activeFolder, setActiveFolder] = useState('next_demo_ecommerce/*');
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingImages, setLoadingImages] = useState(false);
+
   const [isImageSelected, setIsImageSelected] = useState([]);
-  const [totalImages, setTotalImages] = useState(data.totalImages);
+  const [totalImages, setTotalImages] = useState(null);
+  // const [totalImages, setTotalImages] = useState(data.totalImages);
   const [showAllButton, setShowAllButton] = useState(false);
+  console.log('images: ', images);
+  useEffect(() => {
+    setLoadingImages(true);
+    axios
+      .get('/api/cloudinary', {
+        params: {
+          nextCursor: nextCursor,
+          activeFolder: 'next_demo_ecommerce/*',
+        },
+      })
+      .then((response) => {
+        console.log('cloudinary response: ', response);
+        const images = response.data.data.resources.map((image) => {
+          return {
+            imageUrl: image.secure_url,
+            imageAssetId: image.asset_id,
+            format: image.format,
+            uploadedAt: image.uploaded_at,
+            filename: image.filename,
+            imageFolder: image.folder,
+            size: image.bytes,
+          };
+        });
+
+        setImages(images);
+        setNextCursor(response.data.data.next_cursor);
+        setTotalImages(response.data.data.total_count);
+        setLoadingImages(false);
+      })
+      .catch((error) => {
+        console.log('cloudinary error: ', error);
+        setLoadingImages(false);
+      });
+  }, []);
 
   const handleCheckbox = (id) => {
     // alert(id);
@@ -105,12 +153,8 @@ function MediaLibrary({ data }) {
     alert('clicked');
   };
 
-  // console.log('Images: ', images);
-  // console.log('Next Cursor: ', nextCursor);
-  // console.log('Active Folder: ', activeFolder);
-  // console.log('Image Folders: ', data.folders);
   return (
-    <DashboardLayout>
+    <DashboardLayout classes='mediaLibrary_container relative'>
       <DashboardBreadcrumb path={route.pathname} />
       <div className='media_headerContainer mb-8'>
         <div className='media_headerTop'>
@@ -162,86 +206,61 @@ function MediaLibrary({ data }) {
           </div>
         </div>
       </div>
-
-      <div className='images_container mb-12'>
-        {images.length === 0 ? (
-          <h1>No Images...</h1>
-        ) : (
-          images.map((img) => (
-            <MediaSingleImage
-              key={img.imageAssetId}
-              imageData={img}
-              isImageSelected={isImageSelected}
-              handleCheckbox={handleCheckbox}
-              handleDeleteImage={handleDeleteImage}
-            />
-          ))
-        )}
-      </div>
-      <div className='loadMore_btn flex justify-center'>
-        {images.length > 0 && (
-          <>
-            <p>
-              {images.length} available out of {totalImages} products
-            </p>
-            <LoadingButton
-              variant='outlined'
-              disabled={totalImages === images.length}
-              loading={isLoading}
-              loadingPosition='end'
-              endIcon={<FileDownloadIcon />}
-              onClick={handleLoadMore}>
-              {totalImages === images.length
-                ? 'No More Images'
-                : 'Load More Images'}
-            </LoadingButton>
-          </>
-        )}
+      <div className='border-2'>
+        <div className='images_container mb-12'>
+          {images.length === 0 && loadingImages ? (
+            <>
+              <div>
+                <Skeleton variant='rectangular' width='100%' height={360} />
+                <Skeleton width='80%' />
+                <Skeleton width='60%' />
+              </div>
+              <div>
+                <Skeleton variant='rectangular' width='100%' height={360} />
+                <Skeleton width='80%' />
+                <Skeleton width='60%' />
+              </div>
+              <div>
+                <Skeleton variant='rectangular' width='100%' height={360} />
+                <Skeleton width='80%' />
+                <Skeleton width='60%' />
+              </div>
+            </>
+          ) : (
+            images.map((img) => (
+              <MediaSingleImage
+                key={img.imageAssetId}
+                imageData={img}
+                isImageSelected={isImageSelected}
+                handleCheckbox={handleCheckbox}
+                handleDeleteImage={handleDeleteImage}
+              />
+            ))
+          )}
+        </div>
+        <div className='loadMore_btn backdrop-blur-md flex justify-center'>
+          {images.length > 0 && (
+            <>
+              <p>
+                {images.length} available out of {totalImages} products
+              </p>
+              <LoadingButton
+                variant='outlined'
+                disabled={totalImages === images.length}
+                loading={isLoading}
+                loadingPosition='end'
+                endIcon={<FileDownloadIcon />}
+                onClick={handleLoadMore}>
+                {totalImages === images.length
+                  ? 'No More Images'
+                  : 'Load More Images'}
+              </LoadingButton>
+            </>
+          )}
+        </div>
       </div>
     </DashboardLayout>
   );
 }
 
 export default MediaLibrary;
-
-export async function getServerSideProps() {
-  cloudinary.config({
-    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-    api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
-    secure: true,
-  });
-
-  const result = await cloudinary.search
-    .expression('folder : next_demo_ecommerce/* AND resource_type:image')
-    .max_results(20)
-    .execute();
-
-  // const { folders } = await cloudinary.api.root_folders();
-  // const { folders } = await cloudinary.api.sub_folders('next_demo_ecommerce/');
-
-  // console.log('Folders: ', folders);
-  console.log('Results: ', result.total_count);
-  const images = result.resources.map((image) => {
-    return {
-      imageUrl: image.secure_url,
-      imageAssetId: image.asset_id,
-      format: image.format,
-      uploadedAt: image.uploaded_at,
-      filename: image.filename,
-      imageFolder: image.folder,
-      size: image.bytes,
-    };
-  });
-
-  return {
-    props: {
-      data: {
-        images: images,
-        nextCursorDefault: result.next_cursor ? result.next_cursor : null,
-        totalImages: result.total_count,
-        // folders: folders,
-      },
-    },
-  };
-}

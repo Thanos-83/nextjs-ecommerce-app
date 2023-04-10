@@ -1,6 +1,6 @@
 import connectdb from '../../../../database/connectDB';
 import Product from '../../../../models/product';
-import Categories from '../../../../models/category';
+import Category from '../../../../models/category';
 import Attributes from '../../../../models/attributes';
 import Terms from '../../../../models/terms';
 
@@ -15,11 +15,14 @@ export default async function productActions(req, res) {
     // @access  Private
     case 'GET':
       try {
+        // console.log('iam fetching products...');
+
         const products = await Product.find().populate({
           path: 'category',
           select: 'name',
-          model: Categories,
+          model: Category,
         });
+        // console.log('iam fetching products...');
         // console.log(products);
         if (products.length === 0) {
           throw new Error('There are NO products');
@@ -57,6 +60,7 @@ export default async function productActions(req, res) {
           upSells,
           countInStock,
           inStock,
+          slug,
           attributes,
         } = req.body;
         // console.log('Product Attributes: ', attributes);
@@ -71,6 +75,7 @@ export default async function productActions(req, res) {
         const newProduct = {
           user,
           name,
+          slug,
           sku,
           type,
           isFeatured,
@@ -116,6 +121,24 @@ export default async function productActions(req, res) {
         console.log('Product ID type: ', typeof productID);
         if (typeof productID === 'string') {
           // console.log('iam here string');
+          const singleProduct = await Product.findById(productID);
+          const singleCategory = await Categories.findById(
+            singleProduct.category
+          );
+
+          console.log(
+            'single category from delete: ',
+            singleCategory.products[0]
+          );
+          const singleCategoryProducts = singleCategory.products.filter(
+            (product) => product.valueOf() !== productID
+          );
+
+          singleCategory.products = singleCategoryProducts;
+          console.log('single category updated from delete: ', singleCategory);
+
+          singleCategory.save();
+
           const deletedProduct = await Product.findByIdAndDelete(productID);
 
           if (!deletedProduct) {
@@ -134,7 +157,7 @@ export default async function productActions(req, res) {
           if (!deletedProducts) {
             throw new Error('Product/s NOT found');
           }
-          console.log(deletedProducts);
+          // console.log(deletedProducts);
           res.status(200).json({ msg: 'Products deleted', deletedProducts });
         }
       } catch (error) {

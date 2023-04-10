@@ -11,10 +11,10 @@ export default async function productActionsById(req, res) {
     method,
     query: { productSKU },
   } = req;
-
+  console.log('server query params: ', req.query);
   switch (method) {
     // @desc    Fetch single product by SKU
-    // @route   GET /api/products/productSKU
+    // @route   GET /api/products/sku/:productSKU
     // @access  Public
     case 'GET':
       try {

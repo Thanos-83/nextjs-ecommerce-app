@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 function EditSlug() {
   const productData = useSelector((state) => state.productData.productData);
   //   const dispatch = useDispatch();
+
   return (
     <div className='product_slug flex flex-col my-4'>
       <label htmlFor='productSlug'>Slug</label>
@@ -16,7 +17,11 @@ function EditSlug() {
           size='small'
           id='productSlug'
           name='productSlug'
-          value={productData.name.replace(/\s/g, '-').toLowerCase()}
+          value={productData.name
+            .replace(/\s/g, '-')
+            .replace(/[()\\\/]/g, '-')
+            .replace(/--/g, '-')
+            .toLowerCase()}
           placeholder='Product Slug'
           InputProps={{
             readOnly: true,

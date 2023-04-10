@@ -65,7 +65,7 @@ function EditProduct() {
   const [totalImages, setTotalImages] = useState(0);
   const [activeImage, setActiveImage] = useState(updateProduct.featuredImage);
   const [imageGalleryIndex, setImageGalleryIndex] = useState(null);
-
+  // console.log('is product data loading: ', isProductDataLoading);
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -132,13 +132,16 @@ function EditProduct() {
       .get(`/api/dashboard/products/${router.query.productID}`)
       .then((res) => {
         dispatch(initializeProductData(res.data.product));
-        // console.log('use effect: ', res.data);
+        console.log('use effect: ', res.data);
         setIsProductDataLoading(false);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        setIsProductDataLoading(false);
+      });
 
     // dispatch(initializeProductData(product));
-  }, []);
+  }, [dispatch, router.query.productID]);
 
   const handleUpdateProduct = async (e) => {
     e.preventDefault();

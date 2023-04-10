@@ -29,6 +29,7 @@ export const productDataSlice = createSlice({
         state.productData = {
           ...state.productData,
           name: action.payload.name,
+          slug: action.payload.slug,
           type: action.payload.type,
           featuredImage: action.payload.featuredImage,
           imageGallery: action.payload.imageGallery,
@@ -46,6 +47,7 @@ export const productDataSlice = createSlice({
         state.productData = {
           ...state.productData,
           name: '',
+          slug: '',
           type: '',
           featuredImage: '',
           imageGallery: Array.apply('', Array(6)),

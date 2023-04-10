@@ -1,5 +1,5 @@
 import * as React from 'react';
-import TextEditor from '../../../../../dashboard_components/TextEditor';
+// import TextEditor from '../../../../../dashboard_components/TextEditor';
 import { useEffect, useState, useRef } from 'react';
 import DashboardLayout from '../../../../../dashboard_components/DashboardLayout';
 import axios from 'axios';
@@ -47,13 +47,18 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
-cloudinary.config({
-  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
-  api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
-});
+// cloudinary.config({
+//   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+//   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+//   api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+// });
 
 function AddProduct() {
+  cloudinary.config({
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
+    api_secret: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
+  });
   const productData = useSelector((state) => state.productData.productData);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -152,6 +157,11 @@ function AddProduct() {
     console.log(productData);
     const product = {
       name: productData.name,
+      slug: productData.name
+        .replace(/\s/g, '-')
+        .replace(/[()\\\/]/g, '-')
+        .replace(/--/g, '-')
+        .toLowerCase(),
       type: productData.type,
       featuredImage: productData.featuredImage,
       imageGallery: productData.imageGallery,
@@ -177,6 +187,7 @@ function AddProduct() {
         productData.user = '';
         productData.sku = '';
         productData.name = '';
+        productData.slug = '';
         productData.type = '';
         productData.featuredImage = '';
         productData.imageGallery = Array.apply('', Array(6));
@@ -232,8 +243,9 @@ function AddProduct() {
                     width='740'
                     height='740'
                     // layout='fill'
-                    objectFit='contain'
+                    // objectFit='contain'
                     alt='image gallery'
+                    className='object-contain'
                   />
                 </div>
               </li>

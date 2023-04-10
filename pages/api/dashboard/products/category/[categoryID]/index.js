@@ -1,9 +1,9 @@
 import Product from '../../../../../../models/product';
 import connectdb from '../../../../../../database/connectDB';
 
-connectdb();
-
 export default async function productActionsById(req, res) {
+  connectdb();
+
   const {
     method,
     query: { categoryID },

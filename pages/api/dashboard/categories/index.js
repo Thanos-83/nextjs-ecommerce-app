@@ -2,22 +2,24 @@ import connectdb from '../../../../database/connectDB';
 import Category from '../../../../models/category';
 import Product from '../../../../models/product';
 
-connectdb();
 export default async function categoriesActions(req, res) {
+  connectdb();
+
   const { method } = req;
 
   switch (method) {
-    // @desc    Get All Category
+    // @desc    Get All Categories
     // @route   GET /api/dashboard/categories
     // @access  Private
     case 'GET':
       try {
-        const categories = await Category.find().populate({
-          path: 'products',
-          // select: '_id name',
-          model: Product,
-        });
-        // console.log(categories);
+        const categories = await Category.find({});
+        // .populate({
+        //   path: 'products',
+        //   // select: '_id name',
+        //   model: Product,
+        // });
+        console.log('categories from API: ', categories);
         res.status(200).json(categories);
       } catch (error) {
         res.status(400).json({ error: error.message });

@@ -36,9 +36,7 @@ function DashboardBreadcrumb({ path }) {
       {linksArray.length > 0 &&
         linksArray?.map((link, index) => (
           <p key={link} className='link_active'>
-            <Link href={`/v1/${link}`}>
-              <a> {links[index].replace('/', ' ')}</a>
-            </Link>
+            <Link href={`/v1/${link}`}>{links[index].replace('/', ' ')}</Link>
             <span>/</span>
           </p>
         ))}

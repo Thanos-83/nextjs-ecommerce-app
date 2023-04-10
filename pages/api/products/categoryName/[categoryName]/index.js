@@ -29,7 +29,7 @@ export default async function productActionsById(req, res) {
         if (!categoryProducts) {
           throw new Error('Products NOT found!');
         }
-        // console.log(categoryProducts[0].products);
+        console.log('category products: ', categoryProducts);
         res.status(200).json({
           // test: session.views,
           msg: 'Products found...',

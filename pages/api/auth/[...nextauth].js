@@ -11,8 +11,8 @@ connectdb();
 
 export const authOptions = {
   session: {
-    strategy: 'database',
-    // strategy: 'jwt',
+    // strategy: 'database',
+    strategy: 'jwt',
     // jwt: true,
     // Seconds - How long until an idle session expires and is no longer valid.
     // maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -70,7 +70,7 @@ export const authOptions = {
       session.test = 'test';
       session.user.cart = { items: [] };
 
-      console.log('Sesssion callback: ', session);
+      // console.log('Sesssion callback: ', session);
       // console.log('Session callback: ', {
       //   session,
       //   token,
@@ -90,7 +90,7 @@ export const authOptions = {
         token.providerAccountId = account.providerAccountId;
       }
       if (user) {
-        console.log('iam in jwt...');
+        // console.log('iam in jwt...');
         if (user?.role === 'admin') {
           token.role = 'admin';
         } else {
@@ -106,7 +106,7 @@ export const authOptions = {
   },
 
   pages: {
-    signIn: '/account/login/',
+    signIn: '/my-account/login/',
   },
   adapter: MongoDBAdapter(clientPromise),
 };

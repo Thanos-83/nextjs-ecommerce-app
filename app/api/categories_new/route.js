@@ -12,7 +12,7 @@ export async function GET() {
       select: '_id name',
       model: Product,
     });
-    console.log('fetching categories from API folder: ', categories);
+    // console.log('fetching categories from API folder: ', categories);
     return NextResponse.json({
       categories: categories,
     });

@@ -65,7 +65,7 @@ export default async function productActions(req, res) {
         } = req.body;
         // console.log('Product Attributes: ', attributes);
         // console.log('Product Gallery: ', imageGallery);
-        const singleCategory = await Categories.findById(category);
+        const singleCategory = await Category.findById(category);
 
         const isProductUnique = await Product.find({ sku });
         // console.log(isProductUnique);

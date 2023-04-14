@@ -10,7 +10,7 @@ function SingleCategory() {
       <div>Edit Single Category with ID : {router.query.categoryID}</div>
 
       <Link href={`/v1/dashboard/products/categories/`}>
-        <a>Back to categories</a>
+        Back to categories
       </Link>
     </DashboardLayout>
   );

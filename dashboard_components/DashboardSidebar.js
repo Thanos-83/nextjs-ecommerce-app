@@ -89,57 +89,6 @@ function SidebarNav() {
             />
           </>
         </ul>
-        {/* <ul className='test_nav space-y-4'>
-          <li className='flex items-center'>
-            <input
-              type='radio'
-              // hidden
-              name='link'
-              value='link 1'
-              id='nameOne'
-              onClick={(e) => console.log(e.target.value)}
-            />
-            <label className='block' htmlFor='nameOne'>
-              Link 1
-            </label>
-          </li>
-          <li className='flex items-center'>
-            <input
-              type='radio'
-              name='link'
-              value='link 2'
-              id='nameTwo'
-              onClick={(e) => console.log(e.target.value)}
-            />
-            <label className='block' htmlFor='nameTwo'>
-              Link 2
-            </label>
-          </li>
-          <li className='flex items-center'>
-            <input
-              type='radio'
-              name='link'
-              value='link 3'
-              id='nameThree'
-              onClick={(e) => console.log(e.target.value)}
-            />
-            <label className='block' htmlFor='nameThree'>
-              link 3
-            </label>
-          </li>
-          <li className='flex items-center'>
-            <input
-              type='radio'
-              id='contactChoice2'
-              name='link'
-              value='phone'
-              onClick={(e) => console.log(e.target.value)}
-            />
-            <label className='block' htmlFor='contactChoice2'>
-              Phone
-            </label>
-          </li>
-        </ul> */}
       </nav>
     </div>
   );

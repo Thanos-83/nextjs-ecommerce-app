@@ -189,10 +189,9 @@ function ProductAttributes() {
                     key={attribute.name}
                     className='flex items-start justify-between'>
                     <Link
+                      className='font-semibold text-md cursor-pointer'
                       href={`/v1/dashboard/products/attributes/${attribute._id}/${attribute.slug}`}>
-                      <a className='font-semibold text-md cursor-pointer'>
-                        {attribute.name}
-                      </a>
+                      {attribute.name}
                     </Link>
                     <h1 className='text-left text-md'>{attribute.slug}</h1>
                     <div>

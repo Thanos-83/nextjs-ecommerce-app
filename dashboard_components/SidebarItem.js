@@ -13,8 +13,7 @@ function SidebarLink({
   onExpand,
 }) {
   const router = useRouter();
-  // console.log('Router: ', router);
-  // console.log('Link: ', link);
+
   return (
     <li
       className={`sidebar_link ${
@@ -23,11 +22,11 @@ function SidebarLink({
       <div className='block'>
         {Icon && <Icon className='' />}
         {!isParent ? (
-          <Link href={link} passHref={true} legacyBehavior>
-            <a className=''>
+          <Link href={link} passHref={true}>
+            <>
               <p className=''>{text}</p>
               {Expand && <Expand />}
-            </a>
+            </>
           </Link>
         ) : (
           <button type='button' className='' onClick={() => onExpand()}>

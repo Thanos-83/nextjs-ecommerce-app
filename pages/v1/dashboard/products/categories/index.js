@@ -131,15 +131,13 @@ function ProductCategories() {
             List of products Categories ({optionsList.length})
           </h1>
           <Link href='/v1/dashboard/products/categories/add'>
-            <a>
-              <Button
-                className='w-[100%] max-w-[12rem] py-2 bg-blue-600'
-                variant='contained'
-                size='small'
-                startIcon={<AddIcon />}>
-                Create New
-              </Button>
-            </a>
+            <Button
+              className='w-[100%] max-w-[12rem] py-2 bg-blue-600'
+              variant='contained'
+              size='small'
+              startIcon={<AddIcon />}>
+              Create New
+            </Button>
           </Link>
         </div>
         <div className='categoriesTable'>

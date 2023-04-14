@@ -1,25 +1,23 @@
 import { NextResponse } from 'next/server';
-import Category from '../../../../models/category';
-import Attributes from '../../../../models/attributes';
-import Product from '../../../../models/product';
-import connectdb from '../../../../database/connectDB';
+import Product from '../../../../../models/product';
+import connectdb from '../../../../../database/connectDB';
+import Categories from '../../../../../models/category';
+import Attributes from '../../../../../models/attributes';
+import Terms from '../../../../../models/terms';
 
-export async function GET(req) {
-  const {
-    query: { productSKU },
-  } = req;
-  console.log('server query params: ', req.query);
+connectdb();
+// @desc    Fetch single product by SKU
+// @route   GET /api/products/sku/:productSKU
+// @access  Public
+export async function GET(req, res) {
+  const productSKU = req.url.slice(req.url.lastIndexOf('/') + 1);
 
-  // let res = NextResponse.next();
-  // @desc    Fetch single products using SKU
-  // @route   GET /api/dashboard/[Sku]
-  // @access  Private
   try {
     // console.log('Product SKU: ', productSKU);
     const product = await Product.findOne({ sku: productSKU })
       .populate({
         path: 'category',
-        model: Category,
+        model: Categories,
       })
       .populate({
         path: 'attributes',

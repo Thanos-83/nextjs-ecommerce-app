@@ -3,7 +3,7 @@
 //  */
 const nextConfig = {
   // reactStrictMode: true,
-  // swcMinify: true,
+  swcMinify: true,
   experimental: {
     appDir: true,
   },
@@ -11,10 +11,10 @@ const nextConfig = {
     domains: ['res.cloudinary.com', 'picsum.photos', 'via.placeholder.com'],
   },
   // webpack5: true,
-  // webpack: (config) => {
-  //   config.resolve.fallback = { fs: false };
-  //   return config;
-  // },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false };
+    return config;
+  },
 };
 
 // export default nextConfig;

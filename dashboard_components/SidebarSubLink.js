@@ -11,7 +11,7 @@ function SidebarSubLink({ text, link }) {
         router.asPath === link && 'sidebar_activeSublink'
       }`}>
       <Link href={link} passHref={true} legacyBehavior>
-        <a>{text}</a>
+        {text}
       </Link>
     </li>
   );

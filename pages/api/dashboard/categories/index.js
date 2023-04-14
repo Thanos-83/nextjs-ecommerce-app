@@ -13,12 +13,11 @@ export default async function categoriesActions(req, res) {
     // @access  Private
     case 'GET':
       try {
-        const categories = await Category.find({});
-        // .populate({
-        //   path: 'products',
-        //   // select: '_id name',
-        //   model: Product,
-        // });
+        const categories = await Category.find({}).populate({
+          path: 'products',
+          // select: '_id name',
+          model: Product,
+        });
         console.log('categories from API: ', categories);
         res.status(200).json(categories);
       } catch (error) {

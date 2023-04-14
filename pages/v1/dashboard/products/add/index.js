@@ -152,6 +152,8 @@ function AddProduct() {
     // dispatch(deleteFeaturedImage());
   };
 
+  console.log('session inside the add product page: ', session);
+
   const handleAddProduct = async (e) => {
     e.preventDefault();
     console.log(productData);

@@ -3,29 +3,15 @@ import React from 'react';
 import RowContainer from '../components/ui/RowContainer';
 import Link from 'next/link';
 import Image from 'next/image';
+// import connetdb from '../../database/connectDB';
+// import Product from '../../models/product';
+// import Category from '../../models/category';
+import getCategories from '../../lib/getCategories';
 
-async function getCategories() {
-  const response = await fetch(
-    'http://localhost:3000/api/categories',
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-    // { cache: 'no-store' }
-    // { next: { revalidate: 60 } }
-  );
-  try {
-    const categories = await response.json();
-    // console.log('response data?', categories);
-    return categories;
-  } catch (error) {
-    console.log('Error happened here!');
-    console.error(error);
-    return error.message;
-  }
-}
+export const metadata = {
+  title: 'Home page',
+  description: 'Home page of the ecoomerce-app',
+};
 
 export default async function Home() {
   const categories = await getCategories();
@@ -35,7 +21,7 @@ export default async function Home() {
       <div className='my-12 '>
         <h2 className='text-2xl font-bold text-gray-900'>Shop by Category</h2>
         <div className='mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0 lg:gap-y-4'>
-          {categories.map((category) => (
+          {categories?.map((category) => (
             <div key={category._id}>
               <div className='group relative'>
                 <div className='relative w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75'>

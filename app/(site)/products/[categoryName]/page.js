@@ -4,46 +4,31 @@ import RowContainer from '../../../components/ui/RowContainer';
 import Image from 'next/image';
 import Link from 'next/link';
 import Currency from 'react-currency-formatter';
+import { fetchProductsByCategory } from '../../../../lib/fetchProducts';
+import getCategories from '../../../../lib/getCategories';
 
-async function fetchProducts(categoryName) {
-  const response = await fetch(
-    `http://localhost:3000/api/categories/${categoryName}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    },
-    { next: { revalidate: 20 } }
-  );
+export const revalidate = 60;
 
-  try {
-    console.log('parse response: ', response);
-    const categoryProducts = await response.json();
-    console.log('response data of category products...? ', categoryProducts);
-    return categoryProducts;
-  } catch (error) {
-    console.log('Error happened here!');
-    console.error(error);
-    return error.message;
-  }
-}
+export const metadata = {
+  title: 'Category page',
+  description: 'Home page of the ecoomerce-app',
+};
 
 export default async function CategoryProducts({ params }) {
-  console.log('params: ', params);
+  // console.log('params: ', params);
 
-  const products = await fetchProducts(params.categoryName);
-  console.log('category products response from the API: ', products);
+  const products = await fetchProductsByCategory(params.categoryName);
+  // console.log('category products response from the API: ', products);
   return (
     <RowContainer>
       <div className='my-12'>
         <h2 className='text-lg font-semibold mb-6'>Products</h2>
         <div>
           <ul className='grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'>
-            {products.length === 0 ? (
+            {products?.categoryProducts.length === 0 ? (
               <h1>No Products</h1>
             ) : (
-              products?.map((product) => (
+              products?.categoryProducts.map((product) => (
                 <li key={product._id}>
                   <Link
                     href={`/products/${
@@ -76,16 +61,9 @@ export default async function CategoryProducts({ params }) {
   );
 }
 
-// export async function generateStaticParams(options) {
-//   // console.log('generate static params category products: ', options);
-//   const response = await fetch(
-//     'http://127.0.0.1:3000/api/dashboard/categories',
-//     { method: 'GET' }
-//   );
-
-//   const categories = await response.json();
-//   // console.log('categories in generate static params: ', categories);
-//   return categories.map((category) => ({
-//     categoryName: category.slug.toString(),
-//   }));
-// }
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    categoryName: category.slug,
+  }));
+}

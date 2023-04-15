@@ -1,6 +1,5 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 /* Dashboard Styles */
 @import './dashboard/dashboardSidebar.css';
@@ -30,3 +29,5 @@
 /*Import Header Styles */
 
 @import './frontend\ styles/header/header.css';
+
+@tailwind utilities;

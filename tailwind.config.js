@@ -4,6 +4,7 @@ module.exports = {
     './app/**/*.{js,jsx,}',
     './pages/**/*.{js,jsx,}',
     './components/**/*.{js,jsx}',
+    './dashboard_components/**/*.{js,jsx}',
   ],
   theme: {
     extend: {

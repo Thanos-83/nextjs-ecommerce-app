@@ -11,7 +11,7 @@ async function SingleProduct({ params }) {
   const singleProduct = await fetchSingleProduct(
     productSku.split('-')[productSku.split('-').length - 1]
   );
-  console.log('single product: ', singleProduct);
+  // console.log('single product: ', singleProduct);
   if (singleProduct.errorMsg) {
     notFound();
   }

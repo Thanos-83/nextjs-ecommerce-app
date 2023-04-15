@@ -23,10 +23,10 @@
 /*General Styles  */
 @import './design/RowContainer.css';
 
-/* Layout Styles */
+/*Import Layout Styles*/
 
 @import './frontend\ styles/layout.css';
 
-/* Header Styles go here */
+/*Import Header Styles */
 
 @import './frontend\ styles/header/header.css';

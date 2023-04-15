@@ -30,8 +30,3 @@
 /* Header Styles */
 
 @import './frontend\ styles/header/header.css';
-
-/* Typography styles */
-.heading1 {
-  @apply text-3xl font-semibold;
-}

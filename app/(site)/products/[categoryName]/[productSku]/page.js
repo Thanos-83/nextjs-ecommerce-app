@@ -3,6 +3,7 @@ import RowContainer from '../../../../components/ui/RowContainer';
 import { fetchSingleProduct } from '../../../../../lib/fetchProducts';
 import getCategories from '../../../../../lib/getCategories';
 import { notFound } from 'next/navigation';
+
 export const revalidate = 60;
 
 async function SingleProduct({ params }) {

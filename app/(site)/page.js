@@ -8,6 +8,8 @@ import Image from 'next/image';
 // import Category from '../../models/category';
 import getCategories from '../../lib/getCategories';
 
+export const revalidate = 60;
+
 export const metadata = {
   title: 'Home page',
   description: 'Home page of the ecoomerce-app',
@@ -15,7 +17,7 @@ export const metadata = {
 
 export default async function Home() {
   const categories = await getCategories();
-  // console.log('Categories in app folder: ', categories);
+  console.log('Categories in app folder: ', categories);
   return (
     <RowContainer>
       <div className='my-12 '>

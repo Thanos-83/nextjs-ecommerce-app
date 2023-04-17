@@ -18,7 +18,10 @@ export default async function CategoryProducts({ params }) {
   // console.log('params: ', params);
 
   const products = await fetchProductsByCategory(params.categoryName);
-  // console.log('category products response from the API: ', products);
+  console.log(
+    'category products response from the API: ',
+    products.categoryProducts
+  );
   return (
     <RowContainer>
       <div className='my-12'>

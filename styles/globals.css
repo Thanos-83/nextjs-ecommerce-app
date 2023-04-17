@@ -1,7 +1,8 @@
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
 
-/* Dashboard Styles */
+/*import Dashboard Styles */
 @import './dashboard/dashboardSidebar.css';
 @import './dashboard/dashboardLayout.css';
 @import './dashboard/sidebarLink.css';
@@ -30,4 +31,4 @@
 
 @import './frontend\ styles/header/header.css';
 
-@tailwind utilities;
+/* npm install --save-dev eslint */

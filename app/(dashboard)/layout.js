@@ -1,4 +1,5 @@
-import '../../styles/globals.css';
+import '../../styles/build.css';
+// import '../globals.css';
 
 import React from 'react';
 import Providers from '../(site)/Providers.js';

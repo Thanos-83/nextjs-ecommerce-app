@@ -1,4 +1,5 @@
-import '../../styles/globals.css';
+import '../../styles/build.css';
+// import '../globals.css';
 import Providers from './Providers';
 
 import Header from './Header';

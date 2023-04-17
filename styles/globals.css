@@ -4,31 +4,834 @@
 
 /*import Dashboard Styles */
 @import './dashboard/dashboardSidebar.css';
+.dashboard_sidebar {
+  @apply w-[20%] max-w-[15rem]  bg-white p-2;
+}
+
+.test_nav input[type='radio']:checked + label {
+  @apply bg-red-200;
+}
+
 @import './dashboard/dashboardLayout.css';
+.dashboard_main {
+  @apply flex flex-1;
+}
+
+.dashboard_layout {
+  @apply flex flex-col min-h-screen w-full bg-[#F7F7F7];
+}
+
+.dashboard_layout .dashboard_content {
+  @apply flex-1 p-6 overflow-y-auto;
+}
+
 @import './dashboard/sidebarLink.css';
+.sidebar_link {
+  @apply mb-1;
+}
+
+.sidebar_link > div:first-child {
+  @apply flex items-center px-2 hover:bg-[#EBEFFD] hover:rounded-md;
+}
+
+/* .sidebar_link.sidebar_activeLink > div:first-child {
+  @apply border border-[#6d8af4] rounded-md;
+} */
+
+.sidebar_link.sidebar_activeLink > div > svg,
+.sidebar_link.sidebar_activeLink > div > a > p,
+.sidebar_link.sidebar_activeLink > div > button > p {
+  @apply text-[#2D67EC];
+}
+
+.sidebar_link > div:hover > svg,
+.sidebar_link > div:hover > a > p,
+.sidebar_link > div:hover > button > p {
+  @apply text-[#2D67EC];
+}
+
+.sidebar_link > div > svg {
+  @apply text-gray-400  mr-2 w-5 h-5;
+}
+
+.sidebar_link > div > a,
+.sidebar_link > div > button {
+  @apply flex items-center justify-between py-2  flex-1;
+}
+
+.sidebar_link > div > a > p,
+.sidebar_link > div > button > p {
+  @apply text-gray-800 font-semibold;
+}
+
+.sidebar_link > div > a > svg,
+.sidebar_link > div > button > svg {
+  @apply text-gray-400;
+}
+
+.sidebar_sublink {
+  @apply mb-2 ml-10;
+}
+
+.sidebar_sublink > a {
+  @apply text-gray-400 font-semibold block;
+}
+
+.sidebar_sublink:hover > a {
+  @apply text-[#2D67EC];
+}
+
+.sidebar_sublink.sidebar_activeSublink > a {
+  @apply text-[#2D67EC] underline font-semibold;
+}
+
+.sidebar_submenu > ul {
+  @apply mt-0;
+}
+
 @import './dashboard/dashboardHeader.css';
+.dashboard_header {
+  @apply sticky top-0 flex items-center  bg-white z-50 border-b border-b-indigo-200;
+}
+
+.dashboard_header .dashboard_headerLeft {
+  @apply flex items-center justify-between w-[20%] max-w-[15rem] p-4;
+}
+
+.dashboard_header .dashboard_headerRight {
+  @apply flex items-center justify-between flex-1 border-l border-l-indigo-200/50 p-4;
+}
+
+.dashboard_headerSearch {
+  @apply flex items-center border border-indigo-500/50 rounded-[50px] px-4;
+}
+
+.dashboard_headerSearch > input {
+  @apply py-1 outline-none text-gray-400 font-semibold text-sm;
+}
+
+.dashboard_headerSearch > svg {
+  @apply text-gray-400 ml-4;
+}
+
+.header_actions {
+  @apply flex items-center space-x-4;
+}
+
+.header_avatar > div > button {
+  @apply space-x-1 flex items-center;
+}
+
+.header_actions > svg,
+.header_avatar > div > button > svg {
+  @apply text-gray-400;
+}
+
+.header_avatar > div > button > div > img {
+  @apply inline-block h-10 w-10 rounded-full ring-2 ring-white;
+}
+
+.header_actions .menu_items {
+  @apply absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2;
+}
+
+.header_actions .menu_items a {
+  @apply flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer;
+}
+
+.header_actions .menu_items a > svg {
+  @apply mr-4 w-6 h-6;
+}
+
+.header_actions .menu_items a.menu_itemActive {
+  @apply bg-[#EBEFFD] text-[#2D67EC];
+}
+
+.header_actions .menu_items a.menu_itemInactive {
+  @apply text-gray-500;
+}
+
 @import './dashboard/dashboardBreadcrumb.css';
+.dashboardBreadcrumb {
+  @apply mb-0 py-4;
+}
+
+.dashboardBreadcrumb .link_active > a {
+  @apply hover:underline text-lg font-mono font-semibold;
+}
+
+.dashboardBreadcrumb .link_active > span {
+  @apply mx-1;
+}
+
+.dashboardBreadcrumb .link_inactive {
+  @apply text-gray-500 text-lg font-mono;
+}
+
 @import './dashboard/pages/addProduct.css';
+.productAttributes_drag {
+  @apply cursor-move ml-auto mr-4 w-5 h-5;
+}
+
+.productAttributes_tabs button {
+  min-height: auto !important;
+  @apply mb-2;
+}
+
+.addProduct_form-header {
+  @apply flex items-center justify-between my-4;
+}
+
+.product_data > .productAttributes_tabs .MuiButtonBase-root {
+  @apply justify-start pl-0 pr-4 py-3;
+}
+
+.product_data > .productAttributes_tabs .MuiButtonBase-root svg {
+  @apply w-4 h-4;
+}
+
+.product_priceInfo {
+  @apply mb-4 space-y-4;
+}
+
+.product_priceInfo .product_price,
+.product_priceInfo .product_salesPrice {
+  @apply flex justify-between items-center;
+}
+
+.product_priceInfo .product_price label,
+.product_priceInfo .product_salesPrice label {
+  @apply w-[40%];
+}
+.product_priceInfo .product_price input,
+.product_priceInfo .product_salesPrice input {
+  @apply w-[60%] px-4 py-2 border-2 rounded-md;
+}
+
+.product_taxInfo {
+  @apply mt-4 space-y-4;
+}
+
+.product_taxInfo .product_taxStatus,
+.product_taxInfo .product_taxClass {
+  @apply flex justify-between items-center;
+}
+
+.product_taxInfo .product_taxStatus label,
+.product_taxInfo .product_taxClass label {
+  @apply w-[40%];
+}
+
+.product_taxInfo .product_taxStatus input,
+.product_taxInfo .product_taxClass input {
+  @apply w-[60%] px-4 py-2 border-2 rounded-md;
+}
+
+.addProduct_form-body {
+  @apply xl:flex items-start;
+}
+
+.addProduct_form-left {
+  @apply mb-8 xl:mr-8 w-full xl:w-[70%];
+}
+
+.addProduct_form-right {
+  @apply w-full xl:w-[30%];
+}
+
+.addProduct_formWrapper {
+  @apply bg-white p-4 rounded-md;
+}
+
+.product_nameInfo {
+  @apply flex flex-col sm:flex-row gap-8 items-center justify-between;
+}
+
+.product_nameInfo > * {
+  @apply w-full sm:w-1/2;
+}
+
+.productInput_slug {
+  @apply flex items-center;
+}
+
+.productInput_slug > span {
+  @apply bg-neutral-200 text-neutral-400 px-2 py-[calc(0.5rem-1px)] border border-gray-300 rounded-tl-[4px] rounded-bl-[4px];
+}
+
+.productInput_slug .MuiInputBase-root {
+  @apply rounded-tl-none rounded-bl-none;
+}
+
+.product_slug .slug_helperText {
+  @apply mt-1 text-sm text-neutral-500;
+}
+
+.addProduct_form-body .product_name > label,
+.addProduct_form-body .product_brandname > label,
+.addProduct_form-body .product_slug > label,
+.addProduct_form-body .product_description > label,
+.addProduct_form-body .product_shortDescription > label {
+  @apply font-semibold text-lg mb-3 inline-block;
+}
+
+.addProduct_form-body .productType > label {
+  @apply font-semibold text-lg inline-block;
+  /* color: reset; */
+}
+.addProduct_form-body .product_description {
+  @apply my-8;
+}
+.product_tags,
+.product_category,
+.addProduct_info,
+.addProduct_data {
+  @apply mb-8;
+}
+
+.addProduct_wrapper {
+  @apply w-full max-w-[100rem] mx-auto;
+}
+
+.addProduct_info > h1,
+.addProduct_data > h1,
+.featured_image > h1,
+.addProduct_visibilityInfo > h1,
+.product_category > h1,
+.product_tags > h1,
+.addProduct_imageGallery > h1 {
+  @apply mb-6 font-semibold text-2xl;
+}
+
+.addProduct_visibilityInfo .addProduct_featured {
+  @apply flex items-center mt-4;
+}
+
+.addProduct_visibilityInfo .addProduct_featured > h1 {
+  @apply font-semibold mr-4;
+}
+
+.featured_imageUpload {
+  @apply flex items-center space-x-4 mb-4;
+}
+
+.featured_imageUpload > label {
+  @apply flex flex-col text-lg cursor-pointer;
+}
+
+.featured_imageUpload > label > span {
+  @apply text-sm font-semibold;
+}
+
+.featured_imageUpload svg {
+  @apply w-12 h-12 text-sky-700;
+}
+
+.featuredImgWrapper {
+  @apply relative p-2 w-48 h-48 border-2 border-dashed;
+}
+
+.featuredImgWrapper > button {
+  @apply absolute top-0 -right-8;
+}
+
+.featuredImgWrapper > button > svg {
+  @apply w-6 h-6 text-rose-800;
+}
+
+/* image gallery */
+.imageGalleryWrapper {
+  @apply flex flex-wrap gap-4;
+}
+
+.imageGalleryWrapper > div {
+  @apply relative p-2 w-48 h-48 border-2 border-dashed;
+}
+
+.imageGalleryWrapper > div > div {
+  @apply absolute bottom-0 right-0;
+}
+
+.imageGalleryWrapper > div > button {
+  @apply absolute bottom-0 right-0;
+}
+
+.imageGalleryWrapper > button > svg {
+  @apply w-6 h-6 text-rose-800;
+}
+
+.addProduct_data .product_sku {
+  @apply flex items-center;
+}
+
+.addProduct_data .product_sku > label {
+  @apply w-[40%] text-lg;
+}
+
+.product_attributesAdd {
+  @apply flex items-center gap-8;
+}
+
+.product_attributesAdd > button {
+  @apply ml-4;
+}
+
+/* Media Library Dialog Styles */
+.MuiDialog-root {
+  @apply inset-4 md:inset-8 xl:inset-12;
+}
+
+.mediaLibrary_container {
+  @apply p-4;
+}
+
+.mediaLibrary_image {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.mediaLibrary_image > li {
+  @apply cursor-pointer border-2 rounded-md;
+}
+
+.mediaLibrary_image > li.activeImage {
+  @apply border-red-600 shadow-md;
+}
+
+.mediaLibrary_image > li > span {
+  @apply !h-full;
+}
+
 @import './dashboard/pages/mediaLibrary.css';
+.images_container {
+  @apply grid gap-4;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+.singleImage_container {
+  @apply relative flex flex-col  rounded-md bg-white shadow-md;
+}
+
+.singleImage_image {
+  @apply p-2;
+}
+
+.singleImage_image > span {
+  @apply rounded-md !flex;
+}
+
+.singleImage_image > span img {
+  @apply object-contain;
+}
+
+.singleImage_infoContainer {
+  @apply mt-2 p-2 bg-gradient-to-b from-stone-300;
+}
+
+.singleImage_info {
+  @apply flex items-center justify-between mt-2;
+}
+
+.singleImage_size {
+  @apply flex items-center cursor-row-resize;
+}
+
+.singleImage_size > span {
+  @apply flex items-center text-sm text-slate-500  font-semibold;
+}
+
+.singleImage_size > hr {
+  @apply mx-2 w-[2px] bg-gray-200 h-full py-2;
+}
+
+.singleImage_size > p {
+  @apply flex items-center text-sm text-slate-500  font-semibold;
+}
+
+.singleImage_folder {
+  @apply flex items-center space-x-2 font-semibold mb-2;
+}
+
+.singleImage_folder > span {
+  @apply flex items-center text-sm text-slate-500  font-semibold;
+}
+
+.singleImage_actions {
+  @apply space-x-3 flex items-center;
+}
+
+.singleImage_actions > button > svg {
+  @apply text-rose-600;
+}
+
+.singleImage_actions > a > svg {
+  @apply text-zinc-600;
+}
+
+.loadMore_btn {
+  @apply mb-16 flex flex-col items-center;
+}
+
+.loadMore_btn > p {
+  @apply text-[#636363] text-[1rem] font-semibold mb-4;
+}
+
+.singleImage_checkbox {
+  /* @apply absolute top-0 left-0 rounded-full; */
+}
+
+.media_headerTop {
+  @apply mb-12;
+}
+
+.media_headerTop,
+.media_header {
+  @apply flex items-center justify-between;
+}
+
+.media_title {
+  @apply text-3xl font-semibold;
+}
+
+.media_headerLeft,
+.media_headerRight {
+  @apply flex items-center space-x-4;
+}
+
+.media_headerLeft > p {
+  @apply inline-block py-3;
+}
+
+.singleImage_folder > p > button {
+  @apply underline;
+}
+
 @import './dashboard/pages/productAttributes.css';
+.attributes_main {
+  @apply flex items-start bg-white p-4 gap-4 rounded-md;
+}
+
+.product_attributes > h1 {
+  @apply text-3xl font-semibold mb-2;
+}
+
+.attributes_mainLeft {
+  @apply border-r-2 border-gray-400/30 pr-4;
+}
+
+.attributes_mainLeft > form {
+  @apply space-y-6;
+}
+
+.form_group {
+  @apply flex flex-col items-start gap-2;
+}
+
+.form_group > input,
+.form_group > textarea {
+  @apply border border-gray-400 focus:outline-indigo-400 focus:outline-2 p-2;
+}
+
 @import './dashboard/pages/productCategories.css';
+.categories_main {
+  /* @apply bg-white p-8 rounded-md max-w-5xl; */
+}
+
+.product_categories > h1 {
+  @apply text-3xl font-semibold mb-2;
+}
+
+.categories_mainLeft {
+  @apply border-r-2 border-gray-400/30 pr-4;
+}
+
+.categories_mainLeft > form {
+  @apply space-y-6;
+}
+
+.form_group {
+  @apply flex flex-col items-start gap-2;
+}
+
+.form_group > input,
+.form_group > textarea {
+  @apply border border-gray-400 focus:outline-indigo-400 focus:outline-2 p-2;
+}
+
+ul#category-select-listbox {
+  @apply bg-white;
+}
+
+.category_row {
+  @apply mb-4;
+  display: grid;
+  column-gap: 0.5rem;
+
+  grid-template-columns: 10px 1fr 1fr 100px 50px 80px;
+}
+
+.categoriesTable_head {
+  @apply py-4 mb-4;
+  display: grid;
+  column-gap: 0.5rem;
+  grid-template-columns: 10px 1fr 1fr 100px 50px 80px 1px;
+}
+
+.categoriesTable_head :nth-child(2),
+.categoriesTable_head :nth-child(3) {
+  @apply text-left;
+}
+
+.categoriesTable_head :nth-child(2) {
+  @apply pl-3;
+}
+
+.categoryRow_title {
+  @apply text-indigo-500 pl-3;
+}
+
+.categoriesTable .deleteBtn {
+  @apply w-full max-w-[8rem];
+}
+
+.categoriesTable hr {
+  @apply my-4;
+}
+
+.categoriesTable .categoryRow_title > a {
+  @apply flex items-center text-lg;
+}
+.categoriesTable .categoryRow_title > a > svg {
+  @apply w-4 h-4;
+}
+
 @import './dashboard/pages/products.css';
+.products_list {
+  @apply bg-white p-8 rounded-md;
+}
+
+.productsTable_wrapper {
+  @apply min-w-[30rem] overflow-x-auto;
+}
+
+.productsTable_body {
+  @apply my-8;
+}
+
+.productsTable_head {
+  @apply border-y-2 py-2;
+  display: grid;
+  column-gap: 0.5rem;
+  grid-template-columns: 10px minmax(14rem, 1fr) 140px 80px 140px 100px 80px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.productsTable_head > div {
+  @apply font-semibold text-[1.25rem] divide-x-2;
+}
+.productsTable_head-name {
+  @apply ml-2;
+}
+
+.productsTable_body > li {
+  @apply py-4 border-b;
+  display: grid;
+  column-gap: 0.5rem;
+  grid-template-columns: 10px minmax(14rem, 1fr) 140px 80px 140px 100px 80px;
+  align-items: center;
+}
+
+.productsData_row button {
+  @apply text-left;
+}
+
+.productData_img {
+  @apply rounded-lg overflow-hidden ml-2 relative;
+}
+
+.productData_img {
+  @apply w-14 h-14;
+}
+
+.productData_info {
+  @apply ml-4 flex-1 flex flex-col items-start;
+}
+
+.productData_info > a {
+  @apply font-semibold;
+}
+
+.productData_info > .productData_sku {
+  @apply text-gray-400 border-t py-1 mt-2 text-sm;
+}
+
+.productData_stock.productData_lowStock > span {
+  @apply bg-red-200 text-red-800 px-2 py-1 text-sm  rounded-md font-semibold;
+}
+
+.productData_stock.productData_inStock > span {
+  @apply bg-green-200 text-green-800 px-2 py-1 text-sm  rounded-md font-semibold;
+}
+
+.products_info {
+  @apply my-8 flex justify-between items-center;
+}
+
+.products_info p {
+  @apply text-indigo-800 font-semibold;
+}
+
+.products_info p > span {
+  @apply px-2 py-1 rounded-full bg-indigo-300 text-sm ml-2;
+}
+
+.productsTable_footer {
+  @apply mt-8 flex flex-col space-y-4 md:flex-row md:space-y-0 items-center justify-between;
+}
+
+.productsTable_footer-buttons {
+  @apply space-x-4 flex items-center;
+}
+
+.productsTable_footer-buttons button {
+  @apply py-2 px-4  bg-neutral-200 text-indigo-800 font-semibold rounded-sm disabled:text-gray-400 disabled:cursor-not-allowed;
+}
+
+.productsTable_footer-pages {
+  @apply flex items-center space-x-4;
+}
+
+.productsTable_footer-pageNumber > span {
+  @apply font-bold text-indigo-600;
+}
+
+.productsTable_footer-pageRows > span {
+  @apply mr-4;
+}
+
+.deleteDialog .MuiPaper-root {
+  @apply bg-orange-500;
+}
+
+.deleteDialog_title {
+  @apply font-semibold text-white flex flex-col items-center space-y-1;
+}
+
+.deleteDialog_title > svg {
+  @apply w-12 h-12;
+}
+
+.deleteDialog_content p {
+  @apply text-white;
+}
+
+.deleteDialog .MuiDialogActions-root button {
+  @apply text-white hover:bg-orange-600;
+}
 
 /* Dashboard Components */
 @import './dashboard/component_styles/editProductType.css';
+.productType > label {
+  @apply w-[30%];
+}
+
+.productType > .MuiInputBase-root {
+  @apply w-[70%];
+}
 
 /* frontend styles */
 @import './frontend\ styles/singleProduct.css';
+.singleProductTop {
+  @apply flex-col sm:flex-row flex gap-8;
+}
+
+.singleProductTop_left {
+  @apply w-full sm:w-[35%];
+}
+
+.singleProductTop_right {
+  @apply w-full sm:w-[65%];
+}
+
+.swiper-slide {
+  @apply flex justify-center;
+}
+
+.thumbsContainer {
+  @apply mt-2;
+}
+
+.thumbsContainer > .swiper {
+  @apply cursor-grab;
+}
+
+.thumbs_wrapper {
+  @apply rounded-sm overflow-hidden;
+}
+
+.thumbs_wrapper > span {
+  @apply !block;
+}
+
+.sliderContainer > .slider_wrapper {
+  @apply cursor-grab rounded-sm;
+}
 
 /*General Styles  */
 @import './design/RowContainer.css';
+.row_container {
+  @apply px-4 w-full max-w-[1360px] mx-auto;
+}
 
 /*Import Layout Styles*/
 
 @import './frontend\ styles/layout.css';
+.body_container {
+  @apply flex flex-col h-screen;
+}
+
+.main_content {
+  @apply flex-1 bg-slate-100;
+}
 
 /*Import Header Styles */
 
 @import './frontend\ styles/header/header.css';
+.header_middleRight .MuiBadge-badge {
+  @apply px-0 py-[6px] top-1 border-2 border-white;
+}
 
-/* npm install --save-dev eslint */
+.header_middleRight_icons {
+  @apply space-x-2;
+}
+
+.header_middleRight_icons > button svg {
+  @apply w-8 h-8 text-violet-600;
+}
+
+/* products cart styles */
+
+.products_cart > button svg {
+  @apply w-8 h-8 text-violet-600;
+}
+
+.products_cart .menu_items {
+  @apply absolute right-0 mt-2 w-[26rem] origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none p-2;
+}
+
+.products_cart .menu_items a {
+  @apply flex w-full items-center rounded-md cursor-pointer hover:underline focus:underline;
+}
+
+.products_cart .menu_items a > svg {
+  @apply mr-4 w-6 h-6;
+}
+
+.products_cart .menu_items a.menu_itemActive {
+  @apply bg-[#EBEFFD] text-[#2D67EC];
+}
+
+.products_cart .menu_items a.menu_itemInactive {
+  @apply text-gray-500;
+}

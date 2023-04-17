@@ -8,7 +8,9 @@ function Header() {
       <RowContainer>
         <header className='flex items-center justify-between  mx-auto py-4'>
           <div>
-            <Link href='/'>Logo</Link>
+            <Link href='/' className='test'>
+              Logo
+            </Link>
           </div>
           <div className='space-x-6'>
             <Link

@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <body className='root_layout flex flex-col min-h-screen'>
         <Providers>
           <Header />
-          <main className='flex-1'>{children}</main>
+          <main className='flex-1 bg-[#F1F1F1]'>{children}</main>
           <Footer />
         </Providers>
       </body>

@@ -9,7 +9,7 @@ connectdb();
 // @desc    Fetch single product by SKU
 // @route   GET /api/products/sku/:productSKU
 // @access  Public
-export async function GET(req, res) {
+export async function GET(req) {
   const productSKU = req.url.slice(req.url.lastIndexOf('/') + 1);
 
   try {

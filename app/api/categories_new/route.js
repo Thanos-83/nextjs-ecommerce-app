@@ -3,10 +3,12 @@ import connectdb from '../../../database/connectDB';
 import Category from '../../../models/category';
 import Product from '../../../models/product';
 
+export const dynamic = 'force-dynamic';
+
 // @desc    Fetch all categories
 // @route   GET /api/categories_new
 // @access  Public
-export async function GET(req) {
+export async function GET() {
   connectdb();
   try {
     const categories = await Category.find({}).populate({

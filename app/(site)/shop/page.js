@@ -46,18 +46,18 @@ async function fetchAllCategories() {
 export default async function Shop({ searchParams }) {
   console.log('params in shop page: ', searchParams);
   if (searchParams === {}) {
-    var [products, categories] = await Promise.all(
-      fetchAllProducts(),
-      fetchAllCategories()
-    );
+    var productsData = fetchAllProducts();
   } else {
     // var products = await fetchAllProducts(searchParams.page);
-    var [products, categories] = await Promise.all(
-      fetchAllProducts(searchParams.page),
-      fetchAllCategories()
-    );
+    var productsData = fetchAllProducts(searchParams.page);
   }
   // const categories = await fetchAllCategories();
+  const categoriesData = fetchAllCategories();
+
+  var [products, categories] = await Promise.all([
+    productsData,
+    categoriesData,
+  ]);
   console.log('Categories in Shop page: ', categories);
   // console.log('Products in Shop page: ', products.products.length);
   return (

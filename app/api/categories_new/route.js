@@ -6,7 +6,7 @@ import Product from '../../../models/product';
 // @desc    Fetch all categories
 // @route   GET /api/categories_new
 // @access  Public
-export async function GET() {
+export async function GET(req) {
   connectdb();
   try {
     const categories = await Category.find({}).populate({
@@ -14,7 +14,7 @@ export async function GET() {
       select: '_id name slug',
       model: Product,
     });
-    // console.log('fetching categories from API folder: ', categories);
+    console.log('fetching categories from API folder: ', categories);
     return NextResponse.json({
       categories: categories,
     });

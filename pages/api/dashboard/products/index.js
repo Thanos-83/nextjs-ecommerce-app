@@ -122,7 +122,7 @@ export default async function productActions(req, res) {
         if (typeof productID === 'string') {
           // console.log('iam here string');
           const singleProduct = await Product.findById(productID);
-          const singleCategory = await Categories.findById(
+          const singleCategory = await Category.findById(
             singleProduct.category
           );
 

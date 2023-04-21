@@ -72,6 +72,7 @@ function ProductsTable({
 
   const handleClickOpen = (id) => {
     setProductID(id);
+    // alert('product id to delete: ', id);
     if (typeof id === 'string') {
       setDialogInfo({ num: 1 });
     } else {

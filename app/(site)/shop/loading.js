@@ -1,7 +1,8 @@
 import React from 'react';
+import RowContainer from '../../components/ui/RowContainer';
 
 function Loading() {
-  return <div>Loading...</div>;
+  return <RowContainer>Loading...</RowContainer>;
 }
 
 export default Loading;

@@ -15,7 +15,7 @@ function Products() {
   const [productDeleted, setProductDeleted] = useState(false);
 
   const handleDeleteSingleProduct = (id) => {
-    // alert(`category with id:${id} will be deleted...`);
+    alert(`product with id:${id} will be deleted...`);
     setIsLoading(true);
     axios
       .delete('/api/dashboard/products', { data: { productID: id } })

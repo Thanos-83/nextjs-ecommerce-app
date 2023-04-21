@@ -65,17 +65,17 @@ export default async function Shop({ searchParams }) {
       <div className='flex gap-8 mt-12'>
         <div className='w-[25%]'>
           <h1>Filters</h1>
-          {/* <CategoryFilters categories={categories} /> */}
-          <p className='text-lg font-semibold border-b py-2 mb-2'>Pategories</p>
+          <CategoryFilters categories={categories} />
+          {/* <p className='text-lg font-semibold border-b py-2 mb-2'>Pategories</p>
           <ul className='space-y-2'>
-            {categories?.categories.map((category) => (
+            {categories.categories.map((category) => (
               <li key={category._id}>
                 <button>
                   {category.name} <span>({category?.products.length})</span>
                 </button>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <div className='w-[75%]'>
           <h1 className='mb-8'>Products grid</h1>

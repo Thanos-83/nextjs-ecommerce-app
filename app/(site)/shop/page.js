@@ -1,6 +1,7 @@
 import RowContainer from '../../components/ui/RowContainer';
 import Product from '../../components/Product';
 import Paginate from '../../components/Paginate';
+import CategoryFilters from '../../components/CategoryFilters';
 // import { fetchAllProducts } from '../../../lib/fetchProducts';
 export const metadata = {
   title: 'shop page',
@@ -45,11 +46,18 @@ async function fetchAllCategories() {
 export default async function Shop({ searchParams }) {
   console.log('params in shop page: ', searchParams);
   if (searchParams === {}) {
-    var products = await fetchAllProducts();
+    var [products, categories] = await Promise.all(
+      fetchAllProducts(),
+      fetchAllCategories()
+    );
   } else {
-    var products = await fetchAllProducts(searchParams.page);
+    // var products = await fetchAllProducts(searchParams.page);
+    var [products, categories] = await Promise.all(
+      fetchAllProducts(searchParams.page),
+      fetchAllCategories()
+    );
   }
-  const categories = await fetchAllCategories();
+  // const categories = await fetchAllCategories();
   console.log('Categories in Shop page: ', categories);
   // console.log('Products in Shop page: ', products.products.length);
   return (
@@ -57,6 +65,7 @@ export default async function Shop({ searchParams }) {
       <div className='flex gap-8 mt-12'>
         <div className='w-[25%]'>
           <h1>Filters</h1>
+          {/* <CategoryFilters categories={categories} /> */}
           <p className='text-lg font-semibold border-b py-2 mb-2'>Pategories</p>
           <ul className='space-y-2'>
             {categories?.categories.map((category) => (

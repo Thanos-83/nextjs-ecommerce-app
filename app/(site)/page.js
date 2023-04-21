@@ -17,7 +17,7 @@ export const metadata = {
 
 export default async function Home() {
   const categories = await getCategories();
-  console.log('Categories in app folder: ', categories);
+  // console.log('Categories in app folder: ', categories);
   return (
     <RowContainer>
       <div className='my-12 '>

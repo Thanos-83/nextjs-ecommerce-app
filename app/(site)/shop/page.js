@@ -50,7 +50,8 @@ export default async function Shop({ searchParams }) {
     var products = await fetchAllProducts(searchParams.page);
   }
   const categories = await fetchAllCategories();
-  console.log('Products in Shop page: ', products.products.length);
+  console.log('Categories in Shop page: ', categories);
+  // console.log('Products in Shop page: ', products.products.length);
   return (
     <RowContainer>
       <div className='flex gap-8 mt-12'>
@@ -58,10 +59,10 @@ export default async function Shop({ searchParams }) {
           <h1>Filters</h1>
           <p className='text-lg font-semibold border-b py-2 mb-2'>Pategories</p>
           <ul className='space-y-2'>
-            {categories.categories.map((category) => (
+            {categories?.categories.map((category) => (
               <li key={category._id}>
                 <button>
-                  {category.name} <span>({category.products.length})</span>
+                  {category.name} <span>({category?.products.length})</span>
                 </button>
               </li>
             ))}

@@ -6,7 +6,8 @@ function Login() {
       <form action=''>
         <div className='flex flex-col items-start space-y-4'>
           <label htmlFor='email' id='email'>
-            Sign In with email
+            Sign In with email{' '}
+            <span className='text-red-500 ml-2'>( Not working yet )</span>
           </label>
           <input
             type='text'

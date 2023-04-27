@@ -18,10 +18,10 @@ export default async function CategoryProducts({ params }) {
   // console.log('params: ', params);
 
   const products = await fetchProductsByCategory(params.categoryName);
-  console.log(
-    'category products response from the API: ',
-    products.categoryProducts
-  );
+  // console.log(
+  //   'category products response from the API: ',
+  //   products.categoryProducts
+  // );
   return (
     <RowContainer>
       <div className='my-12'>
@@ -47,7 +47,7 @@ export default async function CategoryProducts({ params }) {
                         className='h-full w-full object-center group-hover:opacity-75 object-contain'
                       />
                     </div>
-                    <h3 className='mt-4 text-md font-serif text-gray-700'>
+                    <h3 className='mt-4 text-lg font-semibold text-gray-700'>
                       {product.name}
                     </h3>
                     <p className='mt-1 text-lg font-semibold text-gray-900'>

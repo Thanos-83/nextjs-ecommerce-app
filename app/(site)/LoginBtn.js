@@ -19,6 +19,8 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import Avatar from '@mui/material/Avatar';
+
 // import { useRouter } from 'next/router';
 
 function LoginBtn() {
@@ -26,7 +28,8 @@ function LoginBtn() {
   const { data, status } = useSession();
   // console.log(data, status);
   let session = data ? true : false;
-  // console.log('session: ', session);
+  console.log('session data: ', data);
+  console.log('session status: ', status);
   const handleSignOut = async () => {
     const data = await signOut({
       redirect: false,
@@ -55,12 +58,15 @@ function LoginBtn() {
           </Link>
         )}
         {session && (
-          <button
-            type='button'
-            className='whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 border border-indigo-600 px-4 py-2 rounded-md'
-            onClick={() => handleSignOut()}>
-            Sign Out
-          </button>
+          <div className='flex items-center gap-4'>
+            <Avatar src={data.user.image} alt={data.user.name} />
+            <button
+              type='button'
+              className='whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 border border-indigo-600 px-4 py-2 rounded-md'
+              onClick={() => handleSignOut()}>
+              Sign Out
+            </button>
+          </div>
         )}
       </div>
     </div>

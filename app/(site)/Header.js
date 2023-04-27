@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import LoginBtn from './LoginBtn';
 import RowContainer from '../components/ui/RowContainer';
+import CartButton from '../components/CartButton';
+
 function Header() {
   return (
     <div className='bg-slate-100'>
@@ -34,8 +36,9 @@ function Header() {
               Dashboard (new)
             </Link>
           </div>
-          <div>
+          <div className='flex items-center space-x-6'>
             <LoginBtn />
+            <CartButton />
           </div>
         </header>
       </RowContainer>

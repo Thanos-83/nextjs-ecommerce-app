@@ -3,8 +3,13 @@ import Link from 'next/link';
 function Register() {
   return (
     <div>
-      Register page in app folder...
-      <Link href='/my-account/login'>Login</Link>
+      <h1>No Resister functionality has been implemented yet!!</h1>
+      <div className='flex mt-4'>
+        <p>Return to login page: </p>
+        <Link href='/my-account/login' className='ml-4 underline text-sky-700'>
+          Login
+        </Link>
+      </div>
     </div>
   );
 }

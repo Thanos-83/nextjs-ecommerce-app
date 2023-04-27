@@ -19,7 +19,7 @@ export async function GET(req) {
       // select: 'name',
       model: Product,
     });
-    console.log('category products: ', categoryProducts);
+    // console.log('category products: ', categoryProducts);
 
     if (!categoryProducts) {
       throw new Error('Products NOT found!');

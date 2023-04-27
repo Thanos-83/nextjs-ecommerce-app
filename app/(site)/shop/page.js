@@ -8,10 +8,9 @@ export const metadata = {
   desrcitpion: 'products page',
 };
 
-async function fetchAllProducts(page = 1) {
+async function fetchAllProducts(page = 1, category = undefined) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_URL}/api/products_new?page=${page}`,
-    // `${process.env.NEXT_PUBLIC_URL}/shop/api`,
+    `${process.env.NEXT_PUBLIC_URL}/api/products_new?page=${page}&category=${category}`,
     {
       method: 'GET',
       headers: {
@@ -44,22 +43,26 @@ async function fetchAllCategories() {
 }
 
 export default async function Shop({ searchParams }) {
-  console.log('params in shop page: ', searchParams);
+  console.log(
+    'params in shop page: ',
+    searchParams.page,
+    searchParams.category
+  );
   if (searchParams === {}) {
     var productsData = fetchAllProducts();
   } else {
-    // var products = await fetchAllProducts(searchParams.page);
-    var productsData = fetchAllProducts(searchParams.page);
+    var productsData = fetchAllProducts(
+      searchParams.page,
+      searchParams.category
+    );
   }
-  // const categories = await fetchAllCategories();
   const categoriesData = fetchAllCategories();
 
   var [products, categories] = await Promise.all([
     productsData,
     categoriesData,
   ]);
-  console.log('Categories in Shop page: ', categories);
-  // console.log('Products in Shop page: ', products.products.length);
+  // console.log('products in shop page: ', products);
   return (
     <RowContainer>
       <div className='flex gap-8 mt-12'>
@@ -77,13 +80,17 @@ export default async function Shop({ searchParams }) {
             ))}
           </ul> */}
         </div>
-        <div className='w-[75%]'>
+        <div className='w-[75%] h-full self-stretch'>
           <h1 className='mb-8'>Products grid</h1>
-          <div>
-            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
-              {products.products.map((product) => (
-                <Product key={product._id} product={product} />
-              ))}
+          <div className='flex flex-col justify-between items-end'>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4'>
+              {products.errorMsg ? (
+                <h1>No Products Found!</h1>
+              ) : (
+                products.products.map((product) => (
+                  <Product key={product._id} product={product} />
+                ))
+              )}
             </div>
             <div className='mt-8 flex justify-end'>
               <Paginate pages={products.pages} />

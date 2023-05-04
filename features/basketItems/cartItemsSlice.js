@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 const initialState = {
   cartItems: [],
   user: null,
+  sidebarCartStatus: false,
 };
 
 export const cartItemsSlice = createSlice({
@@ -30,7 +31,7 @@ export const cartItemsSlice = createSlice({
       // const guest = Cookies.get('gest-user');
       // const authUser = Cookies.get('next-auth.session-token');
       // console.log('gest cookie client: ', guest);
-
+      alert(action.payload.productType);
       if (action.payload.productType === 'Variable') {
         const variableCartItem = state.cartItems.find(
           (item) => item.productID === action.payload.productID
@@ -58,10 +59,14 @@ export const cartItemsSlice = createSlice({
         (item) => item.productID !== action.payload
       );
     },
+    toggleCartSidebar: (state) => {
+      state.sidebarCartStatus = !state.sidebarCartStatus;
+      // console.log('toggleCartSidebar status: ', state);
+    },
   },
 });
 
-export const { addUser, addToCart, deleteItemFromCart } =
+export const { addUser, addToCart, deleteItemFromCart, toggleCartSidebar } =
   cartItemsSlice.actions;
 
 export default cartItemsSlice.reducer;

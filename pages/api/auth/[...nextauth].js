@@ -66,11 +66,10 @@ export const authOptions = {
       // Send properties to the client, like an access_token and user id from a provider.
       // session.accessToken = token.accessToken;
       session.user.id = token.id;
-      // session.user.role = token.role;
+      session.user.role = token.role;
       session.test = 'test';
       session.user.cart = { items: [] };
 
-      // console.log('Sesssion callback: ', session);
       // console.log('Session callback: ', {
       //   session,
       //   token,
@@ -79,6 +78,13 @@ export const authOptions = {
       //   profile,
       //   email,
       // });
+      if (!session) {
+        (session.user.role = 'guest'), (session.user.cart = { guestItems: [] });
+        console.log('Sesssion callback 1: ', session);
+
+        return session;
+      }
+      console.log('Sesssion callback 2: ', session);
 
       return session;
     },

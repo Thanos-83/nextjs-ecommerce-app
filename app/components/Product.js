@@ -3,9 +3,26 @@ import Image from 'next/image';
 import React from 'react';
 import Currency from 'react-currency-formatter';
 import Link from 'next/link';
-
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../features/basketItems/cartItemsSlice';
+import { useSession } from 'next-auth/react';
 function Product({ product }) {
-  //   console.log(product);
+  const sessionData = useSession();
+  console.log('session data: ', sessionData);
+  console.log(product);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        quantity: 1,
+        productType: product.type,
+        productID: product._id,
+        image: product.featuredImage,
+        price: product.price,
+      })
+    );
+  };
   return (
     <div className=''>
       <Link href='#' className='group'>
@@ -26,7 +43,9 @@ function Product({ product }) {
         </p>
       </Link>
       <div className='mt-4'>
-        <button className='text-center bg-indigo-500 text-slate-50 font-semibold w-full py-2 hover:bg-indigo-600'>
+        <button
+          onClick={handleAddToCart}
+          className='text-center bg-indigo-500 text-slate-50 font-semibold w-full py-2 hover:bg-indigo-600'>
           Add to cart
         </button>
       </div>

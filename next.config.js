@@ -8,7 +8,12 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['res.cloudinary.com', 'picsum.photos', 'via.placeholder.com'],
+    domains: [
+      'lh3.googleusercontent.com',
+      'res.cloudinary.com',
+      'picsum.photos',
+      'via.placeholder.com',
+    ],
   },
   // webpack5: true,
   webpack: (config) => {
